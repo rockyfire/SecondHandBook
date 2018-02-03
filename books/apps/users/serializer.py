@@ -132,3 +132,20 @@ class UserRegSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
 		fields = ('username', 'code', 'mobile', 'password')
+
+
+from django.db.models import Q
+
+
+class ModifyPasswordSerializer(serializers.ModelSerializer):
+	def validate_password(self, code):
+		user = User.objects.get(Q(username=self.initial_data['username']) | Q(mobile=self.initial_data['username']))
+		if user.check_password(self.initial_data['old_password']):
+			if self.initial_data['new_password'] == self.initial_data['confirm_password']:
+				user.set_password(self.initial_data['new_password'])
+			elif self.initial_data['new_password'] == self.initial_data['old_password']:
+				raise serializers.ValidationError('原密码和新密码相同')
+			else:
+				raise serializers.ValidationError('请输入一致的密码')
+		else:
+			raise serializers.ValidationError('原密码错误')

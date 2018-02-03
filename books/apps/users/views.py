@@ -12,7 +12,7 @@ from rest_framework import serializers
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework_jwt.serializers import jwt_encode_handler, jwt_payload_handler
 
-from .serializer import UserRegSerializer, SmsSerializer, UserDetailSerializer
+from .serializer import UserRegSerializer, SmsSerializer, UserDetailSerializer,ModifyPasswordSerializer
 from .models import VerifyCode, UserProfile
 from util.SendMSM import SendMessage
 from Book.settings import ACCOUNT_SID, TOKEN
@@ -117,6 +117,8 @@ class UserViewset(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.Retri
 			return UserDetailSerializer
 		elif self.action == "create":
 			return UserRegSerializer
+		elif self.action == "update":
+			return ModifyPasswordSerializer
 		return UserDetailSerializer
 
 	def get_permissions(self):
