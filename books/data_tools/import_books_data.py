@@ -12,7 +12,7 @@ import django
 
 django.setup()
 
-from books.models import Books, BooksImage
+from books.models import Books, BooksImage,BooksCategory
 from data_tools.data.product_data import row_data
 from django.contrib.auth import get_user_model
 
@@ -26,7 +26,7 @@ for books_detail in row_data:
 	books.version = books_detail["version"]
 
 	books.price = float(int(books_detail["price"].replace("￥", "").replace("元", "")))
-	books.buyoutprice = float(int(books_detail["buyoutprice"].replace("元", "")))
+	books.buyoutprice = float(int(books_detail["buyoutprice"].replace("￥", "")))
 
 	books.ship_free = books_detail['ship_free']
 	books.desc = books_detail["desc"] if books_detail["desc"] is not None else ""
@@ -35,10 +35,10 @@ for books_detail in row_data:
 	books.nums = int(books_detail['nums'])
 	books.status = int(books_detail['status'])
 
-	# category_name = books_detail["categorys"][-1]
-	# category = BooksCategory.objects.filter(name=category_name)
-	# if category:
-	# 	books.category = category[0]
+	category_name = books_detail["categorys"][-1]
+	category = BooksCategory.objects.filter(name=category_name)
+	if category:
+		books.category = category[0]
 	user = User.objects.filter(username=books_detail['username'])
 	if user:
 		books.user = user[0]

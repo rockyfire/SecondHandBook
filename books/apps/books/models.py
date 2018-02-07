@@ -8,6 +8,33 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+class BooksCategory(models.Model):
+	"""
+	书籍类别
+	"""
+	CATEGORY_TYPE = (
+		(1, "一级类目"),
+		(2, "二级类目"),
+		(3, "三级类目"),
+	)
+
+	name = models.CharField(default="", max_length=30, verbose_name="类别名", help_text="类别名")
+	code = models.CharField(default="", max_length=30, verbose_name="类别code", help_text="类别code")
+	desc = models.TextField(default="", verbose_name="类别描述", help_text="类别描述")
+	category_type = models.IntegerField(choices=CATEGORY_TYPE, verbose_name="类目级别", help_text="类目级别")
+	parent_category = models.ForeignKey("self", null=True, blank=True, verbose_name="父类目级别", help_text="父目录",
+										related_name="sub_cat")
+	is_tab = models.BooleanField(default=False, verbose_name="是否导航", help_text="是否导航")
+	add_time = models.DateTimeField(default=datetime.datetime.now, verbose_name="添加时间")
+
+	class Meta:
+		verbose_name = "书籍类别"
+		verbose_name_plural = verbose_name
+
+	def __str__(self):
+		return self.name
+
+
 # Create your models here.
 
 class Books(models.Model):
@@ -21,12 +48,13 @@ class Books(models.Model):
 		(4, "下架"),
 	)
 	user = models.ForeignKey(User, verbose_name="用户")
+	category = models.ForeignKey(BooksCategory, verbose_name='书籍类目')
 
 	name = models.CharField(max_length=100, null=True, blank=True, verbose_name="书籍名称")
 	press = models.CharField(max_length=100, null=True, blank=True, verbose_name="出版社")
 	version = models.CharField(max_length=100, null=True, blank=True, verbose_name="书籍版本")
 
-	price = models.FloatField(max_length=100, verbose_name="书籍价格")
+	price = models.FloatField(default=0, verbose_name="书籍价格")
 	buyoutprice = models.FloatField(default=0, null=True, blank=True, verbose_name="一口价")
 
 	ship_free = models.BooleanField(default=True, verbose_name="是否承担运费")

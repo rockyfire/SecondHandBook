@@ -25,6 +25,7 @@ from Book.settings import MEDIA_ROOT
 from django.views.static import serve
 
 from users.views import SmsCodeViewset, UserViewset
+from books.views import BooksListView, BooksCategoryViewSet
 import xadmin
 
 router = DefaultRouter()
@@ -32,11 +33,16 @@ router = DefaultRouter()
 router.register(r'sendmessage', SmsCodeViewset, base_name="sendmessage")
 # 用户注册，用户详细信息
 router.register(r'users', UserViewset, base_name='users')
+# 书籍管理
+router.register(r'books', BooksListView, base_name='books')
+# 书籍分类管理
+router.register(r'bookscategory', BooksCategoryViewSet, base_name='bookscategory')
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
-	url(r'^xadmin/',xadmin.site.urls),
+	url(r'^xadmin/', xadmin.site.urls),
 	url(r'^', include(router.urls)),
+	# url(r'^books',BooksListView.as_view(),name='books'),
 
 	url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
@@ -46,5 +52,5 @@ urlpatterns = [
 	url(r'^login/', obtain_jwt_token),
 	url(r'docs/', include_docs_urls(title="二手书交易平台")),
 
-	url(r'^media/(?P<path>.*)$',serve,{"document_root":MEDIA_ROOT}),
+	url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 ]
