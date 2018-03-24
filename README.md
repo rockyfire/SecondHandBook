@@ -24,3 +24,42 @@
 
 ### 网站还具有**即时通讯**的功能，买家和卖家可以在线沟通协调关于商品的信息。
 
+
+## 环境搭建
+
+
+生成requirements.txt文件
+```
+pip freeze > requirements.txt                
+```
+安装requirements.txt依赖
+```
+pip install -r requirements.txt
+
+-r --requirement <file> 
+Install from the given requirements file.This option can be used multiple times
+从给定的需求文件安装。此选项可以多次使用
+```
+
+使用豆瓣镜像下载
+
+```
+pip install -i https://pypi.douban.com/simple -r requirements.txt
+```
+
+(Window 下Python包)[https://www.lfd.uci.edu/~gohlke/pythonlibs/]
+
+
+### 依赖详解
+
+- xadmin
+    - django-crispy-forms
+    - django-reversion
+    - django-formtools
+    - future
+    - httplib2
+    - six
+
+- 生成excel文件
+    - xlwt
+    - xlsxwriter
