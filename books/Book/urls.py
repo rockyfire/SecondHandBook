@@ -23,10 +23,12 @@ from rest_framework.documentation import include_docs_urls
 
 from Book.settings import MEDIA_ROOT
 from django.views.static import serve
+from django.views.decorators.csrf import csrf_exempt
 
 from users.views import SmsCodeViewset, UserViewset
 from books.views import BooksListView, BooksCategoryViewSet
-from user_operation.views import UserFavViewSet
+from user_operation.views import UserFavViewSet, UserLeavingMessageViewSet, UserAddressViewSet
+from comment.views import BooksCommentViewSet
 import xadmin
 
 router = DefaultRouter()
@@ -39,7 +41,11 @@ router.register(r'books', BooksListView, base_name='books')
 # 书籍分类管理
 router.register(r'bookscategory', BooksCategoryViewSet, base_name='bookscategory')
 # 用户操作管理
-router.register(r'userfavs',UserFavViewSet,base_name='userfavs')
+router.register(r'userfavs', UserFavViewSet, base_name='userfavs')
+router.register(r'userleavingmessage', UserLeavingMessageViewSet, base_name='userleavingmessage')
+router.register(r'useraddressview', UserAddressViewSet, base_name='useraddressview')
+# 评论管理
+router.register(r'comment', BooksCommentViewSet , base_name="comment")
 
 
 urlpatterns = [

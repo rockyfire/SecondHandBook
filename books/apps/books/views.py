@@ -34,13 +34,13 @@ from rest_framework.pagination import PageNumberPagination
 
 
 class LargeResultsSetPagination(PageNumberPagination):
-	page_size = 3
-	# 一页显示的个数
-	page_size_query_param = 'page_size'
-	# 自定义请求参数 默认是page=
-	page_query_param = "p"
-	max_page_size = 3
-	last_page_strings = ('最后一页',)
+    page_size = 3
+    # 一页显示的个数
+    page_size_query_param = 'page_size'
+    # 自定义请求参数 默认是page=
+    page_query_param = "p"
+    max_page_size = 3
+    last_page_strings = ('最后一页',)
 
 
 from rest_framework import mixins, viewsets
@@ -51,26 +51,26 @@ from rest_framework import filters
 
 # class BooksListView(generics.ListAPIView):
 class BooksListView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-	"""
-		Goods All List Mixins
-	"""
-	queryset = Books.objects.all()
-	serializer_class = BooksSerializer
-	# pagination_class = LargeResultsSetPagination
+    """
+        Goods All List Mixins
+    """
+    queryset = Books.objects.all()
+    serializer_class = BooksSerializer
+    # pagination_class = LargeResultsSetPagination
 
-	filter_backends = (djnagofilters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-	filter_class = BooksFilter
-	search_fields = ('=name',)
-	ordering_fields = ('price',)
+    filter_backends = (djnagofilters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_class = BooksFilter
+    search_fields = ('=name',)
+    ordering_fields = ('price',)
 
 
 class BooksCategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-	"""
-	List:
-		商品分类列表数据
-	"""
-	# queryset = BooksCategory.objects.all()
-	# 获取分类为一的数据 一级分类
-	queryset = BooksCategory.objects.filter(category_type=1)
+    """
+    List:
+        商品分类列表数据
+    """
+    # queryset = BooksCategory.objects.all()
+    # 获取分类为一的数据 一级分类
+    queryset = BooksCategory.objects.filter(category_type=1)
 
-	serializer_class = CategorySerializer
+    serializer_class = CategorySerializer
