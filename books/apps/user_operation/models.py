@@ -71,6 +71,6 @@ class UserAddress(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.address
+        return self.signer_address
 
 

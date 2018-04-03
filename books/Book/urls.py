@@ -28,6 +28,7 @@ from django.views.decorators.csrf import csrf_exempt
 from users.views import SmsCodeViewset, UserViewset
 from books.views import BooksListView, BooksCategoryViewSet
 from user_operation.views import UserFavViewSet, UserLeavingMessageViewSet, UserAddressViewSet
+from trade.views import ShoppingCartViewset, OrderViewset
 from comment.views import BooksCommentViewSet
 import xadmin
 
@@ -45,8 +46,10 @@ router.register(r'userfavs', UserFavViewSet, base_name='userfavs')
 router.register(r'userleavingmessage', UserLeavingMessageViewSet, base_name='userleavingmessage')
 router.register(r'useraddressview', UserAddressViewSet, base_name='useraddressview')
 # 评论管理
-router.register(r'comment', BooksCommentViewSet , base_name="comment")
-
+router.register(r'comment', BooksCommentViewSet, base_name="comment")
+# 交易管理
+router.register(r'shoppingcart', ShoppingCartViewset, base_name="shoppingcart")
+router.register(r'order', OrderViewset, base_name="order")
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

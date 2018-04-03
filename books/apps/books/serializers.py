@@ -4,7 +4,10 @@
 
 from rest_framework import serializers
 from .models import BooksImage, Books, BooksCategory
+from comment.serializer import BookCommentSerializer
 
+
+# from comment.models import Comment
 
 # BooksCategory
 class CategorySerializer3(serializers.ModelSerializer):
@@ -53,6 +56,7 @@ class BooksSerializer(serializers.ModelSerializer):
     书籍序列化
     """
     images = BooksImageSerializer(many=True)
+    comments = BookCommentSerializer(many=True)
 
     class Meta:
         model = Books
@@ -65,4 +69,5 @@ class BooksSerializer(serializers.ModelSerializer):
         :param validated_data:
         :return:
         """
+        comment = validated_data["comment"]
         return Books.objects.create(**validated_data)

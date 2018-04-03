@@ -2,24 +2,13 @@ from django.shortcuts import render
 
 # Create your views here
 from rest_framework import mixins, viewsets
-from rest_framework import permissions
 from .models import UserFav, UserLeavingMessage, UserAddress
 from .serializer import UserFavSerializer, UserFavDetailSerializer, UserLeavingMessageSerializer, UserAddressSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-
-class IsOwnerOrReadOnly(permissions.BasePermission):
-    """
-
-    """
-
-    def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-
-        return obj.user == request.user
+from util.permissions import IsOwnerOrReadOnly
 
 
 class UserFavViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
