@@ -51,6 +51,8 @@ router.register(r'comment', BooksCommentViewSet, base_name="comment")
 router.register(r'shoppingcart', ShoppingCartViewset, base_name="shoppingcart")
 router.register(r'order', OrderViewset, base_name="order")
 
+from trade.views import AlipayViewSet
+from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^xadmin/', xadmin.site.urls),
@@ -66,4 +68,8 @@ urlpatterns = [
     url(r'docs/', include_docs_urls(title="二手书交易平台")),
 
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+
+    url(r'^alipay/return/', AlipayViewSet.as_view(), name='alipay'),
+
+    url(r'^index',TemplateView.as_view(template_name="index.html"),name='index'),
 ]

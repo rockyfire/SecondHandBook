@@ -28,10 +28,6 @@ class SmsSerializer(serializers.Serializer):
         验证手机号码
         :return:
         """
-        # 手机号是否已注册
-        if User.objects.filter(mobile=mobile).count():
-            raise serializers.ValidationError("手机号已注册")
-
         # 手机号格式是否正确
         if re.match(mobile, REGEX_MOBILE):
             raise serializers.ValidationError("手机格式不正确")
@@ -51,9 +47,15 @@ class UserDetailSerializer(serializers.ModelSerializer):
     用户详细信息序列化
     """
 
+    # 更新密码
+    def update(self, instance, validated_data):
+        instance.set_password(validated_data['password'])
+        instance.save()
+        return instance
+
     class Meta:
-        model = User
-        fields = ('name', 'mobile')
+        model = UserProfile
+        fields = ('id', 'username', 'password', 'email', 'mobile', 'faceimg')
 
 
 class UserRegSerializer(serializers.ModelSerializer):
@@ -93,6 +95,10 @@ class UserRegSerializer(serializers.ModelSerializer):
     #     user.set_password(validated_data['password'])
     #     user.save()
     #     return user
+    def validate_username(self, username):
+        # 手机号是否已注册
+        if User.objects.filter(mobile=username).count():
+            raise serializers.ValidationError("手机号已注册")
 
     def validate_code(self, code):
         # try:
@@ -138,6 +144,18 @@ from django.db.models import Q
 
 
 class ModifyPasswordSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(required=True,
+                                     max_length=14,
+                                     min_length=6,
+                                     help_text="密码",
+                                     label='密码',
+                                     error_messages={
+                                         "blank": "请输入密码",
+                                         "required": "必填字段",
+                                         "max_length": "密码格式错误",
+                                         "min_length": "密码格式错误",
+                                     })
+
     def validate_password(self, code):
         user = User.objects.get(Q(username=self.initial_data['username']) | Q(mobile=self.initial_data['username']))
         if user.check_password(self.initial_data['old_password']):
@@ -149,3 +167,7 @@ class ModifyPasswordSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError('请输入一致的密码')
         else:
             raise serializers.ValidationError('原密码错误')
+
+    class Meta:
+        model = User
+        fields = ('username', 'password')

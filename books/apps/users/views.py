@@ -65,8 +65,10 @@ class SmsCodeViewset(mixins.CreateModelMixin, GenericViewSet):
                 "mobile": sms_status['respDesc']
             }, status=status.HTTP_400_BAD_REQUEST)
         else:
-            code_record = VerifyCode(code=code, mobile=mobile)
-            code_record.save()
+            code_record = VerifyCode.objects.filter(mobile=mobile)
+            code_record.update(code=code)
+            # code_record = VerifyCode(code=code, mobile=mobile)
+            # code_record.save()
             return Response({
                 "mobile": mobile
             }, status=status.HTTP_201_CREATED)
@@ -104,7 +106,8 @@ class CustomBackend(ModelBackend, GenericViewSet):
             return e
 
 
-class UserViewset(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin, GenericViewSet):
+class UserViewset(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin,
+                  GenericViewSet):
     """
         用户(注册|获取用户详细信息)
     """
@@ -117,8 +120,6 @@ class UserViewset(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.Retri
             return UserDetailSerializer
         elif self.action == "create":
             return UserRegSerializer
-        elif self.action == "update":
-            return ModifyPasswordSerializer
         return UserDetailSerializer
 
     def get_permissions(self):
@@ -155,3 +156,4 @@ class UserViewset(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.Retri
 
     def perform_create(self, serializer):
         return serializer.save()
+

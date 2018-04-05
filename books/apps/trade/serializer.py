@@ -4,6 +4,8 @@ from .models import ShoppingCart, OrderInfo, OrderBooks
 from books.serializers import BooksSerializer
 from books.models import Books
 from django.utils import timezone
+from util.alipay import AliPay
+from Book.settings import ali_pub_key_path, private_key_path
 
 
 class ShopCartDetailSerializer(serializers.ModelSerializer):
@@ -63,6 +65,29 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     # 外键related_name
     books = OrderBooksSerialzier(many=True)
 
+    alipay_url = serializers.SerializerMethodField(read_only=True)
+
+    def get_alipay_url(self, obj):
+        alipay = AliPay(
+            appid="2016091300498040",
+            # 异步接受支付宝返回的状态，进而修改该订单的状态
+            app_notify_url="http://165.227.231.209:8087/alipay/return/",
+            app_private_key_path=private_key_path,
+            alipay_public_key_path=ali_pub_key_path,  # 支付宝的公钥，验证支付宝回传消息使用.
+            debug=True,  # 默认False,
+            # 支付成功后跳转到商户页面
+            return_url="http://165.227.231.209:8087/alipay/return/"
+        )
+
+        url = alipay.direct_pay(
+            subject=obj.order_sn,
+            out_trade_no=obj.order_sn,
+            total_amount=obj.order_mount,
+        )
+        re_url = "https://openapi.alipaydev.com/gateway.do?{data}".format(data=url)
+
+        return re_url
+
     class Meta:
         model = OrderInfo
         fields = "__all__"
@@ -72,6 +97,29 @@ class OrderSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
     )
+
+    alipay_url = serializers.SerializerMethodField(read_only=True)
+
+    def get_alipay_url(self, obj):
+        alipay = AliPay(
+            appid="2016091300498040",
+            # 异步接受支付宝返回的状态，进而修改该订单的状态
+            app_notify_url="http://165.227.231.209:8087/alipay/return/",
+            app_private_key_path=private_key_path,
+            alipay_public_key_path=ali_pub_key_path,  # 支付宝的公钥，验证支付宝回传消息使用.
+            debug=True,  # 默认False,
+            # 支付成功后跳转到商户页面
+            return_url="http://165.227.231.209:8087/alipay/return/"
+        )
+
+        url = alipay.direct_pay(
+            subject=obj.order_sn,
+            out_trade_no=obj.order_sn,
+            total_amount=obj.order_mount,
+        )
+        re_url = "https://openapi.alipaydev.com/gateway.do?{data}".format(data=url)
+
+        return re_url
 
     pay_status = serializers.CharField(read_only=True)
     order_sn = serializers.CharField(read_only=True)
