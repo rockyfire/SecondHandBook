@@ -66,9 +66,11 @@ class SmsCodeViewset(mixins.CreateModelMixin, GenericViewSet):
             }, status=status.HTTP_400_BAD_REQUEST)
         else:
             code_record = VerifyCode.objects.filter(mobile=mobile)
-            code_record.update(code=code)
-            # code_record = VerifyCode(code=code, mobile=mobile)
-            # code_record.save()
+            if code_record:
+                code_record.update(code=code)
+            else:
+                code_record = VerifyCode(code=code, mobile=mobile)
+                code_record.save()
             return Response({
                 "mobile": mobile
             }, status=status.HTTP_201_CREATED)
@@ -111,8 +113,8 @@ class UserViewset(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.Retri
     """
         用户(注册|获取用户详细信息)
     """
-    serializer_class = UserRegSerializer
-    queryset = User.objects.all()
+    # serializer_class = UserRegSerializer
+    # queryset = User.objects.all()
     authentication_classes = (authentication.SessionAuthentication, JSONWebTokenAuthentication)
 
     def get_serializer_class(self):

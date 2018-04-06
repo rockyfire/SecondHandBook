@@ -49,7 +49,17 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     # 更新密码
     def update(self, instance, validated_data):
-        instance.set_password(validated_data['password'])
+        instance.username = validated_data.get('username', instance.username)
+        instance.email = validated_data.get('email', instance.email)
+        instance.mobile = validated_data.get('mobile', instance.mobile)
+        instance.faceimg = validated_data.get('faceimg', instance.faceimg)
+        # 将初始对象或查询集传递给序列化类实例时，该对象将作为.instance
+        # 提供。如果没有传递初始对象，则.instance属性将为None。
+        #
+        # 将数据传递给序列化类实例时，未修改的数据将作为.initial_data
+        # 提供。如果data关键字参数未被传递，那么.initial_data属性将不存在。
+        if instance.password != validated_data.get('password', instance.password):
+            instance.set_password(validated_data['password'])
         instance.save()
         return instance
 
@@ -78,11 +88,10 @@ class UserRegSerializer(serializers.ModelSerializer):
                                  })
     # 用户名
     username = serializers.CharField(required=True, allow_blank=False, label='用户名',
-                                     validators=[UniqueValidator(queryset=User.objects.all(), message="该用户已经存在")])
+                                     validators=[UniqueValidator(queryset=User.objects.all(), message="该用户已经存在")],
+                                     )
     # 密码
-    password = serializers.CharField(style={
-        'input_type': 'password'
-    }, label='密码', write_only=True, )
+    password = serializers.CharField(style={'input_type': 'password'}, label='密码', write_only=True, )
 
     """
         重写create 设置密码
@@ -95,10 +104,6 @@ class UserRegSerializer(serializers.ModelSerializer):
     #     user.set_password(validated_data['password'])
     #     user.save()
     #     return user
-    def validate_username(self, username):
-        # 手机号是否已注册
-        if User.objects.filter(mobile=username).count():
-            raise serializers.ValidationError("手机号已注册")
 
     def validate_code(self, code):
         # try:

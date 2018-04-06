@@ -26,7 +26,7 @@ from django.views.static import serve
 from django.views.decorators.csrf import csrf_exempt
 
 from users.views import SmsCodeViewset, UserViewset
-from books.views import BooksListView, BooksCategoryViewSet
+from books.views import BooksListView, BooksCategoryViewSet,BooksCreateView
 from user_operation.views import UserFavViewSet, UserLeavingMessageViewSet, UserAddressViewSet
 from trade.views import ShoppingCartViewset, OrderViewset
 from comment.views import BooksCommentViewSet
@@ -39,6 +39,7 @@ router.register(r'sendmessage', SmsCodeViewset, base_name="sendmessage")
 router.register(r'users', UserViewset, base_name='users')
 # 书籍管理
 router.register(r'books', BooksListView, base_name='books')
+router.register(r'bookscreate', BooksCreateView, base_name='bookscreate')
 # 书籍分类管理
 router.register(r'bookscategory', BooksCategoryViewSet, base_name='bookscategory')
 # 用户操作管理

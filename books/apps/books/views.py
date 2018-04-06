@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Books, BooksCategory
-from .serializers import BooksSerializer, CategorySerializer
+from .serializers import BooksSerializer, CategorySerializer,BookCreateSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -34,7 +34,7 @@ from rest_framework.pagination import PageNumberPagination
 
 
 class LargeResultsSetPagination(PageNumberPagination):
-    page_size = 3
+    page_size = 5
     # 一页显示的个数
     page_size_query_param = 'page_size'
     # 自定义请求参数 默认是page=
@@ -56,12 +56,23 @@ class BooksListView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.G
     """
     queryset = Books.objects.all()
     serializer_class = BooksSerializer
-    # pagination_class = LargeResultsSetPagination
+    pagination_class = LargeResultsSetPagination
 
     filter_backends = (djnagofilters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = BooksFilter
     search_fields = ('=name',)
     ordering_fields = ('price',)
+
+
+class BooksCreateView(viewsets.ModelViewSet):
+    """
+        由用户创建的书籍
+    """
+    serializer_class = BookCreateSerializer
+    pagination_class = LargeResultsSetPagination
+
+    def get_queryset(self):
+        return Books.objects.filter(user=self.request.user)
 
 
 class BooksCategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):

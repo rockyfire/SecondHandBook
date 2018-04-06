@@ -66,6 +66,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     books = OrderBooksSerialzier(many=True)
 
     alipay_url = serializers.SerializerMethodField(read_only=True)
+    # alipay_url = serializers.SerializerMethodField(editable = False)
 
     def get_alipay_url(self, obj):
         alipay = AliPay(
@@ -91,7 +92,8 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderInfo
         fields = "__all__"
-
+        # read_only_fields = ('alipay_url',)
+        # extra_kwargs = {'alipay_url': {'read_only': True}}
 
 class OrderSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(

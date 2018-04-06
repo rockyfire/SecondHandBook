@@ -5,6 +5,7 @@
 from rest_framework import serializers
 from .models import BooksImage, Books, BooksCategory
 from comment.serializer import BookCommentSerializer
+from django.utils import timezone
 
 
 # from comment.models import Comment
@@ -71,3 +72,41 @@ class BooksSerializer(serializers.ModelSerializer):
         """
         comment = validated_data["comment"]
         return Books.objects.create(**validated_data)
+
+
+from datetime import timedelta
+
+
+class BookCreateSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+
+    add_time = serializers.HiddenField(
+        default=timezone.now
+    )
+    revoke = serializers.DateTimeField(
+        initial=timezone.now() + timedelta(days=7),
+        default=timezone.now() + timedelta(days=7),
+    )
+
+    category = serializers.PrimaryKeyRelatedField(required=True, queryset=BooksCategory.objects.filter(category_type=3))
+
+    # def validate_revoke(self, value):
+    #     """
+    #     下架时间必须大于添加时间
+    #     :param value:
+    #     :return:
+    #     """
+    #     if value > timezone.now:
+    #         raise serializers.ValidationError("下架时间必须大于添加时间")
+    #     return value
+
+    def validate(self, attrs):
+        if attrs['add_time'] > attrs['revoke']:
+            raise serializers.ValidationError("下架时间必须大于添加时间")
+        return attrs
+
+    class Meta:
+        model = Books
+        fields = '__all__'
