@@ -3,7 +3,7 @@
 # author:zkerpy
 
 from rest_framework import serializers
-from .models import BooksImage, Books, BooksCategory
+from .models import BooksImage, Books, BooksCategory,BooksBanner
 from comment.serializer import BookCommentSerializer
 from django.utils import timezone
 
@@ -57,7 +57,7 @@ class BooksSerializer(serializers.ModelSerializer):
     书籍序列化
     """
     images = BooksImageSerializer(many=True)
-    comments = BookCommentSerializer(many=True)
+    r_comments = BookCommentSerializer(many=True)
 
     class Meta:
         model = Books
@@ -110,3 +110,12 @@ class BookCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Books
         fields = '__all__'
+
+
+class BookBannerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BooksBanner
+        fields = '__all__'
+
+
+

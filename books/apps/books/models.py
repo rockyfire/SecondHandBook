@@ -55,6 +55,7 @@ class Books(models.Model):
     version = models.CharField(max_length=100, null=True, blank=True, verbose_name="书籍版本")
 
     price = models.FloatField(default=0, verbose_name="书籍价格")
+    market_price = models.FloatField(default=0, verbose_name="市场价格")
     buyoutprice = models.FloatField(default=0, null=True, blank=True, verbose_name="一口价")
 
     ship_free = models.BooleanField(default=True, verbose_name="是否承担运费")
@@ -85,6 +86,25 @@ class BooksImage(models.Model):
     class Meta:
         verbose_name = '书籍图片'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.books.name
+
+
+class BooksBanner(models.Model):
+    """
+        轮播的书籍
+    """
+    user = models.ForeignKey(User, verbose_name="用户")
+    books = models.ForeignKey(Books, verbose_name="书籍")
+    image = models.ImageField(upload_to='banner', verbose_name="轮播图片")
+    index = models.IntegerField(default=0, verbose_name="轮播顺序")
+    add_time = models.DateTimeField(default=datetime.datetime.now, verbose_name="添加时间")
+
+    class Meta:
+        verbose_name = '轮播书籍'
+        verbose_name_plural = verbose_name
+        unique_together = ('user','books')
 
     def __str__(self):
         return self.books.name

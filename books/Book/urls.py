@@ -26,7 +26,7 @@ from django.views.static import serve
 from django.views.decorators.csrf import csrf_exempt
 
 from users.views import SmsCodeViewset, UserViewset
-from books.views import BooksListView, BooksCategoryViewSet,BooksCreateView
+from books.views import BooksListView, BooksCategoryViewSet,BooksCreateView,BannerViewset
 from user_operation.views import UserFavViewSet, UserLeavingMessageViewSet, UserAddressViewSet
 from trade.views import ShoppingCartViewset, OrderViewset
 from comment.views import BooksCommentViewSet
@@ -51,6 +51,9 @@ router.register(r'comment', BooksCommentViewSet, base_name="comment")
 # 交易管理
 router.register(r'shoppingcart', ShoppingCartViewset, base_name="shoppingcart")
 router.register(r'order', OrderViewset, base_name="order")
+# 轮播图
+router.register(r'banner', BannerViewset, base_name="banner")
+
 
 from trade.views import AlipayViewSet
 from django.views.generic import TemplateView

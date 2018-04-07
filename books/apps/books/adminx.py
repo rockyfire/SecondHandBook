@@ -12,45 +12,47 @@
 @time: 2017/7/4 17:04
 """
 import xadmin
-from .models import Books
+from .models import Books, BooksCategory, BooksImage, BooksBanner
 
 
 class BooksAdmin(object):
-	list_display = ["name", "press", "version",
-					"price", "buyoutprice", "ship_free",
-					"photo", "nums", "revoke", "status", "add_time"]
-	search_fields = ['name', ]
-	list_filter = ["name", "nums", "market_price", "shop_price", "add_time"]
-	style_fields = {"desc": "ueditor"}
+    list_display = ["name", "press", "version",
+                    "price", "buyoutprice", "ship_free",
+                    "photo", "nums", "revoke", "status", "add_time"]
+    search_fields = ['name', ]
+    list_filter = ["name", "nums", "add_time"]
+    style_fields = {"desc": "ueditor"}
 
 
-# class GoodsImagesInline(object):
-# 	model = GoodsImage
+# class BooksImagesInline(object):
+# 	model = BooksImage
 # 	exclude = ["add_time"]
 # 	extra = 1
 # 	style = 'tab'
 
-# inlines = [GoodsImagesInline]
+# inlines = [BooksImagesInline]
 
 
-# class GoodsCategoryAdmin(object):
+# class BooksCategoryAdmin(object):
 # 	list_display = ["name", "category_type", "parent_category", "add_time"]
 # 	list_filter = ["category_type", "parent_category", "name"]
 # 	search_fields = ['name', ]
 
 
-# class GoodsBrandAdmin(object):
+# class BooksBrandAdmin(object):
 # 	list_display = ["category", "image", "name", "desc"]
 #
 # 	def get_context(self):
-# 		context = super(GoodsBrandAdmin, self).get_context()
+# 		context = super(BooksBrandAdmin, self).get_context()
 # 		if 'form' in context:
-# 			context['form'].fields['category'].queryset = GoodsCategory.objects.filter(category_type=1)
+# 			context['form'].fields['category'].queryset = BooksCategory.objects.filter(category_type=1)
 # 		return context
 #
 #
-# class BannerGoodsAdmin(object):
-# 	list_display = ["goods", "image", "index"]
+class BannerBooksAdmin(object):
+    list_display = ["user", "books", "image", "index"]
+
+
 #
 #
 # class HotSearchAdmin(object):
@@ -62,9 +64,9 @@ class BooksAdmin(object):
 
 
 xadmin.site.register(Books, BooksAdmin)
-# xadmin.site.register(GoodsCategory, GoodsCategoryAdmin)
-# xadmin.site.register(Banner, BannerGoodsAdmin)
-# xadmin.site.register(GoodsCategoryBrand, GoodsBrandAdmin)
+# xadmin.site.register(BooksCategory, BooksCategoryAdmin)
+xadmin.site.register(BooksBanner, BannerBooksAdmin)
+# xadmin.site.register(BooksCategoryBrand, BooksBrandAdmin)
 #
 # xadmin.site.register(HotSearchWords, HotSearchAdmin)
 # xadmin.site.register(IndexAd, IndexAdAdmin)

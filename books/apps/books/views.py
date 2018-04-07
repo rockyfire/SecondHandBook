@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .models import Books, BooksCategory
-from .serializers import BooksSerializer, CategorySerializer,BookCreateSerializer
+from .models import Books, BooksCategory, BooksImage, BooksBanner
+from .serializers import BooksSerializer, CategorySerializer, BookCreateSerializer, BookBannerSerializer
+from users.models import UserProfile
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -83,5 +84,18 @@ class BooksCategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, vie
     # queryset = BooksCategory.objects.all()
     # 获取分类为一的数据 一级分类
     queryset = BooksCategory.objects.filter(category_type=1)
-
     serializer_class = CategorySerializer
+
+
+class BannerViewset(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+        管理员有添加商品轮播图的权限，
+    """
+    queryset = BooksBanner.objects.all().order_by('add_time')
+    serializer_class = BookBannerSerializer
+
+
+class IndexModuleViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = Books.objects.filter(status__range=[0,3])
+    serializer_class = BooksSerializer
+

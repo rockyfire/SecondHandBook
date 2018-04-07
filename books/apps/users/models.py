@@ -13,6 +13,7 @@ class UserProfile(AbstractUser):
     """
     mobile = models.CharField(max_length=11, null=True, blank=True, verbose_name="电话")
     faceimg = models.ImageField(upload_to="goods/images/", null=True, blank=True, verbose_name="封面图")
+    point = models.IntegerField(default=100,verbose_name="积分")
 
     class Meta:
         verbose_name = "用户信息"
