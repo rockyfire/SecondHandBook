@@ -26,7 +26,7 @@ from django.views.static import serve
 from django.views.decorators.csrf import csrf_exempt
 
 from users.views import SmsCodeViewset, UserViewset
-from books.views import BooksListView, BooksCategoryViewSet,BooksCreateView,BannerViewset
+from books.views import BooksListView, BooksCategoryViewSet, BooksCreateView, BannerViewset, IndexStatusViewSet
 from user_operation.views import UserFavViewSet, UserLeavingMessageViewSet, UserAddressViewSet
 from trade.views import ShoppingCartViewset, OrderViewset
 from comment.views import BooksCommentViewSet
@@ -40,6 +40,10 @@ router.register(r'users', UserViewset, base_name='users')
 # 书籍管理
 router.register(r'books', BooksListView, base_name='books')
 router.register(r'bookscreate', BooksCreateView, base_name='bookscreate')
+# 首页模块功能
+router.register(r'indexmodule', IndexStatusViewSet, base_name='indexmodule')
+
+
 # 书籍分类管理
 router.register(r'bookscategory', BooksCategoryViewSet, base_name='bookscategory')
 # 用户操作管理
@@ -54,9 +58,9 @@ router.register(r'order', OrderViewset, base_name="order")
 # 轮播图
 router.register(r'banner', BannerViewset, base_name="banner")
 
-
 from trade.views import AlipayViewSet
 from django.views.generic import TemplateView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^xadmin/', xadmin.site.urls),
@@ -75,5 +79,5 @@ urlpatterns = [
 
     url(r'^alipay/return/', AlipayViewSet.as_view(), name='alipay'),
 
-    url(r'^index',TemplateView.as_view(template_name="index.html"),name='index'),
+    url(r'^index', TemplateView.as_view(template_name="index.html"), name='index'),
 ]

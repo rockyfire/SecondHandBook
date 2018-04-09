@@ -35,20 +35,32 @@ class BooksCategory(models.Model):
         return self.name
 
 
+class BooksStatus(models.Model):
+    name = models.CharField(max_length=100, verbose_name="名字")
+
+    class Meta:
+        verbose_name = '书籍状态'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
+
 # Create your models here.
 
 class Books(models.Model):
     """
     书籍
     """
-    STATUS_CHOICES = (
-        (1, "书城"),
-        (2, "征书墙"),
-        (3, "竞拍"),
-        (4, "下架"),
-    )
+    # STATUS_CHOICES = (
+    #     (1, "书城"),
+    #     (2, "征书墙"),
+    #     (3, "竞拍"),
+    #     (4, "下架"),
+    # )
     user = models.ForeignKey(User, verbose_name="用户")
     category = models.ForeignKey(BooksCategory, verbose_name='书籍类目')
+    status = models.ForeignKey(BooksStatus, verbose_name="书籍状态")
 
     name = models.CharField(max_length=100, null=True, blank=True, verbose_name="书籍名称")
     press = models.CharField(max_length=100, null=True, blank=True, verbose_name="出版社")
@@ -64,12 +76,19 @@ class Books(models.Model):
                         filePath="books/files/", default='', verbose_name=u"书籍描述信息", )
     nums = models.IntegerField(default=0, verbose_name="书籍数量")
     revoke = models.DateField(default=datetime.datetime.now() + datetime.timedelta(days=2), verbose_name="下架时间")
-    status = models.IntegerField(default=1, choices=STATUS_CHOICES, verbose_name="书籍状态")
     add_time = models.DateTimeField(default=datetime.datetime.now, verbose_name="添加时间")
+
+    # 未实现的功能
+    # views_num = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = '书籍'
         verbose_name_plural = verbose_name
+        ordering = ['-add_time']
+
+    # def increase_views_num(self):
+    #     self.views_num += 1
+    #     self.save(update_fields=['views_num'])
 
     def __str__(self):
         return self.name
@@ -104,7 +123,7 @@ class BooksBanner(models.Model):
     class Meta:
         verbose_name = '轮播书籍'
         verbose_name_plural = verbose_name
-        unique_together = ('user','books')
+        unique_together = ('user', 'books')
 
     def __str__(self):
         return self.books.name

@@ -18,7 +18,7 @@ from .models import Books, BooksCategory, BooksImage, BooksBanner
 class BooksAdmin(object):
     list_display = ["name", "press", "version",
                     "price", "buyoutprice", "ship_free",
-                    "photo", "nums", "revoke", "status", "add_time"]
+                    "photo", "nums", "revoke", "add_time"]
     search_fields = ['name', ]
     list_filter = ["name", "nums", "add_time"]
     style_fields = {"desc": "ueditor"}

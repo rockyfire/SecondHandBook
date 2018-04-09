@@ -11,7 +11,7 @@ import django
 
 django.setup()
 
-from books.models import Books, BooksImage, BooksCategory
+from books.models import Books, BooksImage, BooksCategory,BooksStatus
 from data_tools.data.product_data import row_data
 from django.contrib.auth import get_user_model
 
@@ -31,7 +31,7 @@ for books_detail in row_data:
     books.photo = books_detail["photo"][0] if books_detail["photo"] else ""
 
     books.nums = int(books_detail['nums'])
-    books.status = int(books_detail['status'])
+    books.status = BooksStatus.objects.filter(name=books_detail['status'])[0]
 
     category_name = books_detail["categorys"][-1]
     category = BooksCategory.objects.filter(name=category_name)

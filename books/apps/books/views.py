@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .models import Books, BooksCategory, BooksImage, BooksBanner
-from .serializers import BooksSerializer, CategorySerializer, BookCreateSerializer, BookBannerSerializer
+from .models import Books, BooksCategory, BooksImage, BooksBanner, BooksStatus
+from .serializers import BooksSerializer, CategorySerializer, BookCreateSerializer, BookBannerSerializer, \
+    IndexStatusSerializer
 from users.models import UserProfile
 from django.http import Http404
 from rest_framework.views import APIView
@@ -79,7 +80,7 @@ class BooksCreateView(viewsets.ModelViewSet):
 class BooksCategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     List:
-        商品分类列表数据
+        书籍分类列表数据
     """
     # queryset = BooksCategory.objects.all()
     # 获取分类为一的数据 一级分类
@@ -89,13 +90,15 @@ class BooksCategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, vie
 
 class BannerViewset(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-        管理员有添加商品轮播图的权限，
+        管理员有添加书籍轮播图的权限，
     """
     queryset = BooksBanner.objects.all().order_by('add_time')
     serializer_class = BookBannerSerializer
 
 
-class IndexModuleViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    queryset = Books.objects.filter(status__range=[0,3])
-    serializer_class = BooksSerializer
-
+class IndexStatusViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+        书籍所属的模块
+    """
+    queryset = BooksStatus.objects.filter(name__in=["书城", "征书墙", "竞拍"])
+    serializer_class = IndexStatusSerializer
