@@ -49,7 +49,7 @@ router.register(r'bookscategory', BooksCategoryViewSet, base_name='bookscategory
 # 用户操作管理
 router.register(r'userfavs', UserFavViewSet, base_name='userfavs')
 router.register(r'userleavingmessage', UserLeavingMessageViewSet, base_name='userleavingmessage')
-router.register(r'useraddressview', UserAddressViewSet, base_name='useraddressview')
+router.register(r'useraddress', UserAddressViewSet, base_name='useraddress')
 # 评论管理
 router.register(r'comment', BooksCommentViewSet, base_name="comment")
 # 交易管理
@@ -70,7 +70,7 @@ urlpatterns = [
     url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # Django Rest Framework 自带的Token认证模式
-    url(r'^api-token-auth/', views.obtain_auth_token),
+    url(r'^api-token-auth/',  views.obtain_auth_token),
     # Json Web Token的认证接口
     url(r'^login/', obtain_jwt_token),
     url(r'docs/', include_docs_urls(title="二手书交易平台")),

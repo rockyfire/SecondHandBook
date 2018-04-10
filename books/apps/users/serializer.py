@@ -50,6 +50,8 @@ class UserDetailSerializer(serializers.ModelSerializer):
     # 更新密码
     def update(self, instance, validated_data):
         instance.username = validated_data.get('username', instance.username)
+        if UserProfile.objects.filter(username=validated_data.get('username', instance.username)).exists():
+            raise serializers.ValidationError(_("已存在一位使用该昵称的用户。"))
         instance.email = validated_data.get('email', instance.email)
         instance.mobile = validated_data.get('mobile', instance.mobile)
         instance.faceimg = validated_data.get('faceimg', instance.faceimg)
@@ -64,6 +66,22 @@ class UserDetailSerializer(serializers.ModelSerializer):
         return instance
 
     point = serializers.CharField(read_only=True)
+
+    # 未实现的功能
+    # create_book_count = serializers.SerializerMethodField()
+    # reply_count = serializers.SerializerMethodField()
+    #
+    # def get_create_book_count(self, obj):
+    #     """
+    #     Return the number of posts whose author is this user
+    #     """
+    #     return obj.book_set.count()
+    #
+    # def get_reply_count(self, obj):
+    #     """
+    #     Return the number of replies whose author is this user
+    #     """
+    #     return obj.reply_comments.count()
 
     class Meta:
         model = UserProfile

@@ -33,10 +33,10 @@ class BooksAdmin(object):
 # inlines = [BooksImagesInline]
 
 
-# class BooksCategoryAdmin(object):
-# 	list_display = ["name", "category_type", "parent_category", "add_time"]
-# 	list_filter = ["category_type", "parent_category", "name"]
-# 	search_fields = ['name', ]
+class BooksCategoryAdmin(object):
+    list_display = ["name", "category_type", "parent_category", "add_time"]
+    list_filter = ["category_type", "parent_category", "name"]
+    search_fields = ['name', ]
 
 
 # class BooksBrandAdmin(object):
@@ -64,7 +64,7 @@ class BannerBooksAdmin(object):
 
 
 xadmin.site.register(Books, BooksAdmin)
-# xadmin.site.register(BooksCategory, BooksCategoryAdmin)
+xadmin.site.register(BooksCategory, BooksCategoryAdmin)
 xadmin.site.register(BooksBanner, BannerBooksAdmin)
 # xadmin.site.register(BooksCategoryBrand, BooksBrandAdmin)
 #

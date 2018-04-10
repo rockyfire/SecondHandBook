@@ -74,7 +74,7 @@ class BooksSerializer(serializers.ModelSerializer):
         return Books.objects.create(**validated_data)
 
 
-from datetime import timedelta
+from datetime import datetime
 
 
 class BookCreateSerializer(serializers.ModelSerializer):
@@ -82,34 +82,11 @@ class BookCreateSerializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault()
     )
 
-    add_time = serializers.HiddenField(
-        default=timezone.now
-    )
-    revoke = serializers.DateTimeField(
-        initial=timezone.now() + timedelta(days=7),
-        default=timezone.now() + timedelta(days=7),
-    )
-
     category = serializers.PrimaryKeyRelatedField(required=True, queryset=BooksCategory.objects.filter(category_type=3))
-
-    # def validate_revoke(self, value):
-    #     """
-    #     下架时间必须大于添加时间
-    #     :param value:
-    #     :return:
-    #     """
-    #     if value > timezone.now:
-    #         raise serializers.ValidationError("下架时间必须大于添加时间")
-    #     return value
-
-    def validate(self, attrs):
-        if attrs['add_time'] > attrs['revoke']:
-            raise serializers.ValidationError("下架时间必须大于添加时间")
-        return attrs
 
     class Meta:
         model = Books
-        fields = '__all__'
+        exclude = ('add_time',)
 
 
 class BookBannerSerializer(serializers.ModelSerializer):
@@ -126,7 +103,7 @@ class IndexStatusSerializer(serializers.ModelSerializer):
 
     def get_books(self, obj):
         status_books = Books.objects.filter(Q(status=obj.id))
-        books_serializer = BooksSerializer(status_books, many=True,context={'request': self.context['request']}).data
+        books_serializer = BooksSerializer(status_books, many=True, context={'request': self.context['request']}).data
         return books_serializer
 
     class Meta:

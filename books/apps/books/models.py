@@ -75,11 +75,15 @@ class Books(models.Model):
     desc = UEditorField(imagePath="books/images/", width=1000, height=300,
                         filePath="books/files/", default='', verbose_name=u"书籍描述信息", )
     nums = models.IntegerField(default=0, verbose_name="书籍数量")
-    revoke = models.DateField(default=datetime.datetime.now() + datetime.timedelta(days=2), verbose_name="下架时间")
+    revoke = models.DateField(default=datetime.datetime.now() + datetime.timedelta(days=7), verbose_name="下架时间")
     add_time = models.DateTimeField(default=datetime.datetime.now, verbose_name="添加时间")
 
     # 未实现的功能
+    # from django.contrib.contenttypes.fields import GenericRelation
+    # from comment.models import Reply
     # views_num = models.PositiveIntegerField(default=0)
+    # replies = GenericRelation(Reply,object_id_field='object_pk',
+    #                           content_type_field='content_type',verbose_name="回复")
 
     class Meta:
         verbose_name = '书籍'

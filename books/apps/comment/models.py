@@ -39,3 +39,24 @@ class BooksComment(models.Model):
 
     def __str__(self):
         return str(self.books.id)
+
+
+from django_comments.abstracts import CommentAbstractModel
+from mptt.models import MPTTModel, TreeForeignKey
+
+
+class Reply(MPTTModel, CommentAbstractModel):
+    parent = TreeForeignKey('self', null=True, blank=True,
+                            verbose_name='上级回复', related_name='children',
+                            on_delete=models.SET_NULL
+                            )
+
+    class Meta(CommentAbstractModel.Meta):
+        verbose_name = '回复'
+        verbose_name_plural = verbose_name
+
+    def descendants(self):
+        """
+        获取回复的全部子孙回复，按回复时间正序排序
+        """
+        return self.get_descendants().order_by('submit_date')

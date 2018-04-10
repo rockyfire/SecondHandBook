@@ -89,18 +89,16 @@ class CustomBackend(ModelBackend, GenericViewSet):
         """
 
         try:
-            # 用户名（手机号） 密码登录
+
             user = User.objects.get(Q(username=username) | Q(mobile=username))
-            if user.check_password(password):
-                return user
+            verify_records = VerifyCode.objects.get(mobile=user.mobile)
 
             # 手机号 验证码登录
-            verify_records = VerifyCode.objects.filter(mobile=username).order_by('-add_time')
-            if verify_records:
-                # 最近的一次验证码
-                last_recodes = verify_records[0]
-                if last_recodes.code == password:
-                    return user
+            if verify_records.code == password:
+                return user
+            # 用户名（手机号） 密码登录
+            if user.check_password(password):
+                return user
 
         except (AttributeError, UserProfile.DoesNotExist) as e:
             raise serializers.ValidationError("该用户名未注册")
@@ -146,7 +144,11 @@ class UserViewset(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.Retri
         serializer.is_valid(raise_exception=True)
         # 保存后获取user
         user = self.perform_create(serializer)
-
+        # 未实现的功能
+        # from util import utils
+        # ip = utils.get_ip_address_from_request(request)
+        # if ip:
+        #     user.ip_register = ip
         re_dict = serializer.data
 
         payload = jwt_payload_handler(user)
@@ -158,4 +160,3 @@ class UserViewset(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.Retri
 
     def perform_create(self, serializer):
         return serializer.save()
-
