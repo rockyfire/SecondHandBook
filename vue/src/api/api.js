@@ -34,27 +34,18 @@ export const getHotSearch = params => { return axios.get(`${host}/hotsearchs/`) 
 export const getGoods = params => { return axios.get(`${host}/books/`, { params: params }) }
 
 //商品详情
-export const getGoodsDetail = goodId => { return axios.get(`${host}/books/${goodId}`+'/') }
+export const getGoodsDetail = booksid => { return axios.get(`${host}/books/${booksid}`+'/') }
 
 //获取购物车商品
-export const getShopCarts = params => { return axios.get(`${host}/shopcarts/`) }
+export const getShopCarts = params => { return axios.get(`${host}/shoppingcart/`) }
 // 添加商品到购物车
-export const addShopCart = params => { return axios.post(`${host}/shopcarts/`, params) }
+export const addShopCart = params => { return axios.post(`${host}/shoppingcart/`, params) }
 //更新购物车商品信息
-export const updateShopCart = (goodsId, params) => { return axios.patch(`${host}/shopcarts/`+goodsId+'/', params) }
+export const updateShopCart = (goodsId, params) => { return axios.patch(`${host}/shoppingcart/`+goodsId+'/', params) }
 //删除某个商品的购物记录
-export const deleteShopCart = goodsId => { return axios.delete(`${host}/shopcarts/`+goodsId+'/') }
+export const deleteShopCart = goodsId => { return axios.delete(`${host}/shoppingcart/`+goodsId+'/') }
 
-//收藏
-export const addFav = params => { return axios.post(`${host}/userfavs/`, params) }
 
-//取消收藏
-export const delFav = goodsId => { return axios.delete(`${host}/userfavs/`+goodsId+'/') }
-
-export const getAllFavs = () => { return axios.get(`${host}/userfavs/`) }
-
-//判断是否收藏
-export const getFav = goodsId => { return axios.get(`${host}/userfavs/`+goodsId+'/') }
 
 //登录
 export const login = params => {
@@ -86,14 +77,26 @@ export const createOrder = params => {return axios.post(`${host}/orders/`, param
 export const getOrderDetail = orderId => {return axios.get(`${host}/orders/`+orderId+'/')}
 
 
+//收藏 ---
+export const addFav = params => { return axios.post(`${host}/userfavs/`, params) }
+
+//取消收藏 ---
+export const delFav = booksId => { return axios.delete(`${host}/userfavs/`+booksId+'/') }
+
+// 获取所有收藏 显示在个人列表中 ---
+export const getAllFavs = () => { return axios.get(`${host}/userfavs/`) }
+
+//判断是否收藏 
+export const getFav = booksId => { return axios.get(`${host}/userfavs/`+booksId+'/') }
+
 //获取留言
-export const getMessages = () => {return axios.get(`${host}/messages/`)}
+export const getMessages = () => {return axios.get(`${host}/userleavingmessage/`)}
 
 //添加留言
-export const addMessage = params => {return axios.post(`${host}/messages/`, params, {headers:{ 'Content-Type': 'multipart/form-data' }})}
+export const addMessage = params => {return axios.post(`${host}/userleavingmessage/`, params, {headers:{ 'Content-Type': 'multipart/form-data' }})}
 
 //删除留言
-export const delMessages = messageId => {return axios.delete(`${host}/messages/`+messageId+'/')}
+export const delMessages = messageId => {return axios.delete(`${host}/userleavingmessage/`+messageId+'/')}
 
 //添加收货地址
 export const addAddress = params => {return axios.post(`${host}/useraddress/`, params)}

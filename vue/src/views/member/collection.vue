@@ -16,12 +16,12 @@
                         </tr>
                         <tr v-for="(item,index) in collections">
                             <td bgcolor="#ffffff">
-                                <router-link :to="'/app/home/productDetail/'+item.goods.id" class="f6" target="_blank">{{item.goods.name}}</router-link>
+                                <router-link :to="'/app/home/productDetail/'+item.books.id" class="f6" target="_blank">{{item.books.name}}</router-link>
                             </td>
-                            <td bgcolor="#ffffff">本店价<span class="goods-price">￥{{item.goods.shop_price}}元</span>
+                            <td bgcolor="#ffffff">二手价<span class="goods-price">￥{{item.books.price}}元</span>
                             </td>
                             <td align="center" bgcolor="#ffffff">
-                                <a class="f6" @click="deletePro(index, item.goods.id)">删除</a>
+                                <a class="f6" @click="deletePro(index, item.books.id)">删除</a>
                             </td>
                         </tr>
                         <!-- <tr>
@@ -57,7 +57,6 @@
             </div>
         </div>
     </div>
-
   </div>
 </template>
 <script>
@@ -66,22 +65,6 @@
         data () {
             return {
                 collections: [
-                    // {
-                    //     id: '3243', // 商品ID
-                    //     title: '田然牛肉大黄瓜条生鲜牛肉冷冻真空黄牛', // 商品名称
-                    //     price: 24 //价格
-                    // },
-                    // {
-                    //     id: 'dsfsd', // 商品ID
-                    //     title: '新鲜水果甜蜜香脆单果约800克', // 商品名称
-                    //     price: 24 //价格
-                    // },
-                    // {
-                    //     id: 'fsdfg', // 商品ID
-                    //     title: '田然牛肉大黄瓜条生鲜牛肉冷冻真空黄牛', // 商品名称
-                    //     price: 24 //价格
-                    // },
-
                 ]
             };
         },
@@ -101,7 +84,7 @@
 
         },
         methods: {
-            getCollection () { //获取收藏列表
+            getCollection (){ //获取收藏列表
               getAllFavs().then((response)=> {
                     this.collections = response.data;
                 }).catch(function (error) {
@@ -111,38 +94,35 @@
             // toProductionDetail (id) { //商品详情页
             //     this.$router.push({name:'productDetail', params: {productId: id}});
             // },
-            concern (id) { //加入关注
-                this.$http.post('/addConcern', {
-                    params: {
-                        productId: id, // 商品id
-                    }
-                }).then((response)=> {
-                    console.log(response.data);
-                    alert('已加入关注');
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            addToCart (id) { //加入购物车
-                this.$http.post('/product/addShoppingCart', {
-                    params: {
-                        productId: id, // 商品id
-                        num: this.proDetail.purNum, // 购买数量
-                    }
-                }).then((response)=> {
-                    console.log(response.data);
-                    alert('已成功加入购物车');
-                }).catch(function (error) {
-                    console.log(error);
-                });
-
-
-            },
+            // concern (id) { //加入关注
+            //     this.$http.post('/addConcern', {
+            //         params: {
+            //             productId: id, // 商品id
+            //         }
+            //     }).then((response)=> {
+            //         console.log(response.data);
+            //         alert('已加入关注');
+            //     }).catch(function (error) {
+            //         console.log(error);
+            //     });
+            // },
+            // addToCart (id) { //加入购物车
+            //     this.$http.post('/product/addShoppingCart', {
+            //         params: {
+            //             productId: id, // 商品id
+            //             num: this.proDetail.purNum, // 购买数量
+            //         }
+            //     }).then((response)=> {
+            //         console.log(response.data);
+            //         alert('已成功加入购物车');
+            //     }).catch(function (error) {
+            //         console.log(error);
+            //     });
+            // },
             deletePro (index, id) { //删除收藏商品
                 alert('您确定要从收藏夹中删除选定的商品吗？');
                 delFav(id).then((response)=> {
                     this.collections.splice(index,1);
-                    alert('已删除商品');
                 }).catch(function (error) {
                     console.log(error);
                 });

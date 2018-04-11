@@ -41,25 +41,26 @@
                                 <li>
                                     <span class="lbl">市场价</span> <em class="cancel">￥{{proDetail.market_price}}元</em></li>
                                 <li>
-                                    <span class="icon_promo">抢购</span> <span class="lbl">促销价</span><span class="unit"> <strong class="nala_price red" id="ECS_SHOPPRICE">￥{{proDetail.shop_price}}元</strong> </span>  <span class="timedown" id="timedown"></span>
+                                    <span class="icon_promo">抢购</span> <span class="lbl">促销价</span><span class="unit"> <strong class="nala_price red" id="ECS_SHOPPRICE">￥{{proDetail.price}}元</strong> </span>  <span class="timedown" id="timedown"></span>
                                 </li>
                                 <li>
-                                    <span class="lbl">销&nbsp;&nbsp;&nbsp;量</span><span>最近售出<em class="red">{{proDetail.sold_num}}</em>件</span></li>
+                                    <span class="lbl">库&nbsp;&nbsp;&nbsp;存</span><em class="red">{{proDetail.nums}}</em>件</li>
                             </ul>
                         </dd>
                         <dd class="tobuy-box cle">
                             <ul class="sku">
                                 <li class="skunum_li cle">
                                     <span class="lbl">数&nbsp;&nbsp;&nbsp;量</span>
-                                    <div class="skunum" id="skunum"> <span class="minus" title="减少1个数量" @click="reduceNum"><i class="iconfont">-</i></span>
+                                    <div class="skunum" id="skunum"> 
+                                        <span class="minus" title="减少1个数量" @click="reduceNum"><i class="iconfont">-</i></span>
                                         <input id="number" name="number" type="text" min="1" v-model="buyNum"  onchange="countNum(0)">
                                         <span class="add" title="增加1个数量" @click="addNum"><i class="iconfont">+</i></span> <cite class="storage"> 件 </cite>
                                     </div>
-                                    <div class="skunum" id="skunum">
+                                    <!-- <div class="skunum" id="skunum">
 
                                         <cite class="storage">(<font id="shows_number">{{proDetail.goods_num}}件</font>)</cite>
 
-                                    </div>
+                                    </div> -->
                                 </li>
                                 <li class="add_cart_li">
                                     <a class="btn" id="buy_btn" @click="addShoppingCart">
@@ -67,9 +68,12 @@
                                         加入购物车</a>
 
                                     <a v-if="hasFav" id="fav-btn" class="graybtn" @click="deleteCollect">
-                                        <i class="iconfont">&#xe613;</i>已收藏</a>
-                                  <a v-else class="graybtn" @click="addCollect">
-                                    <i class="iconfont">&#xe613;</i>收藏</a>
+                                        <i class="iconfont">&#xe613;</i>已收藏
+                                    </a>
+                                    <a v-else class="graybtn" @click="addCollect">
+                                        <i class="iconfont">&#xe613;</i>收藏
+                                    </a>
+
                                 </li>
                             </ul>
                         </dd>
@@ -101,7 +105,7 @@
                                         <p>&nbsp; </p>
                                     </div>
                                     <div class="spxq_dec">
-                                        <p v-html="proDetail.goods_desc">
+                                        <p v-html="proDetail.desc">
                                         </p>
                                     </div>
                                 </div>
@@ -141,7 +145,7 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
     components: {
         'current-loc': currentLoc,
         'hot-sales': hotSales,
-         model
+        model
     },
     props: {
 
@@ -179,18 +183,13 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
             this.buyNum = this.buyNum === 1 ? 1 : this.buyNum - 1;
         },
 
-        hasFaved () {
-
-        },
-
         // 增加数量
         addNum () {
-            this.buyNum = this.buyNum + 1;
-
+            this.buyNum = parseInt(this.buyNum) + 1;
         },
         addShoppingCart () { //加入购物车
             addShopCart({
-                goods: this.productId, // 商品id
+                books: this.productId, // 商品id
                 nums: this.buyNum, // 购买数量
             }).then((response)=> {
                 this.$refs.model.setShow();
@@ -200,26 +199,12 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
             }).catch(function (error) {
                 console.log(error);
             });
-
-            // this.$http.post('/shopcart/', {
-            //     params: {
-            //         goods: this.productId, // 商品id
-            //         nums: this.proDetail.purNum, // 购买数量
-            //     }
-            // }).then((response)=> {
-            //     console.log(response.data);
-            //     alert('已成功加入购物车');
-            //     // 更新store数据
-            //     this.$store.dispatch('setShopList');
-
-            // }).catch(function (error) {
-            //     console.log(error);
-            // });
         },
-        addCollect () { //加入收藏
-          addFav({
-              goods: this.productId
-          }).then((response)=> {
+        addCollect () { 
+            //加入收藏
+            addFav({
+              books:this.productId
+            }).then((response)=> {
                 console.log(response.data);
                 this.hasFav = true
                 alert('已成功加入收藏夹');
@@ -229,13 +214,16 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
         },
 
         deleteCollect () {
-            //删除收藏
-          delFav(this.productId).then((response)=> {
-            console.log(response.data);
-            this.hasFav = false
-          }).catch(function (error) {
-            console.log(error);
-          });
+          //取消收藏
+          delFav(
+              this.productId
+            ).then((response)=> {
+                console.log(response.data);
+                this.hasFav = false
+                alert('已取消收藏该商品');
+            }).catch(function (error) {
+                console.log(error);
+            });
         },
         ImagePrev () {
             this.curIndex = this.curIndex === 0 ? 0 : this.curIndex - 1;
