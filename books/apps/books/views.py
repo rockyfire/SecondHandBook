@@ -2,6 +2,10 @@ from django.shortcuts import render
 from .models import Books, BooksCategory, BooksImage, BooksBanner, BooksStatus
 from .serializers import BooksSerializer, CategorySerializer, BookCreateSerializer, BookBannerSerializer, \
     IndexStatusSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
 from users.models import UserProfile
 from django.http import Http404
 from rest_framework.views import APIView
@@ -72,6 +76,9 @@ class BooksCreateView(viewsets.ModelViewSet):
     """
     serializer_class = BookCreateSerializer
     pagination_class = LargeResultsSetPagination
+
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
     def get_queryset(self):
         return Books.objects.filter(user=self.request.user)

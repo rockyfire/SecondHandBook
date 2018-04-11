@@ -5,11 +5,11 @@ from books.serializers import BooksSerializer
 
 
 class UserFavDetailSerializer(serializers.ModelSerializer):
-    books = BooksSerializer
+    books = BooksSerializer()
 
     class Meta:
         model = UserFav
-        fields = ('books', "id")
+        fields = '__all__'
 
 
 class UserFavSerializer(serializers.ModelSerializer):
@@ -36,18 +36,12 @@ class UserLeavingMessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserLeavingMessage
-        fields = ('user', 'message_type', 'subject', 'message')
-
-
-from django.utils import timezone
+        fields = '__all__'
 
 
 class UserAddressSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
-    )
-    add_time = serializers.HiddenField(
-        default=timezone.now
     )
 
     class Meta:

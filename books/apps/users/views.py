@@ -89,15 +89,11 @@ class CustomBackend(ModelBackend, GenericViewSet):
         """
 
         try:
-
             user = User.objects.get(Q(username=username) | Q(mobile=username))
-            verify_records = VerifyCode.objects.get(mobile=user.mobile)
 
-            # 手机号 验证码登录
-            if verify_records.code == password:
-                return user
-            # 用户名（手机号） 密码登录
-            if user.check_password(password):
+            # 用户名（手机号） 密码登录  手机号 验证码登录
+            if user.check_password(password) or \
+                    VerifyCode.objects.filter(mobile=username)[0].code == password:
                 return user
 
         except (AttributeError, UserProfile.DoesNotExist) as e:

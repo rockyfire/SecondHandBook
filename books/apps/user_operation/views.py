@@ -24,7 +24,7 @@ class UserFavViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
     """
     # queryset = UserFav.objects.all()
     # serializer_class = UserFavSerializer
-    permissions_class = (IsAuthenticated, IsOwnerOrReadOnly)
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
     lookup_field = "books_id"
@@ -35,7 +35,7 @@ class UserFavViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
     def get_serializer_class(self):
         if self.action == "list":
             return UserFavDetailSerializer
-        elif self.action == "create":
+        if self.action == "create":
             return UserFavSerializer
         return UserFavSerializer
 
@@ -43,6 +43,7 @@ class UserFavViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
 class UserLeavingMessageViewSet(mixins.CreateModelMixin,
                                 mixins.ListModelMixin,
                                 mixins.RetrieveModelMixin,
+                                mixins.DestroyModelMixin,
                                 viewsets.GenericViewSet):
     """
     list:
@@ -53,7 +54,7 @@ class UserLeavingMessageViewSet(mixins.CreateModelMixin,
         创建用户留言
     """
     serializer_class = UserLeavingMessageSerializer
-    permissions_class = (IsAuthenticated, IsOwnerOrReadOnly)
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
     def get_queryset(self):
@@ -73,7 +74,7 @@ class UserAddressViewSet(viewsets.ModelViewSet):
     """
 
     serializer_class = UserAddressSerializer
-    permissions_class = (IsAuthenticated, IsOwnerOrReadOnly)
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
     def get_queryset(self):
