@@ -52,7 +52,9 @@ class OrderInfo(models.Model):
     pay_time = models.DateTimeField(null=True, blank=True, verbose_name="支付时间")
 
     # 用户信息
-    address = models.ForeignKey(UserAddress, verbose_name="用户地址")
+    signer_address = models.CharField(max_length=100, default="", verbose_name="收货地址")
+    signer_name = models.CharField(max_length=20, default="", verbose_name="签收人")
+    singer_mobile = models.CharField(max_length=11, default="", verbose_name="联系电话")
 
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
