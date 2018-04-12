@@ -21,13 +21,13 @@ export default {
         if(cookie.getCookie('token') != null){
           getShopCarts().then((response)=> {
             // 更新store数据
-            state.goods_list.goods_list = response.data;
+            state.books_list.books_list = response.data;
             console.log(response.data)
             var totalPrice = 0
             response.data.forEach(function(entry) {
-              totalPrice += entry.goods.shop_price*entry.nums
+              totalPrice += entry.books.price*entry.nums
             });
-            state.goods_list.totalPrice = totalPrice;
+            state.books_list.totalPrice = totalPrice;
 
           }).catch(function (error) {
             console.log(error);

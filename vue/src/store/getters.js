@@ -6,7 +6,7 @@ export const userInfo = state => {
 	return state.userInfo;
 }
 
-export const goods_list = state => {
-  console.log(state.goods_list)
-  return state.goods_list;
+export const books_list = state => {
+  console.log(state.books_list)
+  return state.books_list;
 }

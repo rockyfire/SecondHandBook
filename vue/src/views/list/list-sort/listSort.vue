@@ -2,8 +2,8 @@
     <div class="sort">
         <div class="bd">
             <form name="listform">
-                <!-- <a title="销量" href="http://sx.web51.youxueshop.com/category.php?category=2&amp;display=grid&amp;brand=0&amp;price_min=0&amp;price_max=0&amp;filter_attr=0&amp;page=1&amp;sort=sales_volume_base&amp;order=ASC#goods_list" class="curr" rel="nofollow"><span class="search_DESC">销量</span></a>
-                <a title="价格" href="http://sx.web51.youxueshop.com/category.php?category=2&amp;display=grid&amp;brand=0&amp;price_min=0&amp;price_max=0&amp;filter_attr=0&amp;page=1&amp;sort=shop_price&amp;order=ASC#goods_list" rel="nofollow"><span class="">价格</span></a> -->
+                <!-- <a title="销量" href="http://sx.web51.youxueshop.com/category.php?category=2&amp;display=grid&amp;brand=0&amp;price_min=0&amp;price_max=0&amp;filter_attr=0&amp;page=1&amp;sort=sales_volume_base&amp;order=ASC#books_list" class="curr" rel="nofollow"><span class="search_DESC">销量</span></a>
+                <a title="价格" href="http://sx.web51.youxueshop.com/category.php?category=2&amp;display=grid&amp;brand=0&amp;price_min=0&amp;price_max=0&amp;filter_attr=0&amp;page=1&amp;sort=shop_price&amp;order=ASC#books_list" rel="nofollow"><span class="">价格</span></a> -->
                 <a title="销量" class="curr" rel="nofollow" @click="sortType('-sold_num')"><span :class="{search_DESC: cur==='-sold_num'}">销量</span></a>
                 <a title="价格" class="curr" rel="nofollow" @click="sortType('-shop_price')"><span :class="{search_DESC: cur==='-shop_price'}">价格</span></a>
                 <!-- <input type="hidden" name="category" value="2">

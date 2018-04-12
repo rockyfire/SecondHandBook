@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 // let host = 'http://shop.projectsedu.com';
-let host = 'http://www.flycode.me:8087';
+let host = 'http://www.flycode.me:8088';
 
 // let host = 'http://127.0.0.1:8087';
 
@@ -41,10 +41,9 @@ export const getShopCarts = params => { return axios.get(`${host}/shoppingcart/`
 // 添加商品到购物车
 export const addShopCart = params => { return axios.post(`${host}/shoppingcart/`, params) }
 //更新购物车商品信息
-export const updateShopCart = (goodsId, params) => { return axios.patch(`${host}/shoppingcart/`+goodsId+'/', params) }
+export const updateShopCart = (booksId, params) => { return axios.patch(`${host}/shoppingcart/`+booksId+'/', params) }
 //删除某个商品的购物记录
-export const deleteShopCart = goodsId => { return axios.delete(`${host}/shoppingcart/`+goodsId+'/') }
-
+export const deleteShopCart = booksId => { return axios.delete(`${host}/shoppingcart/`+booksId+'/') }
 
 
 //登录
@@ -77,13 +76,13 @@ export const createOrder = params => {return axios.post(`${host}/orders/`, param
 export const getOrderDetail = orderId => {return axios.get(`${host}/orders/`+orderId+'/')}
 
 
-//收藏 ---
+//收藏 
 export const addFav = params => { return axios.post(`${host}/userfavs/`, params) }
 
-//取消收藏 ---
+//取消收藏 
 export const delFav = booksId => { return axios.delete(`${host}/userfavs/`+booksId+'/') }
 
-// 获取所有收藏 显示在个人列表中 ---
+// 获取所有收藏 显示在个人列表中 
 export const getAllFavs = () => { return axios.get(`${host}/userfavs/`) }
 
 //判断是否收藏 

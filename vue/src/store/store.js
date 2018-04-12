@@ -16,14 +16,14 @@ const userInfo = {
             name:cookie.getCookie('name')||'',
             token:cookie.getCookie('token')||''
         };
-const goods_list =  {
+const books_list =  {
        totalPrice:'',
-        goods_list:[]
+        books_list:[]
 
     }
 const state = {
     userInfo,
-    goods_list
+    books_list
 }
 export default new Vuex.Store({
 	state,

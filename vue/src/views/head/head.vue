@@ -112,19 +112,19 @@
              <router-link class="tit" :to="'/app/shoppingcart/cart'" target = _blank>
 
                     <b class="iconfont">&#xe600;</b>去购物车结算<span><i class="iconfont">&#xe645;</i></span>
-                    <em class="num" id="hd_cartnum" style="visibility: visible;">{{goods_list.goods_list.length}}</em></router-link>
+                    <em class="num" id="hd_cartnum" style="visibility: visible;">{{books_list.books_list.length}}</em></router-link>
                         <div class="list" v-show="showShopCar">
                             <div class="data">
-                               <dl v-for="(item,index) in goods_list.goods_list">
-                                <dt><router-link :to="'/app/home/productDetail/'+item.goods.id" target = _blank><img :src="item.goods.goods_front_image"></router-link></dt>
+                               <dl v-for="(item,index) in books_list.books_list">
+                                <dt><router-link :to="'/app/home/productDetail/'+item.books.id" target = _blank><img :src="item.books.photo"></router-link></dt>
                                 <dd>
-                                  <h4><router-link :to="'/app/home/productDetail/'+item.goods.id" target = _blank>{{item.goods.name}}</router-link></h4>
-                                  <p><span class="red">{{item.goods.shop_price}}</span>&nbsp;<i>X</i>&nbsp;{{item.nums}}</p>
-                                  <a title="删除" class="iconfont del" @click="deleteGoods(index,item.goods.id)">×</a></dd>
+                                  <h4><router-link :to="'/app/home/productDetail/'+item.books.id" target = _blank>{{item.books.name}}</router-link></h4>
+                                  <p><span class="red">{{item.books.shop_price}}</span>&nbsp;<i>X</i>&nbsp;{{item.nums}}</p>
+                                  <a title="删除" class="iconfont del" @click="deletebooks(index,item.books.id)">×</a></dd>
                               </dl>
                             </div>
-                            <div class="count">共<span class="red" id="hd_cart_count">{{goods_list.length}}</span>件商品哦~
-                                  <p>总价:<span class="red"><em id="hd_cart_total">{{goods_list.totalPrice}}</em></span>
+                            <div class="count">共<span class="red" id="hd_cart_count">{{books_list.length}}</span>件商品哦~
+                                  <p>总价:<span class="red"><em id="hd_cart_total">{{books_list.totalPrice}}</em></span>
                                   <router-link class="btn" :to="'/app/shoppingcart/cart'" target = _blank>去结算
                                   </router-link>
                                   </p>
@@ -153,21 +153,15 @@ export default {
     },
     computed: {
         ...mapGetters({
-          goods_list: 'goods_list',
+          books_list: 'books_list',
           userInfo:'userInfo'
         })
     },
     methods:{
         loginOut(){
-            // this.$http.get('/getMenu')
-            //     .then((response)=> {
 
-                    //跳转到登录
-                    this.$router.push({ name: 'login' })
-            //     })
-            //     .catch(function (error) {
-            //       console.log(error);
-            // });
+            this.$router.push({ name: 'login' })
+
         },
         overAllmenu(){
             this.showAllmenu = true;
@@ -181,10 +175,10 @@ export default {
                 this.$router.push({ name: 'search', params: { keyword: this.searchWord }});
             }
         },
-        deleteGoods(index,id) { //移除购物车
+        deletebooks(index,id) { //移除购物车
             deleteShopCart(id).then((response)=> {
                 console.log(response.data);
-                this.goods_list.splice(index,1);
+                this.books_list.splice(index,1);
 
                 // 更新store数据
                 this.$store.dispatch('setShopList');
@@ -1300,30 +1294,30 @@ a.more-btn,.rmb,.search-selected a.item,.sort .bd a span{
 .cms-box .bd span.intro{color:#999}
 .cms-box .bd span.price em{font-size:18px}
 .cms-box .bd a:hover span.name{color:#09c762}
-.baokuan-goods a,.baokuan-goods a span{display:block}
-.baokuan-goods a span.price{color:#09c762}
-.baokuan-goods a.no1{float:left;width:170px;padding:10px 5px 10px 15px;border-right:1px solid #eee;position:relative}
-.baokuan-goods a.no1 img{width:150px;height:150px}
+.baokuan-books a,.baokuan-books a span{display:block}
+.baokuan-books a span.price{color:#09c762}
+.baokuan-books a.no1{float:left;width:170px;padding:10px 5px 10px 15px;border-right:1px solid #eee;position:relative}
+.baokuan-books a.no1 img{width:150px;height:150px}
 
-.baokuan-goods a.no2{float:right;width:450px;height:100px;overflow:hidden;padding:10px 15px}
-.baokuan-goods a.no2 img{width:100px;height:100px;float:left}
-.baokuan-goods a.no2 span{margin-left:110px}
-.baokuan-goods a.no2 span.price{padding-top:30px}
-.baokuan-goods a.border-btm{border-bottom:1px solid #eee}
-.baokuan-goods a.no1 .guan-ico{position:absolute;left:10px;top:0;display:block;width:24px;height:20px}
-.baokuan-goods a.no1:hover .guan-ico{background-position:0 0}
-.new-goods{width:254px;float:right}
-.new-goods .bd{position:relative;background-color:#fff}
-.new-goods .list{position:relative;height:241px;width:170px;margin:0 auto;overflow:hidden}
-.new-goods li{float:left;width:150px;padding:0 10px;height:241px;overflow:hidden}
-.new-goods li a,.new-goods li span{display:block}
-.new-goods li span.pic{margin-bottom:5px}
-.new-goods li span.pic img{width:150px;height:150px}
-.new-goods li span.name{font-size:14px;height:20px;overflow:hidden;margin-bottom:5px}
-.new-goods .trg a{font-size:16px;color:#ddd;position:absolute;top:80px}
-.new-goods .trg a:hover{text-decoration:none;color:#999}
-.new-goods .trg a.prev{left:20px}
-.new-goods .trg a.next{right:20px}
+.baokuan-books a.no2{float:right;width:450px;height:100px;overflow:hidden;padding:10px 15px}
+.baokuan-books a.no2 img{width:100px;height:100px;float:left}
+.baokuan-books a.no2 span{margin-left:110px}
+.baokuan-books a.no2 span.price{padding-top:30px}
+.baokuan-books a.border-btm{border-bottom:1px solid #eee}
+.baokuan-books a.no1 .guan-ico{position:absolute;left:10px;top:0;display:block;width:24px;height:20px}
+.baokuan-books a.no1:hover .guan-ico{background-position:0 0}
+.new-books{width:254px;float:right}
+.new-books .bd{position:relative;background-color:#fff}
+.new-books .list{position:relative;height:241px;width:170px;margin:0 auto;overflow:hidden}
+.new-books li{float:left;width:150px;padding:0 10px;height:241px;overflow:hidden}
+.new-books li a,.new-books li span{display:block}
+.new-books li span.pic{margin-bottom:5px}
+.new-books li span.pic img{width:150px;height:150px}
+.new-books li span.name{font-size:14px;height:20px;overflow:hidden;margin-bottom:5px}
+.new-books .trg a{font-size:16px;color:#ddd;position:absolute;top:80px}
+.new-books .trg a:hover{text-decoration:none;color:#999}
+.new-books .trg a.prev{left:20px}
+.new-books .trg a.next{right:20px}
 .week-hot{border:1px solid #eee;margin-bottom:12px;background-color:#fff;display:none}
 .week-hot .hd{border-bottom:1px solid #eee;padding:0 12px;height:45px;overflow:hidden}
 .week-hot .hd h3{font-size:16px;height:45px;line-height:45px}
