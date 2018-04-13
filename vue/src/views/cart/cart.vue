@@ -241,13 +241,14 @@
             createOrder(
               {
                 post_script:this.post_script,
-                address:this.address,
+                signer_address:this.address,
                 signer_name:this.signer_name,
                 singer_mobile:this.signer_mobile,
                 order_mount:this.totalPrice
               }
             ).then((response)=> {
               alert('订单创建成功')
+              // 直接跳转到支付宝的URL进行支付
               window.location.href=response.data.alipay_url;
             }).catch(function (error) {
               console.log(error);

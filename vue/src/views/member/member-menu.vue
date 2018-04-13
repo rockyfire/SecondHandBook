@@ -6,6 +6,16 @@
     </h3>
     <ul class="slide_item">
         <li class="item">
+            <div class="root_node"><i class="iconfont">&#xe645;</i>售购中心</div>
+            <ul>
+                <li>
+                    <a :class="{on: current==='sell'}"    @click="toSell">出售二手书</a>
+                    <a :class="{on: current==='buy'}"  @click="toBuy">求购二手书</a>
+                    <a :class="{on: current==='auction'}"  @click="toAuction">拍卖二手书</a>
+                </li>
+            </ul>
+        </li>
+        <li class="item">
             <div class="root_node"><i class="iconfont">&#xe645;</i>订单中心</div>
             <ul>
                 <li>
@@ -53,6 +63,18 @@
 
         },
         methods: {
+            toSell () {  // 出售二手书
+                this.current = 'sell';
+                this.$router.push({name: 'sell'});
+            },
+            toBuy () { // 求购二手书
+                this.current = 'buy';
+                this.$router.push({name: 'buy'});
+            },
+            toAuction () { // 拍卖二手书
+                this.current = 'auction';
+                this.$router.push({name: 'auction'});
+            },
             member () { // 会员中心
                 this.$router.push({name: 'member'});
             },

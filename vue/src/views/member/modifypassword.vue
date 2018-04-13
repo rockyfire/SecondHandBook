@@ -32,11 +32,10 @@ import {getUserDetail, updateUserInfo} from '../../api/api'
         data () {
             return {
                 userInfo: {
-                    birthday: '',
-                    sex: '',
-                    email: '',
-                    phone: '',
-                }
+                    password:'',
+                },
+                confirm_password : '',
+                new_password : "",
             };
         },
         props: {
