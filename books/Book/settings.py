@@ -53,7 +53,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken',
+    'django.contrib.sites'
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -73,8 +76,8 @@ ROOT_URLCONF = 'Book.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        # 'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,6 +146,7 @@ USE_TZ = False  # 默认是Ture，时间是utc时间，由于我们要用本地�
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'  # 这个是在浏览器上访问该上传文件的url的前缀
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -176,3 +180,19 @@ TOKEN = "c03594af67f54db29f4f4b2653bba749"
 # Leancloud
 APPID = "Eq76jQK1t2Ws7KGX2rKwxMLO-gzGzoHsz"
 APPKEY = "OJxSDL7I26UibWc1ueGRWzaK"
+
+private_key_path = os.path.join(BASE_DIR, 'apps/util/private2048.txt')
+ali_pub_key_path= os.path.join(BASE_DIR, 'apps/util/alipay_key_2048.txt')
+
+import datetime
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_AUTH_HEADER_PREFIX': 'JWT'
+}
+
+
+
+
+
