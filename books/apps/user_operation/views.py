@@ -45,6 +45,13 @@ class UserFavViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
     #     books.fav_num += 1
     #     books.save()
 
+    # 未实践
+    # def perform_destroy(self, instance):
+    #     books = instance.books
+    #     books.fav_num -=1
+    #     books.save()
+    #     instance.delete()
+
 
 class UserLeavingMessageViewSet(mixins.CreateModelMixin,
                                 mixins.ListModelMixin,
