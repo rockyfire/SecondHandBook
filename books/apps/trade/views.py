@@ -5,7 +5,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from util.permissions import IsOwnerOrReadOnly
-
+from rest_framework import serializers
 from .models import ShoppingCart, OrderInfo, OrderBooks
 from .serializer import ShopCartSerializer, ShopCartDetailSerializer, OrderDetailSerializer, OrderSerializer
 
@@ -38,6 +38,36 @@ class ShoppingCartViewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return ShoppingCart.objects.filter(user=self.request.user)
+
+    # 细节完善 书籍数量变化
+    # 库存变化
+    def perform_destroy(self, instance):
+        books = instance.books
+        books.nums += instance.nums
+        books.save()
+        instance.delete()
+
+    # 删除购物车中的所有商品
+    def perform_create(self, serializer):
+        shop_cart = serializer.save()
+        books = shop_cart.books
+        books.nums -= shop_cart.nums
+        books.save()
+
+    # 更新操作
+    def perform_update(self, serializer):
+        # 获取购物车之前的数据进行对比
+        existed_record = ShoppingCart.objects.get(id=serializer.instance.id)
+        existed_nums = existed_record.nums
+        save_record = serializer.save()
+
+        nums = save_record.nums - existed_nums
+        books = save_record.books
+
+        books.nums -= nums
+        if books.nums < 0:
+            raise serializers.ValidationError("已售空")
+        books.save()
 
 
 class OrderViewset(mixins.ListModelMixin, mixins.DestroyModelMixin, mixins.RetrieveModelMixin,
