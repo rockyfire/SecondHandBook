@@ -69,6 +69,14 @@ class BooksListView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.G
     search_fields = ('=name',)
     ordering_fields = ('price',)
 
+    # 扩展功能
+    # def retrieve(self, request, *args, **kwargs):
+    #     instance = self.get_object()
+    #     instance.click_nums += 1
+    #     instance.save()
+    #     serializer = self.get_serializer(instance)
+    #     return Response(serializer.data)
+
 
 class BooksCreateView(viewsets.ModelViewSet):
     """

@@ -38,6 +38,12 @@ class UserFavViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
         if self.action == "create":
             return UserFavSerializer
         return UserFavSerializer
+    # 扩展功能
+    # def perform_create(self, serializer):
+    #     instance = serializer.save()
+    #     books = instance.books
+    #     books.fav_num += 1
+    #     books.save()
 
 
 class UserLeavingMessageViewSet(mixins.CreateModelMixin,

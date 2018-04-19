@@ -85,6 +85,10 @@ class Books(models.Model):
     # replies = GenericRelation(Reply,object_id_field='object_pk',
     #                           content_type_field='content_type',verbose_name="回复")
 
+    # 扩展功能
+    click_num = models.IntegerField(default=0, verbose_name="点击数")
+    fav_num = models.IntegerField(default=0, verbose_name="收藏数")
+
     class Meta:
         verbose_name = '书籍'
         verbose_name_plural = verbose_name
