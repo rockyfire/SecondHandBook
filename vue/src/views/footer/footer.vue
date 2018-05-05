@@ -78,8 +78,8 @@ a:focus,area:focus {
 
 
 #footer {
-    border-top:1px solid #eee;
-    background:#fff;
+    border-top:1px solid #a7b9c3;
+    background:#a7b9c3;
 }
 #footer .ft_main {
     width:1196px;
@@ -89,7 +89,7 @@ a:focus,area:focus {
     display:none
 }
 #footer .w-ensure {
-    background: #09c762 none repeat scroll 0 0;
+    background: #829aa7 none repeat scroll 0 0;
     height: 90px;
 }
 #footer .w-main {
@@ -131,7 +131,7 @@ a:focus,area:focus {
     font-size:14px
 }
 #footer .ft_txt .ft_phone em {
-    color:#09c762;
+    color:#829aa7;
     font-weight:bold;
     font-size:24px
 }

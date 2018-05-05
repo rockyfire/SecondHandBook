@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 // let host = 'http://shop.projectsedu.com';
-let host = 'http://www.flycode.me:8088';
+let host = 'http://www.flycode.me:8000';
 
 // let host = 'http://127.0.0.1:8087';
 

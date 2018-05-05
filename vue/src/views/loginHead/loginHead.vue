@@ -3,12 +3,13 @@
     <div id="header">
         <div class="hd_bar" id="userinfo-bar">
             <div class="bd">
-                <!-- <div class="logo">
+                 <div class="logo">
                     <router-link :to="'/app/home/index'" >慕学生鲜商城</router-link>
-                </div> -->
+                </div> 
+                <!--
                 <div class="hd_lbar" style="display: block;" id="ECS_MEMBERZONE">
-                     <router-link :to="'/app/home/index'"> 网站首页</router-link>
-                </div>
+                     <router-link :to="'/app/home/index'"> <img></img></router-link>
+                </div>-->
             </div>
         </div>
     </div>
@@ -24,7 +25,7 @@
     width:100%
 }
 #header .hd_bar {
-    background-color:#222;
+    background-color:#a7b9c3;
     height:57px
 }
 #header .logo {
@@ -34,11 +35,11 @@
 }
 #header .logo a {
     display:block;
-    width:182px;
+    width:212px;
     height:0;
     padding-top:68px;
     overflow:hidden;
-    background:#09c762 url(../../static/images/loginHead/flow_logo.png) center 0 no-repeat
+    background:#a7b9c3 url(../../static/images/loginHead/flow_logo.png) center 0 no-repeat
 }
 .hd_bar .bd {
     padding-left:182px;
