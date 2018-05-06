@@ -377,14 +377,14 @@ fieldset,img {
     top:14px;
     width:460px;
     height:32px;
-    border-color:#09c762
+    border-color:#a7b9c3
 }
 #header.new_header .search_box .sea_input {
     margin:7px 8px 0;
     width:360px
 }
 #header.new_header .search_box .sea_submit {
-    background-color:#09c762;
+    background-color:#a7b9c3;
     width:80px;
     height:32px
 }
@@ -409,7 +409,7 @@ fieldset,img {
     margin-left:-10px
 }
 .hd_bar ul.welcome li .iconfont {
-    color:#999;
+    color:#a7b9c3;
     margin-right:4px
 }
 
@@ -652,7 +652,7 @@ fieldset,img {
 }
 
 .hd_nav {
-    background-color:#09c762;
+    background-color:#a7b9c3;
     height:35px
 }
 
@@ -910,10 +910,10 @@ fieldset,img {
     text-decoration:none
 }
 .new_header .hd_cart .tit {
-    border-color:#1e9246
+    border-color:#fff
 }
 .new_header .hd_cart .tit span {
-    background-color:#1e9246
+    background-color:#fff
 }
 
 
@@ -925,8 +925,8 @@ fieldset,img {
     padding-top:5px;
     position:relative;
     z-index:10;
-    background:#f8f8f8;
-    border:1px solid #ccc;
+    background:#a7b9c3;
+    border:1px solid #a7b9c3;
     border-right:0;
     font-size:14px;
     color:#666
@@ -948,7 +948,7 @@ fieldset,img {
     background-color:#09c762;
     text-align:center;
     font-size:12px;
-    color:#fff;
+    color:#a7b9c3;
     cursor:pointer
 }
 .hd_cart .tit span i {
@@ -968,9 +968,9 @@ fieldset,img {
     text-align:center;
     font-size:12px;
     color:#fff;
-    border:2px solid #fff;
+    border:2px solid #a7b9c3;
     box-shadow:1px 1px 1px rgba(0,0,0,0.3);
-    background-color:#09c762;
+    background-color:#a7b9c3;
     border-radius:10px;
     padding:0 5px;
     line-height:16px;
@@ -1029,7 +1029,7 @@ fieldset,img {
     position:absolute;
     right:0;
     top:35px;
-    border:1px solid #09c762;
+    border:1px solid #a7b9c3;
     background-color:#fff;
     -webkit-transition:all .3s;
     -moz-transition:all .3s;
@@ -1137,7 +1137,7 @@ fieldset,img {
     border:0;
     padding:5px 15px 7px;
     font-size:14px;
-    background: #09c762;
+    background: #a7b9c3;
     color:#fff;
     &:hover{
       background: #1e9246;

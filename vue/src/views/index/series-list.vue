@@ -313,7 +313,7 @@ a.gray:hover {
   font-weight: normal;
 }
 .series_info .name_hufu {
-  background-color: #09c762;
+  background-color: #a7b9c3;
 }
 .series_info .name_caizhuang {
   background-color: #f3646a;
