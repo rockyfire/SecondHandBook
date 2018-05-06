@@ -60,3 +60,18 @@ class Reply(MPTTModel, CommentAbstractModel):
         获取回复的全部子孙回复，按回复时间正序排序
         """
         return self.get_descendants().order_by('submit_date')
+
+# 自己实现评论功能
+
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+
+
+class MyComment(models.Model):
+    content_type = models.ForeignKey(ContentType, on_delete=models.DO_NOTHING)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    text = models.TextField()
+    comment_time = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, verbose_name=u"用户",on_delete=models.DO_NOTHING)

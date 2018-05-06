@@ -16,16 +16,16 @@ row_data = [
         'buyoutprice': '￥166',
         'ship_free': 'False',
         'photo': [
-            'books/images/1_P_1449024889889.jpg',
-            'books/images/1_P_1449024889264.jpg',
-            'books/images/1_P_1449024889726.jpg',
-            'books/images/1_P_1449024889018.jpg',
-            'books/images/1_P_1449024889287.jpg'
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg'
         ],
         'nums': '100',
         'revoke': '2018-01-01 01:01:01',
-        'status': '1',
-        'desc': '<p><img src="/media/books/images/2_20170719161405_249.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161414_628.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161435_381.jpg" title="" alt="2.jpg"/></p>'
+        'status': '征书墙',
+        'desc': '<p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p>'
     },
     {
         "username": "rockyfire",
@@ -41,16 +41,16 @@ row_data = [
         'buyoutprice': '￥166',
         'ship_free': 'True',
         'photo': [
-            'books/images/1_P_1449024889889.jpg',
-            'books/images/1_P_1449024889264.jpg',
-            'books/images/1_P_1449024889726.jpg',
-            'books/images/1_P_1449024889018.jpg',
-            'books/images/1_P_1449024889287.jpg'
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg'
         ],
         'nums': '100',
         'revoke': '2018-01-01 01:01:01',
-        'status': '1',
-        'desc': '<p><img src="/media/books/images/2_20170719161405_249.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161414_628.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161435_381.jpg" title="" alt="2.jpg"/></p>'
+        'status': '征书墙',
+        'desc': '<p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p>'
     },
     {
         "username": "rockyfire",
@@ -66,16 +66,16 @@ row_data = [
         'buyoutprice': '￥166',
         'ship_free': 'True',
         'photo': [
-            'books/images/1_P_1449024889889.jpg',
-            'books/images/1_P_1449024889264.jpg',
-            'books/images/1_P_1449024889726.jpg',
-            'books/images/1_P_1449024889018.jpg',
-            'books/images/1_P_1449024889287.jpg'
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg'
         ],
         'nums': '100',
         'revoke': '2018-01-01 01:01:01',
-        'status': '1',
-        'desc': '<p><img src="/media/books/images/2_20170719161405_249.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161414_628.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161435_381.jpg" title="" alt="2.jpg"/></p>'
+        'status': '征书墙',
+        'desc': '<p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p>'
     },
     {
         "username": "rockyfire",
@@ -91,16 +91,16 @@ row_data = [
         'buyoutprice': '￥166',
         'ship_free': 'True',
         'photo': [
-            'books/images/1_P_1449024889889.jpg',
-            'books/images/1_P_1449024889264.jpg',
-            'books/images/1_P_1449024889726.jpg',
-            'books/images/1_P_1449024889018.jpg',
-            'books/images/1_P_1449024889287.jpg'
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg'
         ],
         'nums': '100',
         'revoke': '2018-01-01 01:01:01',
-        'status': '1',
-        'desc': '<p><img src="/media/books/images/2_20170719161405_249.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161414_628.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161435_381.jpg" title="" alt="2.jpg"/></p>'
+        'status': '征书墙',
+        'desc': '<p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p>'
     },
     {
         "username": "rockyfire",
@@ -116,16 +116,16 @@ row_data = [
         'buyoutprice': '￥166',
         'ship_free': 'True',
         'photo': [
-            'books/images/1_P_1449024889889.jpg',
-            'books/images/1_P_1449024889264.jpg',
-            'books/images/1_P_1449024889726.jpg',
-            'books/images/1_P_1449024889018.jpg',
-            'books/images/1_P_1449024889287.jpg'
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg'
         ],
         'nums': '100',
         'revoke': '2018-01-01 01:01:01',
-        'status': '1',
-        'desc': '<p><img src="/media/books/images/2_20170719161405_249.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161414_628.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161435_381.jpg" title="" alt="2.jpg"/></p>'
+        'status': '征书墙',
+        'desc': '<p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p>'
     },
     {
         "username": "rockyfire",
@@ -141,16 +141,16 @@ row_data = [
         'buyoutprice': '￥166',
         'ship_free': 'True',
         'photo': [
-            'books/images/1_P_1449024889889.jpg',
-            'books/images/1_P_1449024889264.jpg',
-            'books/images/1_P_1449024889726.jpg',
-            'books/images/1_P_1449024889018.jpg',
-            'books/images/1_P_1449024889287.jpg'
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg'
         ],
         'nums': '100',
         'revoke': '2018-01-01 01:01:01',
-        'status': '1',
-        'desc': '<p><img src="/media/books/images/2_20170719161405_249.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161414_628.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161435_381.jpg" title="" alt="2.jpg"/></p>'
+        'status': '书城',
+        'desc': '<p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p>'
     },
     {
         "username": "rockyfire",
@@ -166,15 +166,15 @@ row_data = [
         'buyoutprice': '￥166',
         'ship_free': 'True',
         'photo': [
-            'books/images/1_P_1449024889889.jpg',
-            'books/images/1_P_1449024889264.jpg',
-            'books/images/1_P_1449024889726.jpg',
-            'books/images/1_P_1449024889018.jpg',
-            'books/images/1_P_1449024889287.jpg'
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg',
+            'books/images/loginBg.jpeg'
         ],
         'nums': '100',
         'revoke': '2018-01-01 01:01:01',
-        'status': '2',
-        'desc': '<p><img src="/media/books/images/2_20170719161405_249.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161414_628.jpg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/2_20170719161435_381.jpg" title="" alt="2.jpg"/></p>'
+        'status': '书城',
+        'desc': '<p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p><p><img src="/media/books/images/loginBg.jpeg" title="" alt="2.jpg"/></p>'
     },
 ]

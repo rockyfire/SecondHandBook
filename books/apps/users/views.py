@@ -99,7 +99,7 @@ class CustomBackend(ModelBackend, GenericViewSet):
         except (AttributeError, UserProfile.DoesNotExist) as e:
             raise serializers.ValidationError("该用户名未注册")
         except Exception as e:
-            return e
+            return serializers.ValidationError('请联系客服')
 
 
 class UserViewset(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin,

@@ -103,9 +103,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "books",
-        'USER': 'root',
+        'USER': 'zkerpy',
         'PASSWORD': "1575",
-        # 'HOST': "59.110.163.113",
+        'HOST': "167.99.236.136",
         # 'OPTIONS': {'init_command': 'SET storage_engine=INNODB;'}
     }
 }
@@ -147,7 +147,7 @@ USE_TZ = False  # 默认是Ture，时间是utc时间，由于我们要用本地�
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
 MEDIA_URL = '/media/'  # 这个是在浏览器上访问该上传文件的url的前缀
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -182,17 +182,13 @@ APPID = "Eq76jQK1t2Ws7KGX2rKwxMLO-gzGzoHsz"
 APPKEY = "OJxSDL7I26UibWc1ueGRWzaK"
 
 private_key_path = os.path.join(BASE_DIR, 'apps/util/private2048.txt')
-ali_pub_key_path= os.path.join(BASE_DIR, 'apps/util/alipay_key_2048.txt')
+ali_pub_key_path = os.path.join(BASE_DIR, 'apps/util/alipay_key_2048.txt')
 
 import datetime
+
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_ALLOW_REFRESH': True,
     'JWT_AUTH_HEADER_PREFIX': 'JWT'
 }
-
-
-
-
-

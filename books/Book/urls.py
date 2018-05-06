@@ -73,11 +73,14 @@ urlpatterns = [
     url(r'^api-token-auth/',  views.obtain_auth_token),
     # Json Web Token的认证接口
     url(r'^login/', obtain_jwt_token),
+    # 自动化文档,1.11版本中注意此处前往不要加$符号
     url(r'docs/', include_docs_urls(title="二手书交易平台")),
-
+    # 处理图片显示的url,使用Django自带serve,传入参数告诉它去哪个路径找，我们有配置好的路径MEDIAROOT
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
     url(r'^alipay/return/', AlipayViewSet.as_view(), name='alipay'),
 
     url(r'^index', TemplateView.as_view(template_name="index.html"), name='index'),
+
+    # url(r'^static/(?P<path>.*)$', serve, {"document_root": STATIC_ROOT})
 ]
