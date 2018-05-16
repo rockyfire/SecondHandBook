@@ -29,6 +29,7 @@ class ShoppingCartViewset(viewsets.ModelViewSet):
     # serializer_class = ShopCartSerializer
 
     # queryset = ShoppingCart.objects.all()
+    lookup_field = "books_id"
 
     def get_serializer_class(self):
         if self.action == "list":

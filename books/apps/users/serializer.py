@@ -49,12 +49,17 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     # 更新密码
     def update(self, instance, validated_data):
-        instance.username = validated_data.get('username', instance.username)
-        if UserProfile.objects.filter(username=validated_data.get('username', instance.username)).exists():
-            raise serializers.ValidationError(_("已存在一位使用该昵称的用户。"))
+        if instance.username != validated_data.get('username', instance.username):
+            if UserProfile.objects.filter(username=validated_data.get('username', instance.username)).exists():
+                raise serializers.ValidationError(_("已存在一位使用该昵称的用户。"))
+            instance.username = validated_data.get('password', instance.username)
+
         instance.email = validated_data.get('email', instance.email)
         instance.mobile = validated_data.get('mobile', instance.mobile)
         instance.faceimg = validated_data.get('faceimg', instance.faceimg)
+        instance.birthday = validated_data.get('birthday', instance.birthday)
+        instance.gender = validated_data.get('gender', instance.gender)
+
         # 将初始对象或查询集传递给序列化类实例时，该对象将作为.instance
         # 提供。如果没有传递初始对象，则.instance属性将为None。
         #
@@ -85,7 +90,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ('id', 'username', 'password', 'email', 'mobile', 'faceimg', 'point')
+        fields = ('id', 'username', 'password', 'email', 'mobile', 'faceimg', 'point', 'birthday', 'gender')
 
 
 class UserRegSerializer(serializers.ModelSerializer):
@@ -97,6 +102,7 @@ class UserRegSerializer(serializers.ModelSerializer):
     code = serializers.CharField(required=True,
                                  max_length=4,
                                  min_length=4,
+                                 # code字段添加writeonly = true。就不会将此字段进行序列化返回给前端。
                                  write_only=True,
                                  help_text="验证码",
                                  label='验证码',
@@ -114,16 +120,16 @@ class UserRegSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={'input_type': 'password'}, label='密码', write_only=True, )
 
     """
-        重写create 设置密码
+        重写create 设置密码 不使用信号量
     """
 
-    # def create(self,validated_data):
-    #     # 创建成功后可以取到User
-    #     user=super(UserRegSerializer, self).create(validated_data=validated_data)
-    #     # user继承AbstractUser，AbstractUser继承AbstractBaseUser 调用AbstractBaseUser的
-    #     user.set_password(validated_data['password'])
-    #     user.save()
-    #     return user
+    def create(self, validated_data):
+        # 创建成功后可以取到User
+        user = super(UserRegSerializer, self).create(validated_data=validated_data)
+        # user继承AbstractUser，AbstractUser继承AbstractBaseUser 调用AbstractBaseUser的
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
 
     def validate_code(self, code):
         # try:

@@ -9,7 +9,11 @@ from Book.settings import ali_pub_key_path, private_key_path
 
 
 class ShopCartDetailSerializer(serializers.ModelSerializer):
-    books = BooksSerializer(many=False, )
+    """
+        购物车详情
+    """
+    # 一条购物车关系记录对应的只有一个goods。
+    books = BooksSerializer(many=False, read_only=True)
 
     class Meta:
         model = ShoppingCart
@@ -29,6 +33,9 @@ class ShopCartSerializer(serializers.Serializer):
     )
 
     books = serializers.PrimaryKeyRelatedField(required=True, queryset=Books.objects.all())
+
+    # validated_data是数据已经经过validate之后的数据。
+    # 而initial_data是未经validate处理过的原始值。需要我们自己进行类型转换等。
 
     def create(self, validated_data):
         user = self.context['request'].user
@@ -66,18 +73,19 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     books = OrderBooksSerialzier(many=True)
 
     alipay_url = serializers.SerializerMethodField(read_only=True)
+
     # alipay_url = serializers.SerializerMethodField(editable = False)
 
     def get_alipay_url(self, obj):
         alipay = AliPay(
             appid="2016091300498040",
             # 异步接受支付宝返回的状态，进而修改该订单的状态
-            app_notify_url="http://165.227.231.209:8087/alipay/return/",
+            app_notify_url="http://flycode.me:8000/alipay/return/",
             app_private_key_path=private_key_path,
             alipay_public_key_path=ali_pub_key_path,  # 支付宝的公钥，验证支付宝回传消息使用.
             debug=True,  # 默认False,
             # 支付成功后跳转到商户页面
-            return_url="http://165.227.231.209:8087/alipay/return/"
+            return_url="http://flycode.me:8000/alipay/return/"
         )
 
         url = alipay.direct_pay(
@@ -95,6 +103,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         # read_only_fields = ('alipay_url',)
         # extra_kwargs = {'alipay_url': {'read_only': True}}
 
+
 class OrderSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
@@ -106,12 +115,12 @@ class OrderSerializer(serializers.ModelSerializer):
         alipay = AliPay(
             appid="2016091300498040",
             # 异步接受支付宝返回的状态，进而修改该订单的状态
-            app_notify_url="http://165.227.231.209:8087/alipay/return/",
+            app_notify_url="http://flycode.me:8000/alipay/return/",
             app_private_key_path=private_key_path,
             alipay_public_key_path=ali_pub_key_path,  # 支付宝的公钥，验证支付宝回传消息使用.
             debug=True,  # 默认False,
             # 支付成功后跳转到商户页面
-            return_url="http://165.227.231.209:8087/alipay/return/"
+            return_url="http://flycode.me:8000/"
         )
 
         url = alipay.direct_pay(

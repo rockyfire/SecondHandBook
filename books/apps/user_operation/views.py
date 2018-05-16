@@ -27,6 +27,7 @@ class UserFavViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
+    # 改变搜索字段，retrieve默认返回搜索字段是主键id，但要搜索的字段是books中的id。
     lookup_field = "books_id"
 
     def get_queryset(self):
@@ -79,11 +80,11 @@ class UserAddressViewSet(viewsets.ModelViewSet):
     list:
         获取地址
     retrieve：
-        用户地址详情
+        收货地址详情
     create：
-        创建用户地址
+        创建收货地址
     delete:
-        删除用户地址
+        删除收货地址
     """
 
     serializer_class = UserAddressSerializer
