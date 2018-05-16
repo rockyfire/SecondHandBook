@@ -16,7 +16,7 @@
                                 </tr>
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">订单状态：</td>
-                                  <td v-if="orderInfo.pay_status == 'paying' " align="left" bgcolor="#ffffff">待支付&nbsp;&nbsp;&nbsp;&nbsp;<div style="text-align:center"><a :href="orderInfo.alipay_url"><input type="button" onclick="" value="立即使用支付宝支付"></a></div></td>
+                                  <td v-if="orderInfo.pay_status == 'PAYING' " align="left" bgcolor="#ffffff">待支付&nbsp;&nbsp;&nbsp;&nbsp;<div style="text-align:center"><a :href="orderInfo.alipay_url"><input type="button" onclick="" value="立即使用支付宝支付"></a></div></td>
                                     <td v-if="orderInfo.pay_status == 'TRADE_SUCCESS' " align="left" bgcolor="#ffffff">已支付</td>
                                 </tr>
                             </tbody>
@@ -36,14 +36,14 @@
                                 <th width="9%" align="center" bgcolor="#ffffff">购买数量</th>
                                 <th width="20%" align="center" bgcolor="#ffffff">小计</th>
                             </tr>
-                            <tr v-for="item in orderInfo.goods">
+                            <tr v-for="item in orderInfo.books">
                                 <td bgcolor="#ffffff">
-                                    <router-link  :to="'/app/home/productDetail/'+item.id" class="f6">{{item.goods.name}}</router-link>
+                                    <router-link  :to="'/app/home/productDetail/'+item.id" class="f6">{{item.books.name}}</router-link>
                                     <!-- <a href="" target="_blank" class="f6">{{item.name}}</a> -->
                                 </td>
-                                <td align="center" bgcolor="#ffffff">￥{{item.goods.shop_price}}元</td>
-                                <td align="center" bgcolor="#ffffff">{{item.goods_num}}</td>
-                                <td align="center" bgcolor="#ffffff">￥{{item.goods.shop_price*item.goods_num}}元</td>
+                                <td align="center" bgcolor="#ffffff">￥{{item.books.price}}元</td>
+                                <td align="center" bgcolor="#ffffff">{{item.books_num}}</td>
+                                <td align="center" bgcolor="#ffffff">￥{{item.books.price*item.books_num}}元</td>
                             </tr>
                             <tr>
                                 <td colspan="8" bgcolor="#ffffff" align="right">
@@ -64,7 +64,7 @@
                                 <td width="35%" align="left" bgcolor="#ffffff"><input name="consignee" type="text" class="inputBg" v-model="orderInfo.signer_name" size="25">
                                 </td>
                                 <td width="15%" align="right" bgcolor="#ffffff">收货地址： </td>
-                                <td width="35%" align="left" bgcolor="#ffffff"><input name="email" type="text" class="inputBg" v-model="orderInfo.address" size="25">
+                                <td width="35%" align="left" bgcolor="#ffffff"><input name="email" type="text" class="inputBg" v-model="orderInfo.signer_address" size="25">
                                 </td>
                             </tr>
 
@@ -138,8 +138,8 @@
               getOrderDetail(this.orderId).then((response)=> {
                     this.orderInfo = response.data;
                     var totalPrice = 0
-                    response.data.goods.forEach(function(entry) {
-                      totalPrice += entry.goods_num*entry.goods.shop_price
+                    response.data.books.forEach(function(entry) {
+                      totalPrice += entry.books_num*entry.books.price
                     });
                     this.totalPrice = totalPrice
 

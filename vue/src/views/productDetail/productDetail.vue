@@ -934,7 +934,7 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
     height:16px;
     line-height:16px;
     _line-height:18px;
-    border:1px solid #1e9246;
+    border:1px solid #829aa7;
     border-radius:3px;
     font-size:100%;
     color:#fff;
@@ -973,5 +973,8 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
     background:#e5e5e5
 }
 
+.red{
+    color: #c709a9;
+}
 
 </style>

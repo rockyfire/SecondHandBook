@@ -54,7 +54,7 @@
                   点击添加地址</router-link>
               </li>
               <li v-for="item in addrInfo" :class="{'addressActive':addressActive==item.id}" @click="selectAddr(item.id)">
-                <p class="item">地址：{{item.province}} {{item.city}} {{item.district}} {{item.address}}</p>
+                <p class="item">地址：{{item.province}} {{item.city}} {{item.district}} {{item.signer_address}}</p>
                 <p class="item">电话：{{item.signer_mobile}}</p>
                 <p class="item">姓名：{{item.signer_name}}</p>
               </li>
@@ -225,7 +225,7 @@
         var cur_mobile = ''
         this.addrInfo.forEach(function(addrItem) {
           if(addrItem.id == id){
-            cur_address = addrItem.province+addrItem.city+addrItem.district+addrItem.address
+            cur_address = addrItem.province+addrItem.city+addrItem.district+addrItem.signer_address
             cur_name = addrItem.signer_name
             cur_mobile = addrItem.signer_mobile
           }
