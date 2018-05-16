@@ -56,6 +56,7 @@ class BooksSerializer(serializers.ModelSerializer):
     """
     书籍序列化
     """
+    # ↓↓↓ 在models中自定义的related_name有关
     images = BooksImageSerializer(many=True)
     r_comments = BookCommentSerializer(many=True)
 

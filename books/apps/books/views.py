@@ -57,6 +57,7 @@ from rest_framework import filters
 
 # class BooksListView(generics.ListAPIView):
 class BooksListView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    # class BooksListView(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
         Goods All List Mixins
     """
@@ -68,6 +69,13 @@ class BooksListView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.G
     filter_class = BooksFilter
     search_fields = ('=name',)
     ordering_fields = ('price',)
+
+    # 过滤
+    # def get_queryset(self):
+    #     price_min = self.request.query_params.get('price')
+    #     if price_min:
+    #         self.queryset=Books.objects.filter(shop_price__gt=price_min)
+    #     return self.queryset
 
     # 扩展功能
     # def retrieve(self, request, *args, **kwargs):
@@ -88,11 +96,13 @@ class BooksCreateView(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
+    # self.request.query_params.get()   里面放着get请求传递过来的参数 比如?min=10
     def get_queryset(self):
         return Books.objects.filter(user=self.request.user)
 
 
-class BooksCategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+# class BooksCategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class BooksCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     """
     List:
         书籍分类列表数据

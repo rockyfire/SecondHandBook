@@ -31,7 +31,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # Application definition
-
+# 重载UserProfile生效
 AUTH_USER_MODEL = 'users.UserProfile'
 
 INSTALLED_APPS = [
@@ -70,6 +70,11 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# 服务器端跨域
+# CORS_ORIGIN_WHITELIST = (
+#     '127.0.0.1:8000'
+# )
 
 ROOT_URLCONF = 'Book.urls'
 
@@ -151,15 +156,27 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'  # 这个是在浏览器上访问该上传文件的url的前缀
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# 分页全局配置
 # REST_FRAMEWORK={
 #     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
 #     'PAGE_SIZE':10,
 # }
 
+# 过滤全局配置
+# REST_FRAMEWORK = {
+#     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+# }
+
+# 验证
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # Json Web token
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # SessionAuthentication实际上是使用了django里面的sessionMiddleware
+
+        # 'django.contrib.sessions.middleware.SessionMiddleware',
+        # 'django.contrib.auth.middleware.AuthenticationMiddleware',
+        # 每当一个request进来的时候，这两个meddleware就会将我们的cookie里的session_id转换成request.user
 
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
