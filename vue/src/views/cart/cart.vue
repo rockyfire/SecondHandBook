@@ -15,7 +15,7 @@
               <a target="_blank"> <img :alt="item.books.name" :src="item.books.books_front_image"></a>
             </div>
             <div class="name">
-              <a target="_blank">{{item.books.name}}</a>
+              <router-link :to="'/app/home/productDetail/'+item.books.id" target = _blank>{{item.books.name}}</router-link>
               <p></p>
             </div>
             <div class="price-xj">

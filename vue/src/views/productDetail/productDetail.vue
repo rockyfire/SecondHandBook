@@ -41,7 +41,7 @@
                                 <li>
                                     <span class="lbl">市场价</span> <em class="cancel">￥{{proDetail.market_price}}元</em></li>
                                 <li>
-                                    <span class="icon_promo">抢购</span> <span class="lbl">促销价</span><span class="unit"> <strong class="nala_price red" id="ECS_SHOPPRICE">￥{{proDetail.price}}元</strong> </span>  <span class="timedown" id="timedown"></span>
+                                    <span class="icon_promo">抢购</span><span class="unit"> <strong class="nala_price red" id="ECS_SHOPPRICE">￥{{proDetail.price}}元</strong> </span>  <span class="timedown" id="timedown"></span>
                                 </li>
                                 <li>
                                     <span class="lbl">库&nbsp;&nbsp;&nbsp;存</span><em class="red">{{proDetail.nums}}</em>件</li>
@@ -151,6 +151,7 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
 
     },
     created () {
+        // this.$route <==> import productDetail from '../views/productDetail/productDetail'
         this.productId = this.$route.params.productId;
         var productId = this.productId
         if(cookie.getCookie('token')){
@@ -765,7 +766,7 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
     width:100%
 }
 .item-info dd li .icon_promo,.item-info dd li span.t_ico {
-    background-color:#09c762;
+    background-color:#c709a9;
     color:#fff;
     display:inline-block;
     height:20px;
@@ -937,7 +938,8 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
     border-radius:3px;
     font-size:100%;
     color:#fff;
-    background-color:#09c762;
+    background-color:#829aa7
+    ;
     overflow:hidden;
     vertical-align:middle
 }

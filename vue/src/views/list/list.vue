@@ -2,6 +2,7 @@
     <div id="wrapper">
         <current-loc :curLoc="curLoc"></current-loc>
         <div class="main cle">
+            <!-- 通过冒号后面加变量及参数名,将当前页内值传递到list_nav -->
             <list-nav :currentCategoryName="currentCategoryName" :cateMenu="cateMenu" :proNum="proNum" :isObject="isObject" @on-change="changeMenu"></list-nav>
             <div class="maincon">
                 <price-range :priceRange="priceRange" @on-change="changePrice"></price-range>
@@ -89,6 +90,7 @@
                 this.getPriceRange(); // 获取价格区间
             },
             getListData() {
+                // page_type的设定是位于getalldata中根据请求参数判断设定的
                 if(this.pageType=='search'){
                   getGoods({
                     search: this.searchWord, //搜索关键词

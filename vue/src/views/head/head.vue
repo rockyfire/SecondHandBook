@@ -159,9 +159,13 @@ export default {
     },
     methods:{
         loginOut(){
-
+            cookie.delCookie('token');
+            cookie.delCookie('name');
+            //重新触发store
+            //更新store数据
+            this.$store.dispatch('setInfo');
+            //跳转到登录
             this.$router.push({ name: 'login' })
-
         },
         overAllmenu(){
             this.showAllmenu = true;

@@ -6,7 +6,7 @@
         </div>
         <div class="newopro-r fr">
             <h2 class="index-tt">
-                <em class="ft18 c000">刚出炉新品</em>
+                <em class="ft18 c000">最新上架</em>
                 <router-link to="/app/home/list/more" target = _blank><a  class="fr c666">更多&gt;&gt;</a></router-link>
             </h2>
             <ul class="newgoods_fastbuy">
@@ -20,7 +20,7 @@
                     </div>
                     <div class="prolist-r fl">
                         <h3 class="ft14 c333 bold">
-                        <router-link :to="'/app/home/list/'+item.id"  :title="item.name" target = _blank>{{item.name}}</router-link>
+                        <router-link :to="'/app/home/productDetail/'+item.id"  :title="item.name" target = _blank>{{item.name}}</router-link>
                         </h3>
                         <p><em class="c333"></em>{{item.price}}</p>
                         <div>

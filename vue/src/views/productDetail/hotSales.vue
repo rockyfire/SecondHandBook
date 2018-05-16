@@ -1,14 +1,14 @@
 <template>
 <div class="z-detail-right">
     <div class="tabs_bar_right">
-        <div class="tabs_bar2">热卖商品</div>
+        <div class="tabs_bar2">热点书评</div>
     </div>
     <div class="hot_box">
         <ul>
             <li v-for="item in hotProduct">
               <router-link :to="'/app/home/productDetail/'+item.id">
                 <img width="194px" height="194px" :src="item.goods_front_image">
-                <p>{{item.goods_brief}}</p>
+                <p>{{item.name}}</p>
                 <p class="hot_price">￥{{item.shop_price}}元</p>
               </router-link>
             </li>
