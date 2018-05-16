@@ -71,7 +71,7 @@ class OrderBooksSerialzier(serializers.ModelSerializer):
 class OrderDetailSerializer(serializers.ModelSerializer):
     # 外键related_name
     books = OrderBooksSerialzier(many=True)
-
+    # 订单形成但还没支付
     alipay_url = serializers.SerializerMethodField(read_only=True)
 
     # alipay_url = serializers.SerializerMethodField(editable = False)
@@ -85,11 +85,12 @@ class OrderDetailSerializer(serializers.ModelSerializer):
             alipay_public_key_path=ali_pub_key_path,  # 支付宝的公钥，验证支付宝回传消息使用.
             debug=True,  # 默认False,
             # 支付成功后跳转到商户页面
-            return_url="http://flycode.me:8000/alipay/return/"
+            return_url="http://flycode.me:8000/index/#/app/home/member/order"
         )
 
         url = alipay.direct_pay(
             subject=obj.order_sn,
+            # 商户自己平台的订单号
             out_trade_no=obj.order_sn,
             total_amount=obj.order_mount,
         )
@@ -120,7 +121,7 @@ class OrderSerializer(serializers.ModelSerializer):
             alipay_public_key_path=ali_pub_key_path,  # 支付宝的公钥，验证支付宝回传消息使用.
             debug=True,  # 默认False,
             # 支付成功后跳转到商户页面
-            return_url="http://flycode.me:8000/"
+            return_url="http://flycode.me:8000/index/#/app/home/member/order"
         )
 
         url = alipay.direct_pay(
@@ -132,15 +133,14 @@ class OrderSerializer(serializers.ModelSerializer):
 
         return re_url
 
+    # 部分订单信息不是用户可以提交的值。所以给部分订单信息添加readonly
     pay_status = serializers.CharField(read_only=True)
     order_sn = serializers.CharField(read_only=True)
     trade_no = serializers.CharField(read_only=True)
     pay_time = serializers.CharField(read_only=True)
+    add_time = serializers.CharField(read_only=True)
 
-    add_time = serializers.HiddenField(
-        default=timezone.now
-    )
-
+    # 生成订单号 时间戳+用户ID+两位随机数
     def generate_order_sn(self):
         import random
         import time
@@ -151,6 +151,7 @@ class OrderSerializer(serializers.ModelSerializer):
         )
         return order_sn
 
+    # 根据mixins.CreateModelMixin和generics.GenericAPIView 可知流程步骤是序列化，验证，保存，返回状态码
     def validate(self, attrs):
         attrs['order_sn'] = self.generate_order_sn()
         return attrs
