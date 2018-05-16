@@ -19,6 +19,19 @@ row_data = [
         'sub_categorys': [
             {
                 'sub_categorys': [
+
+                ],
+                'code': 'whwy',
+                'name': '文化艺术'
+            },
+        ],
+        'code': 'rwkp',
+        'name': '文学类'
+    },
+    {
+        'sub_categorys': [
+            {
+                'sub_categorys': [
                     {
                         'code': 'ky',
                         'name': '考研'

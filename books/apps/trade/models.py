@@ -68,7 +68,7 @@ class OrderInfo(models.Model):
 
 class OrderBooks(models.Model):
     """
-    订单的书籍详情
+    订单的书籍详情 一对多的关系
     """
     order = models.ForeignKey(OrderInfo, verbose_name="订单信息", related_name="books")
     books = models.ForeignKey(Books, verbose_name="书籍")

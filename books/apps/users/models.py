@@ -11,6 +11,13 @@ class UserProfile(AbstractUser):
     """
     用户信息
     """
+    GENDER_CHOICES = (
+        ("male", u"男"),
+        ("female", u"女")
+    )
+    birthday = models.DateField(null=True, blank=True, verbose_name="出生年月")
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default="female", verbose_name="性别")
+
     mobile = models.CharField(max_length=11, null=True, blank=True, verbose_name="电话")
     faceimg = models.ImageField(upload_to="goods/images/", null=True, blank=True, verbose_name="封面图")
     point = models.IntegerField(default=100, verbose_name="积分")

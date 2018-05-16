@@ -21,15 +21,36 @@ class BooksCategory(models.Model):
     name = models.CharField(default="", max_length=30, verbose_name="类别名", help_text="类别名")
     code = models.CharField(default="", max_length=30, verbose_name="类别code", help_text="类别code")
     desc = models.TextField(default="", verbose_name="类别描述", help_text="类别描述")
+    # 设置目录树的级别
     category_type = models.IntegerField(choices=CATEGORY_TYPE, verbose_name="类目级别", help_text="类目级别")
     parent_category = models.ForeignKey("self", null=True, blank=True, verbose_name="父类目级别", help_text="父目录",
                                         related_name="sub_cat")
+
     is_tab = models.BooleanField(default=False, verbose_name="是否导航", help_text="是否导航")
     add_time = models.DateTimeField(default=datetime.datetime.now, verbose_name="添加时间")
 
     class Meta:
         verbose_name = "书籍类别"
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
+
+class BooksCategoryBrand(models.Model):
+    """
+    某一大类下的宣传商标
+    """
+    category = models.ForeignKey(BooksCategory, related_name='brands', null=True, blank=True, verbose_name="书籍类目")
+    name = models.CharField(default="", max_length=30, verbose_name="品牌名", help_text="品牌名")
+    desc = models.TextField(default="", max_length=200, verbose_name="品牌描述", help_text="品牌描述")
+    image = models.ImageField(max_length=200, upload_to="brands/")
+    add_time = models.DateTimeField(default=datetime.datetime.now, verbose_name="添加时间")
+
+    class Meta:
+        verbose_name = "宣传品牌"
+        verbose_name_plural = verbose_name
+        db_table = "bookscategory_brand"
 
     def __str__(self):
         return self.name
@@ -52,12 +73,6 @@ class Books(models.Model):
     """
     书籍
     """
-    # STATUS_CHOICES = (
-    #     (1, "书城"),
-    #     (2, "征书墙"),
-    #     (3, "竞拍"),
-    #     (4, "下架"),
-    # )
     user = models.ForeignKey(User, verbose_name="用户")
     category = models.ForeignKey(BooksCategory, verbose_name='书籍类目')
     status = models.ForeignKey(BooksStatus, verbose_name="书籍状态")
@@ -71,6 +86,8 @@ class Books(models.Model):
     buyoutprice = models.FloatField(default=0, null=True, blank=True, verbose_name="一口价")
 
     ship_free = models.BooleanField(default=True, verbose_name="是否承担运费")
+    is_new = models.BooleanField(default=False, verbose_name="最新上架")
+
     photo = models.ImageField(upload_to="books/images/", null=True, blank=True, verbose_name="书籍图片")
     desc = UEditorField(imagePath="books/images/", width=1000, height=300,
                         filePath="books/files/", default='', verbose_name=u"书籍描述信息", )
@@ -120,7 +137,7 @@ class BooksImage(models.Model):
 
 class BooksBanner(models.Model):
     """
-        轮播的书籍
+    轮播的书籍 首页轮播的商品图，为适配首页大图
     """
     user = models.ForeignKey(User, verbose_name="用户")
     books = models.ForeignKey(Books, verbose_name="书籍")
@@ -135,3 +152,19 @@ class BooksBanner(models.Model):
 
     def __str__(self):
         return self.books.name
+
+
+class HotSearchWords(models.Model):
+    """
+    热搜榜
+    """
+    keywords = models.CharField(default="", max_length=20, verbose_name="热搜词")
+    index = models.IntegerField(default=0, verbose_name="排序")
+    add_time = models.DateTimeField(default=datetime.datetime.now, verbose_name="添加时间")
+
+    class Meta:
+        verbose_name = '热搜词'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.keywords
