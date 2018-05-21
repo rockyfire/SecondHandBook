@@ -7,7 +7,7 @@
                         <h5><span>求购的二手书籍信息</span></h5>
                         <div class="blank"></div>
                         <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
-                            <th>
+                            <tr align="center">
                                 <td>书籍名称</td>
                                 <td>书籍分类</td>
                                 <td>书籍价格</td>
@@ -15,15 +15,15 @@
                                 <td>下架时间</td>
                                 <td>书籍详情</td>
                                 <td>操作</td>
-                            </th>
+                            </tr>
                             <tr v-for="item in cbooks">
                                 <td align="left" bgcolor="#ffffff">{{item.name}}</td>
                                 <td align="left" bgcolor="#ffffff">{{item.category}}</td>
                                 <td align="left" bgcolor="#ffffff">{{item.price}}</td>
                                 <td align="left" bgcolor="#ffffff">{{item.nums}}</td>
                                 <td align="left" bgcolor="#ffffff">{{item.revoke}}</td>
-                                <td align="left" bgcolor="#ffffff"><a href="">详情</a></td>
-                                <td align="left" bgcolor="#ffffff"><button class="bnt_blue_2" @click="deleteInfo(item.id)">删除(下架)</button></td>
+                                <td align="center" bgcolor="#ffffff"><router-link :to="'/app/home/productDetail/'+item.id"  :title="item.name" target = _blank><button class="bnt_blue_look">详情(浏览)</button></router-link></td>
+                                <td align="center" bgcolor="#ffffff"><button class="bnt_blue_del" @click="deleteInfo(item.id)">删除(下架)</button></td>
                             </tr>
                         </table>
                         <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
@@ -31,52 +31,57 @@
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">书籍分类</td>
                                     <td align="left" bgcolor="#ffffff">
-                                        <input name="consignee" type="text" class="inputBg" id="consignee_0" v-model="cbooksEmpty.category">
-                                        <span :class = "{error:cbooksEmpty.name==''}">(必填)</span>
+                                        <input name="consignee" type="text" class="inputBg" id="consignee_0" v-model="category">
+                                        <span :class = "{error:category==''}">(必填)</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">书籍名称</td>
                                     <td align="left" bgcolor="#ffffff">
-                                        <input name="consignee" type="text" class="inputBg" id="consignee_0" v-model="cbooksEmpty.name">
-                                        <span :class = "{error:cbooksEmpty.name==''}">(必填)</span>
+                                        <input name="consignee" type="text" class="inputBg" id="consignee_0" v-model="name">
+                                        <span :class = "{error:name==''}">(必填)</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">出版社：</td>
                                     <td align="left" bgcolor="#ffffff">
-                                        <input name="address" type="text" class="inputBg" id="address_0" v-model="cbooksEmpty.press">
-                                        <span :class = "{error:cbooksEmpty.press==''}">(必填)</span></td>
+                                        <input name="address" type="text" class="inputBg" id="address_0" v-model="press">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">书籍版本</td>
                                     <td align="left" bgcolor="#ffffff">
-                                        <input name="mobile" type="text" class="inputBg" id="mobile_0" v-model="cbooksEmpty.version">
-                                        <span :class = "{error:cbooksEmpty.version==''}">(必填)</span></td>
+                                        <input name="mobile" type="text" class="inputBg" id="mobile_0" v-model="version">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">收购价格</td>
                                     <td align="left" bgcolor="#ffffff">
-                                        <input name="mobile" type="text" class="inputBg" id="mobile_0" v-model="cbooksEmpty.price">
-                                        <span :class = "{error:cbooksEmpty.price==''}">(必填)</span></td>
+                                        <input name="mobile" type="text" class="inputBg" id="mobile_0" v-model="price">
+                                        <span :class = "{error:price==''}">(必填)</span></td>
                                 </tr>
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">书籍图片</td>
                                     <td align="left" bgcolor="#ffffff">
-                                        <input type="file" name="message_img" size="45" class="inputBg" @change="preview">
+                                        <input type="file" name="message_img" size="45" class="inputBg" @change="preview"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">书籍描述信息</td>
                                     <td align="left" bgcolor="#ffffff">
-                                        <input name="mobile" type="text" class="inputBg" id="mobile_0" v-model="cbooksEmpty.desc">
-                                        <span :class = "{error:cbooksEmpty.desc==''}">(必填)</span></td>
+                                        <!--
+                                        <div id="app">
+                                             <VueUEditor @ready="editorReady"></VueUEditor>
+                                        </div>
+                                        -->
+                                        <textarea></textarea>
+                                        <span :class = "{error:desc==''}">(必填)</span></td>
                                 </tr>
                                 <tr>
-                                    <td align="right" bgcolor="#ffffff">发布于</td>
+                                    <td align="right" bgcolor="#ffffff">下架时间</td>
                                     <td align="left" bgcolor="#ffffff">
-                                        <input name="mobile" type="text" class="inputBg" id="mobile_0" v-model="cbooksEmpty.status">
-                                        <span :class = "{error:cbooksEmpty.status==''}">(必填)</span></td>
+                                        <datepicker language="ch"  v-model="revoke"></datepicker>
+                                        <span :class = "{error:revoke==''}">(必填)</span></td>
                                 </tr>
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">&nbsp;</td>
@@ -95,13 +100,22 @@
 <script>
 import VDistpicker from 'v-distpicker'
 import {getCreateBooksDetail,deleteCreateBooks,addCreateBook,getCreateBooks} from '../../api/api'
+import {getGoods} from '../../api/api'
 import {formatDate} from '../../static/js/formatDate.js'
 import datepicker from 'vue-date'
     export default {
         data () {
             return {
                 cbooks:[],
-                cbooksEmpty:{}
+                cbooksEmpty:{},
+                category: '',
+                name: '',
+                press: '',
+                version: '',
+                price: '',
+                revoke: '',
+                file: '',
+                desc: ''
             };
         },
         props: {
@@ -118,30 +132,43 @@ import datepicker from 'vue-date'
 
         },
         computed: {
-
+            datepicker
         },
         methods: {
             preview (e) {
-                this.file = e.target.files[0]; //获取文件资源
-                console.log(this.file);
+                this.file  = e.target.files[0]; //获取文件资源
             },
 
             getBookList(){
-                getCreateBooks().then((response) =>{
+                getGoods({
+                    status : 1, //当前模块   
+                }).then((response) =>{
                     this.cbooks=response.data.results
                 }).catch(function(error){
                    console.log(error) 
                 });
             },
-            
-
+            editorReady(editorInstance){
+                editorInstance.setContent("hello world ")
+                editorInstance.addListener('contentChange',()=>{
+                    console.log('编辑器内容发生了变化',editorInstance.getContent())
+                })
+            },
             addInfo () { //提交收获信息
-                this.cbooksEmpty.photo = this.file
-                addCreateBook(this.cbooksEmpty).then((response)=> {
+                const formData = new FormData();
+                formData.append('category',this.category);
+                formData.append('name',this.name);
+                formData.append('press',this.press);
+                formData.append('version',this.version);
+                formData.append('price',this.price);
+                formData.append('photo',this.file);
+                formData.append('revoke',this.revoke);
+                formData.append('status',1);
+                addCreateBook(formData).then((response)=> {
                     alert('添加成功');
                     // 重置新的
                     this.getBookList();
-                    this.cbooksEmpty = Object.assign({});
+                    // this.cbooksEmpty = Object.assign({});
 
                 }).catch(function (error) {
                     console.log(error);
@@ -296,6 +323,37 @@ select {
     cursor:pointer
 }
 
+.bnt_blue_look {
+    display:inline-block;
+    padding:4px 12px;
+    height:24px;
+    line-height:16px;
+    _line-height:18px;
+    border:1px solid #1e2392;
+    border-radius:3px;
+    font-size:100%;
+    color:#fff;
+    background-color:#35458c;
+    overflow:hidden;
+    vertical-align:middle;
+    cursor:pointer
+}
+
+.bnt_blue_del {
+    display:inline-block;
+    padding:4px 12px;
+    height:24px;
+    line-height:16px;
+    _line-height:18px;
+    border:1px solid #d61860;
+    border-radius:3px;
+    font-size:100%;
+    color:#fff;
+    background-color:#ca1010;
+    overflow:hidden;
+    vertical-align:middle;
+    cursor:pointer
+}
 
 </style>
 <style type="text/css">

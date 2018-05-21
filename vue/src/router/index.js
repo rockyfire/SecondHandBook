@@ -44,7 +44,6 @@ import collection from '../views/member/collection'
 import userinfo from '../views/member/userinfo'
 import modifypassword from '../views/member/modifypassword'
 import register from '../views/register/register'
-import auction from '../views/member/auction'
 import buy from '../views/member/buy'
 import sell from '../views/member/sell'
 
@@ -312,15 +311,6 @@ var router = new Router({
                 component: buy,
                 meta: {
                   title: '求购二手书',
-                  need_log: true
-                }
-              },
-              {
-                path: 'auction',
-                name: 'auction',
-                component: auction,
-                meta: {
-                  title: '拍卖二手书',
                   need_log: true
                 }
               },

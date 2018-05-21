@@ -11,7 +11,6 @@
                 <li>
                     <a :class="{on: current==='sell'}"    @click="toSell">出售二手书</a>
                     <a :class="{on: current==='buy'}"  @click="toBuy">求购二手书</a>
-                    <a :class="{on: current==='auction'}"  @click="toAuction">拍卖二手书</a>
                 </li>
             </ul>
         </li>
