@@ -88,7 +88,7 @@ class Books(models.Model):
     ship_free = models.BooleanField(default=True, verbose_name="是否承担运费")
     is_new = models.BooleanField(default=False, verbose_name="最新上架")
 
-    photo = models.ImageField(upload_to="books/images/", null=True, blank=True, verbose_name="书籍图片")
+    photo = models.FileField(upload_to="books/images/", null=True, blank=True, verbose_name="书籍图片")
     desc = UEditorField(imagePath="books/images/", width=1000, height=300,
                         filePath="books/files/", default='', verbose_name=u"书籍描述信息", )
     nums = models.IntegerField(default=0, verbose_name="书籍数量")

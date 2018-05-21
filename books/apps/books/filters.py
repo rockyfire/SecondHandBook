@@ -21,11 +21,11 @@ class BooksFilter(django_filters.rest_framework.FilterSet):
         return queryset.filter(Q(category_id=value) | Q(category__parent_category_id=value) | Q(
             category__parent_category__parent_category_id=value))
 
-    book_status = django_filters.NumberFilter(method='book_status_filter')
-
-    def book_status_filter(self, queryset, name, value):
-        return queryset.filter(Q(status=value))
+    # book_status = django_filters.NumberFilter(method='book_status_filter')
+    #
+    # def book_status_filter(self, queryset, name, value):
+    #     return queryset.filter(Q(status=value))
 
     class Meta:
         model = Books
-        fields = ['price_min', 'price_max', 'ship_free']
+        fields = ['price_min', 'price_max', 'ship_free','status']

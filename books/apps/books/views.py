@@ -100,6 +100,11 @@ class BooksCreateView(viewsets.ModelViewSet):
     def get_queryset(self):
         return Books.objects.filter(user=self.request.user)
 
+    def perform_create(self, serializer):
+        books = serializer.save()
+        booksImage = BooksImage.objects.create(books=books, image=books.photo)
+        booksImage.save()
+
 
 # class BooksCategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 class BooksCategoryViewSet(viewsets.ReadOnlyModelViewSet):
