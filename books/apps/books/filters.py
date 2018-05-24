@@ -4,7 +4,7 @@
 
 import django_filters
 
-from .models import Books
+from .models import Books,BooksImage
 from django.db.models import Q
 
 
@@ -25,6 +25,11 @@ class BooksFilter(django_filters.rest_framework.FilterSet):
     #
     # def book_status_filter(self, queryset, name, value):
     #     return queryset.filter(Q(status=value))
+
+    book_user = django_filters.Filter(method='book_user_filter')
+
+    def book_user_filter(self, queryset, name, value):
+        return queryset.filter(images=BooksImage.objects.filter(image=value))
 
     class Meta:
         model = Books
