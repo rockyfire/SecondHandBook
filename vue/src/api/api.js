@@ -87,6 +87,13 @@ export const createOrder = params => {return axios.post(`${host}/order/`, params
 //获取订单详情
 export const getOrderDetail = orderId => {return axios.get(`${host}/order/`+orderId+'/')}
 
+//获取已卖出书籍
+export const getSolds = () => { return axios.get(`${host}/sold/`) }
+//删除已卖出书籍
+export const delSold = soldId => { return axios.delete(`${host}/sold/`+soldId+'/') }
+//获取已卖出书籍详情
+export const getSoldDetail = soldId => {return axios.get(`${host}/sold/`+soldId+'/')}
+
 
 //收藏 
 export const addFav = params => { return axios.post(`${host}/userfavs/`, params) }

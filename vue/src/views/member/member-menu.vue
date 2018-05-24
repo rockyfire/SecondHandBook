@@ -9,8 +9,9 @@
             <div class="root_node"><i class="iconfont">&#xe645;</i>售购中心</div>
             <ul>
                 <li>
-                    <a :class="{on: current==='sell'}"    @click="toSell">出售二手书</a>
-                    <a :class="{on: current==='buy'}"  @click="toBuy">求购二手书</a>
+                    <a :class="{on: current==='sell'}"  @click="toSell">出售二手书</a>
+                    <a :class="{on: current==='buy'}"   @click="toBuy">求购二手书</a>
+                    <a :class="{on: current==='sold'}"  @click="toSold">已卖出宝贝</a>
                 </li>
             </ul>
         </li>
@@ -70,9 +71,9 @@
                 this.current = 'buy';
                 this.$router.push({name: 'buy'});
             },
-            toAuction () { // 拍卖二手书
-                this.current = 'auction';
-                this.$router.push({name: 'auction'});
+            toSold () { // 拍卖二手书
+                this.current = 'sold';
+                this.$router.push({name: 'sold'});
             },
             member () { // 会员中心
                 this.$router.push({name: 'member'});

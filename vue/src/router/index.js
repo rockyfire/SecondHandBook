@@ -46,6 +46,8 @@ import modifypassword from '../views/member/modifypassword'
 import register from '../views/register/register'
 import buy from '../views/member/buy'
 import sell from '../views/member/sell'
+import sold from '../views/member/sold'
+import soldDetail from '../views/member/soldDetail'
 
 
 // var head = function(resolve) {
@@ -311,6 +313,24 @@ var router = new Router({
                 component: buy,
                 meta: {
                   title: '求购二手书',
+                  need_log: true
+                }
+              },
+              {
+                path: 'sold',
+                name: 'sold',
+                component: sold,
+                meta: {
+                  title: '已卖出宝贝',
+                  need_log: true
+                }
+              },
+              {
+                path: 'soldDetail/:soldId',
+                name: 'soldDetail',
+                component: soldDetail,
+                meta: {
+                  title: '卖出宝贝详情',
                   need_log: true
                 }
               },

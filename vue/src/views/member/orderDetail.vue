@@ -36,7 +36,7 @@
                                 <th width="9%" align="center" bgcolor="#ffffff">购买数量</th>
                                 <th width="20%" align="center" bgcolor="#ffffff">小计</th>
                             </tr>
-                            <tr v-for="item in orderInfo.books">
+                            <tr v-for="item in orderInfo.order_books">
                                 <td bgcolor="#ffffff">
                                     <router-link  :to="'/app/home/productDetail/'+item.id" class="f6">{{item.books.name}}</router-link>
                                     <!-- <a href="" target="_blank" class="f6">{{item.name}}</a> -->
