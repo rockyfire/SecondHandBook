@@ -28,7 +28,7 @@ from django.views.decorators.csrf import csrf_exempt
 from users.views import SmsCodeViewset, UserViewset
 from books.views import BooksListView, BooksCategoryViewSet, BooksCreateView, BannerViewset, IndexStatusViewSet
 from user_operation.views import UserFavViewSet, UserLeavingMessageViewSet, UserAddressViewSet
-from trade.views import ShoppingCartViewset, OrderViewset
+from trade.views import ShoppingCartViewset, OrderViewset,SoldBooksViewSet
 from comment.views import BooksCommentViewSet
 import xadmin
 
@@ -56,6 +56,7 @@ router.register(r'comment', BooksCommentViewSet, base_name="comment")
 # 交易管理
 router.register(r'shoppingcart', ShoppingCartViewset, base_name="shoppingcart")
 router.register(r'order', OrderViewset, base_name="order")
+router.register(r'sold', SoldBooksViewSet, base_name="sold")
 # 轮播图
 router.register(r'banner', BannerViewset, base_name="banner")
 
@@ -83,5 +84,10 @@ urlpatterns = [
 
     url(r'^index', TemplateView.as_view(template_name="index.html"), name='index'),
 
+    url(r'^ueditor',include('DjangoUeditor.urls'),name='ueditor'),
     # url(r'^static/(?P<path>.*)$', serve, {"document_root": STATIC_ROOT})
+
+
+    # 聊天室
+    url(r'^chat/', include('chat.urls')),
 ]

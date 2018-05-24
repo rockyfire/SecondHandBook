@@ -70,8 +70,8 @@ class OrderBooks(models.Model):
     """
     订单的书籍详情 一对多的关系
     """
-    order = models.ForeignKey(OrderInfo, verbose_name="订单信息", related_name="books")
-    books = models.ForeignKey(Books, verbose_name="书籍")
+    order = models.ForeignKey(OrderInfo, verbose_name="订单信息", related_name="order_books")
+    books = models.ForeignKey(Books, verbose_name="书籍",related_name="books_detail")
     books_num = models.IntegerField(default=0, verbose_name="书籍数量")
 
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")

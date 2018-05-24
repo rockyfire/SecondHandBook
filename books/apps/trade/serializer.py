@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import UniqueTogetherValidator
 from .models import ShoppingCart, OrderInfo, OrderBooks
-from books.serializers import BooksSerializer
+from books.serializers import BooksSerializer, BookCreateSerializer
 from books.models import Books
 from django.utils import timezone
 from util.alipay import AliPay
@@ -59,7 +59,6 @@ class ShopCartSerializer(serializers.Serializer):
 
 
 class OrderBooksSerialzier(serializers.ModelSerializer):
-    # Model字段books
     books = BooksSerializer(many=False)
 
     class Meta:
@@ -70,7 +69,7 @@ class OrderBooksSerialzier(serializers.ModelSerializer):
 # 个人中心使用
 class OrderDetailSerializer(serializers.ModelSerializer):
     # 外键related_name
-    books = OrderBooksSerialzier(many=True)
+    order_books = OrderBooksSerialzier(many=True)
     # 订单形成但还没支付
     alipay_url = serializers.SerializerMethodField(read_only=True)
 
@@ -158,4 +157,25 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderInfo
+        fields = "__all__"
+
+
+from users.serializer import UserDetailSerializer
+
+
+class SoldOrderSerializer(serializers.ModelSerializer):
+    user = UserDetailSerializer()
+
+    class Meta:
+        model = OrderInfo
+        fields = "__all__"
+
+
+# 已卖出的宝贝
+class SoldBooksSerialzier(serializers.ModelSerializer):
+    books = BooksSerializer(many=False)
+    order = SoldOrderSerializer(many=False)
+
+    class Meta:
+        model = OrderBooks
         fields = "__all__"

@@ -7,7 +7,11 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from util.permissions import IsOwnerOrReadOnly
 from rest_framework import serializers
 from .models import ShoppingCart, OrderInfo, OrderBooks
-from .serializer import ShopCartSerializer, ShopCartDetailSerializer, OrderDetailSerializer, OrderSerializer
+from .serializer import ShopCartSerializer, ShopCartDetailSerializer, OrderDetailSerializer, OrderSerializer, \
+    SoldBooksSerialzier
+from .filters import SoldBooksFilter
+from django_filters import rest_framework as djnagofilters
+from rest_framework import filters
 
 
 # Create your views here.
@@ -89,6 +93,7 @@ class OrderViewset(mixins.ListModelMixin, mixins.DestroyModelMixin, mixins.Retri
     def get_queryset(self):
         return OrderInfo.objects.filter(user=self.request.user)
 
+    # 创建订单时，购物车中的信息保存到订单信息（生成）和订单书籍信息（保存书籍数量）
     def perform_create(self, serializer):
         order = serializer.save()
         shop_carts = ShoppingCart.objects.filter(user=self.request.user)
@@ -158,3 +163,23 @@ class AlipayViewSet(APIView):
                 existed_order.pay_time = datetime.now()
                 existed_order.save()
             return Response("success")
+
+
+from books.models import Books
+from django.db.models import Q
+
+
+class SoldBooksViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    serializer_class = SoldBooksSerialzier
+
+    filter_backends = (djnagofilters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_class = SoldBooksFilter
+    ordering_fields = ('add_time',)
+
+    def get_queryset(self):
+        # 查询是当前用户出售书籍的订单
+        books = Books.objects.filter(user=self.request.user)
+        result = OrderBooks.objects.filter(books__in=[i.id for i in books])
+        return result
