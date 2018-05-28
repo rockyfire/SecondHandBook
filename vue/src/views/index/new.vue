@@ -6,13 +6,13 @@
         </div>
         <div class="newopro-r fr">
             <h2 class="index-tt">
-                <em class="ft18 c000">最新上架</em>
-                <router-link to="/app/home/list/more" target = _blank><a  class="fr c666">更多&gt;&gt;</a></router-link>
+                <em class="ft18 c000">新品发布</em>
+                <router-link to="/app/home/list/more" target = _blank><a href="" class="p-buy fr ibg"></a><a  class="p-time fr c666">更多&gt;&gt;</a></router-link>
             </h2>
             <ul class="newgoods_fastbuy">
-                <li class="prolist-cent clearfix have_num" v-for="item in newopro">
+                <li class="prolist-cent clearfix have_num" v-for='(item,key) in newopro' v-if="key<=1">
                     <div class="prolist-l fl">
-                        <router-link :to="'/app/home/list/'+item.id"  target = _blank> 
+                        <router-link :to="'/app/home/productDetail/'+item.id"  target = _blank> 
                         <a  :title="item.name" class="imgBox">
                             <img :src="item.photo" style="height: 158px;width: 158px;" class="zom" :alt="item.name">
                         </a>
@@ -22,10 +22,14 @@
                         <h3 class="ft14 c333 bold">
                         <router-link :to="'/app/home/productDetail/'+item.id"  :title="item.name" target = _blank>{{item.name}}</router-link>
                         </h3>
-                        <p><em class="c333"></em>{{item.price}}</p>
+                        <p>
+                            <em class="c333">{{item.author}}</em>
+                            <a href="" class="p-buy fr ibg"></a>
+                            <span class="p-time fr">{{item.press}}</span>
+                        </p>
                         <div>
                             <span class="p-price"><em class="fastbuy_price">￥{{item.price}}元</em><del>原价:￥{{item.market_price}}元</del></span>
-                            <a href="" class="p-buy fr ibg">立即抢购</a>
+                            <a href="" class="p-buy fr ibg"></a>
                             <span class="p-time fr">数量：{{item.nums}}件</span>
                         </div>
                     </div>
@@ -33,8 +37,6 @@
             </ul>
         </div>
     </div>
-</div>
-
 </div>
 
 </template>
@@ -49,8 +51,8 @@ export default{
     methods:{
         getOpro(){
           getGoods({
-            "ship_free":"true"
-          })
+            "ordering":"-add_time"
+            })
             .then((response)=> {
                //跳转到首页页response.body面
                 this.newopro = response.data.results

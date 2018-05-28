@@ -805,7 +805,7 @@ fieldset,img {
 }
 .J_subCata .J_subView {
     border:1px solid #ccc;
-    width:600px;
+    width:150px;
     min-height:228px;
     padding-top:5px;
     overflow:hidden;

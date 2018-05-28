@@ -35,7 +35,7 @@
                              <router-link :to="'/app/home/productDetail/'+list.id" target = _blank>
                                 <p class="pic">
                                  <img :src="list.photo" style="display: inline;">
-                                 </p>
+                                </p>
                                 <h3>{{list.name}}</h3>
                                 <p class="price">
                                     ￥{{list.price}}元
@@ -208,10 +208,10 @@ a.gray:hover {
 //   -webkit-transform: scale(1.08);
 // }
 .series_list .pro_list {
-  width: 994px;
+  width: 970px;
   height: 398px;
   overflow: hidden;
-  float: right;
+  margin: 0,auto;
   border: 1px solid #ccc;
 }
 .series_list .pro_list ul {
@@ -221,12 +221,13 @@ a.gray:hover {
 .series_list .pro_list li {
   float: left;
   _display: inline;
-  width: 179px;
+  width: 212px;
   height: 179px;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
-  padding: 10px 20px;
+  padding: 10px 15px;
   overflow: hidden;
+  text-align: center;
 }
 .series_list .pro_list li .pic {
   text-align: center;
@@ -244,6 +245,7 @@ a.gray:hover {
   margin: 10px 0 5px;
 }
 .series_list .pro_list li .price {
+  display: inline-block;
   color: #09c762;
   font-size: 14px;
 }
@@ -260,7 +262,7 @@ a.gray:hover {
   background-color: #fff;
 }
 .series_info {
-  width: 200px;
+  width: 224px;
   height: 399px;
   border-bottom: 1px solid #ccc;
   float: left;

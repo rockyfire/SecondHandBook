@@ -7,7 +7,8 @@
                 <div class="detail_img" id="detail_img">
                     <div class="pic_view">
                         <a class="MagicZoomPlus" id="Zoomer" style="position: relative; display: inline-block; text-decoration: none; outline: 0px; overflow: hidden; width: auto; height: auto;">
-                            <img :src="curShow.image" alt="" style="opacity: 1;">
+                            <img :src="curShow" alt="" style="opacity: 1;">
+                            <!-- <img :src="curShow.image" alt="" style="opacity: 1;"> -->
                             <div class="MagicZoomPup" style="z-index: 10; position: absolute; overflow: hidden;  visibility: hidden; width: 190px; height: 190px; opacity: 0.5;"></div>
                             <div class="MagicZoomPlusHint" style="display: block; overflow: hidden; position: absolute; visibility: visible; z-index: 1; left: 2px; right: auto; top: 2px; bottom: auto; opacity: 0.75; max-width: 376px;"></div>
                         </a>
@@ -96,7 +97,7 @@
                                             <table>
                                                 <tbody>
                                                 <tr>
-                                                    <td width="20%" class="th"> 产品名称 :</td>
+                                                    <td width="20%" class="th">书籍名称 :</td>
                                                     <td width="80%"> {{proDetail.name}}</td>
                                                 </tr>
                                                 </tbody>
@@ -174,7 +175,8 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
             .then((response)=> {
                 console.log(response.data);
                 this.proDetail = response.data;
-                this.curShow = this.proDetail.images[0];
+                this.curShow = this.proDetail.photo;
+                // this.curShow = this.proDetail.images[0];
             }).catch(function (error) {
                 console.log(error);
             });

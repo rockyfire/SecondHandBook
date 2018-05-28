@@ -2,13 +2,13 @@
     <div class="current-loc">
         <div class="breadcrumbs cle z-detail-box">
           <div class="menus">
-            <a href="http://sx.web51.youxueshop.com/">首页</a>
+            <a href="http://www.flycode.me:8000/index">首页</a>
             <code>&gt;</code>
-            <a href="http://sx.web51.youxueshop.com/category.php?id=2">生鲜食品</a>
+            <!-- <a href="http://sx.web51.youxueshop.com/category.php?id=2">生鲜食品</a>
+            <code>&gt;</code> -->
+            <a href="">{{proDetail.category}}</a>
             <code>&gt;</code>
-            <a href="http://sx.web51.youxueshop.com/category.php?id=19">根茎类</a>
-            <code>&gt;</code>
-            新鲜水果甜蜜香脆单果约800克
+            {{proDetail.name}}
           </div>
       </div>
     
@@ -16,11 +16,13 @@
   
 </template>
 <script>
-  
+  import { getGoodsDetail } from '../../../api/api';
   export default {
     data () {
         return {
-            
+            proDetail: {
+            },
+            productId:'',
         };
     },
     components: {
@@ -30,7 +32,9 @@
         
     },
     created () {
-        
+        this.productId = this.$route.params.productId;
+        var productId = this.productId
+        this.getDetails();
     },
     watch: {
         
@@ -39,7 +43,15 @@
 
     },
     methods: {
-        
+        getDetails () { //  请求商品详情
+          getGoodsDetail(this.productId)
+            .then((response)=> {
+                console.log(response.data);
+                this.proDetail = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
     }
 }
 </script>
