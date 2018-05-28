@@ -97,8 +97,8 @@
                                             <table>
                                                 <tbody>
                                                 <tr>
-                                                    <td width="20%" class="th">书籍名称 :</td>
-                                                    <td width="80%"> {{proDetail.name}}</td>
+                                                    <td width="20%" class="th">书籍简介 :</td>
+                                                    <td width="80%"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -109,6 +109,34 @@
                                         <p v-html="proDetail.desc">
                                         </p>
                                     </div>
+                                </div>
+                                <hr/>
+                                <p>&nbsp; </p>
+                                <div class="spxq_main">
+                                    <div>
+                                        <div>
+                                            <table>
+                                                <tbody>
+                                                <tr>
+                                                    <td width="20%" class="th">书籍简介 :</td>
+                                                    <td width="80%"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <p>&nbsp; </p>
+                                    </div>
+
+                                    <div class="spxq_dec" v-for="(item,key) in proDetail.books_comment">
+                                        <p>{{item.user.username}} 发布于 {{item.comment_time}}</p>
+                                        <p>{{item.text}}</p>
+                                    </div>
+                                    <div class="add_comment">
+                                        <p>评论</p>
+                                        <textarea name="text" v-model="text"></textarea>
+                                        <button class="bnt_blue_2" @click="addComment">新增评论</button>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -127,7 +155,7 @@ import currentLoc from './current-loc/current-loc';
 import hotSales from './hotSales';
 import model from './model'
 import { mapGetters } from 'vuex';
-import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from '../../api/api';
+import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart,addComment,delComment } from '../../api/api';
   export default {
     data () {
         return {
@@ -140,6 +168,7 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
             hasFav: false,
             proDetail: {
             },
+            text:'',
             buyNum:1
         };
     },
@@ -228,6 +257,32 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart } from 
                 console.log(error);
             });
         },
+        addComment () { 
+            //添加评论
+            addComment({
+              text:this.text,
+              object_id:this.productId,
+            }).then((response)=> {
+                alert('已成功添加评论');
+                this.getDetails();
+                this.text = '';
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+
+        // deleteComment () {
+        //   //删除评论
+        //   delComment(
+        //       this.productId
+        //     ).then((response)=> {
+        //         console.log(response.data);
+        //         alert('已删除该评论');
+        //     }).catch(function (error) {
+        //         console.log(error);
+        //     });
+        // },
+        
         ImagePrev () {
             this.curIndex = this.curIndex === 0 ? 0 : this.curIndex - 1;
         },

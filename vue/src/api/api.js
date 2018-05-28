@@ -2,9 +2,8 @@ import axios from 'axios';
 
 
 // let host = 'http://shop.projectsedu.com';
-let host = 'http://www.flycode.me:8000';
-
-// let host = 'http://127.0.0.1:8087';
+// let host = 'http://www.flycode.me:8000';
+let host = 'http://127.0.0.1:8000';
 
 
 //获取书籍类别信息
@@ -127,3 +126,9 @@ export const updateAddress = (addressId, params) => {return axios.patch(`${host}
 
 //获取收货地址
 export const getAddress = () => {return axios.get(`${host}/useraddress/`)}
+
+//添加评论
+export const addComment = params => {return axios.post(`${host}/comment/`, params)}
+
+//删除评论
+export const delComment = commentId => {return axios.delete(`${host}/comment/`+commentId+'/')}
