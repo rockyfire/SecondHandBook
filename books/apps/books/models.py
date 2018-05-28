@@ -69,6 +69,9 @@ class BooksStatus(models.Model):
 
 # Create your models here.
 
+from django.contrib.contenttypes.fields import GenericRelation
+from comment.models import BooksComment
+
 class Books(models.Model):
     """
     书籍
@@ -104,6 +107,8 @@ class Books(models.Model):
     # 扩展功能
     click_num = models.IntegerField(default=0, verbose_name="点击数")
     fav_num = models.IntegerField(default=0, verbose_name="收藏数")
+
+    books_comment = GenericRelation(BooksComment, related_query_name='books_comments')
 
     class Meta:
         verbose_name = '书籍'

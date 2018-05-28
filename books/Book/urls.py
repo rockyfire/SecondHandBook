@@ -29,7 +29,7 @@ from users.views import SmsCodeViewset, UserViewset
 from books.views import BooksListView, BooksCategoryViewSet, BooksCreateView, BannerViewset, IndexStatusViewSet
 from user_operation.views import UserFavViewSet, UserLeavingMessageViewSet, UserAddressViewSet
 from trade.views import ShoppingCartViewset, OrderViewset,SoldBooksViewSet
-from comment.views import BooksCommentViewSet
+from comment.views import BooksCommentViewSet,MyCommentViewSet
 import xadmin
 
 
@@ -52,7 +52,7 @@ router.register(r'userfavs', UserFavViewSet, base_name='userfavs')
 router.register(r'userleavingmessage', UserLeavingMessageViewSet, base_name='userleavingmessage')
 router.register(r'useraddress', UserAddressViewSet, base_name='useraddress')
 # 评论管理
-router.register(r'comment', BooksCommentViewSet, base_name="comment")
+router.register(r'comment', MyCommentViewSet, base_name="comment")
 # 交易管理
 router.register(r'shoppingcart', ShoppingCartViewset, base_name="shoppingcart")
 router.register(r'order', OrderViewset, base_name="order")

@@ -5,7 +5,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from .models import Comment
-from .serializer import UserCommentSerializer, BookCommentSerializer,ReplyCreationSerializer
+from .serializer import UserCommentSerializer, BookCommentSerializer, ReplyCreationSerializer
 
 
 # Create your views here.
@@ -32,10 +32,12 @@ from rest_framework.generics import (
 )
 from django_comments import signals
 from rest_framework import permissions
+
+
 # from .serializers import ReplyCreationSerializer
 
 
-class ReplyCreationView(CreateAPIView):
+class ReplyCreationViewSet(CreateAPIView):
     serializer_class = ReplyCreationSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
@@ -47,3 +49,12 @@ class ReplyCreationView(CreateAPIView):
             comment=reply,
             request=self.request
         )
+
+
+from .serializer import BooksCommentSerializer
+from .models import BooksComment
+
+
+class MyCommentViewSet(viewsets.ModelViewSet):
+    serializer_class = BooksCommentSerializer
+    queryset = BooksComment.objects.all()

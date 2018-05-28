@@ -93,6 +93,12 @@ class UserDetailSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'password', 'email', 'mobile', 'faceimg', 'point', 'birthday', 'gender')
 
 
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        exclude = ('password',)
+
+
 class UserRegSerializer(serializers.ModelSerializer):
     # 验证码是用户Model中没有的字段
     # 使用方法和forms.CharField类似

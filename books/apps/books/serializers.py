@@ -4,11 +4,12 @@
 
 from rest_framework import serializers
 from .models import BooksImage, Books, BooksCategory, BooksBanner, BooksStatus
-from comment.serializer import BookCommentSerializer
+from comment.serializer import BooksCommentDetailSerializer
 from django.utils import timezone
 
 
 # from comment.models import Comment
+from comment.serializer import  BooksCommentSerializer
 
 # BooksCategory
 class CategorySerializer3(serializers.ModelSerializer):
@@ -36,7 +37,8 @@ class BooksSerializer(serializers.ModelSerializer):
     """
     # ↓↓↓ 在models中自定义的related_name有关
     images = BooksImageSerializer(many=True)
-    r_comments = BookCommentSerializer(many=True)
+    books_comment = BooksCommentDetailSerializer(many=True)
+    # r_comments = BookCommentSerializer(many=True)
 
     class Meta:
         model = Books

@@ -63,3 +63,33 @@ class ReplyCreationSerializer(serializers.ModelSerializer):
             'ip_address': {'required': False, 'allow_null': True},
             'site': {'default': 1},
         }
+
+
+from .models import BooksComment
+from django.contrib.contenttypes.models import ContentType
+from books.models import Books
+from users.serializer import UserInfoSerializer
+
+
+class BooksCommentSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+
+    def create(self, validated_data):
+        validated_data['content_type'] = ContentType.objects.get_for_model(Books)
+        existed = BooksComment.objects.create(**validated_data)
+        return existed
+
+    class Meta:
+        model = BooksComment
+        fields = ('text', 'object_id','user')
+
+
+# 评论详情
+class BooksCommentDetailSerializer(serializers.ModelSerializer):
+    user = UserInfoSerializer()
+
+    class Meta:
+        model = BooksComment
+        fields = '__all__'
