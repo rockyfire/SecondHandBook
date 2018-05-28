@@ -16,8 +16,8 @@ from .models import Books, BooksCategory, BooksImage, BooksBanner
 
 
 class BooksAdmin(object):
-    list_display = ["name", "press", "version",
-                    "price", "buyoutprice", "ship_free",
+    list_display = ["name", "press", "author",
+                    "price", "market_price", "ship_free",
                     "photo", "nums", "revoke", "add_time"]
     search_fields = ['name', ]
     list_filter = ["name", "nums", "add_time"]

@@ -21,28 +21,6 @@ class CategorySerializer3(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CategorySerializer2(serializers.ModelSerializer):
-    """
-        商品类别序列化 二级类目 二级分类嵌套三级分类 many=True表示二级分类有多个（必须设置）
-    """
-    sub_cat = CategorySerializer3(many=True)
-
-    class Meta:
-        model = BooksCategory
-        fields = "__all__"
-
-
-class CategorySerializer(serializers.ModelSerializer):
-    """
-        商品类别序列化 一级类目 一级分类嵌套二级分类 many=True表示二级分类有多个（必须设置）
-    """
-    sub_cat = CategorySerializer2(many=True)
-
-    class Meta:
-        model = BooksCategory
-        fields = "__all__"
-
-
 # BooksImage
 
 class BooksImageSerializer(serializers.ModelSerializer):
@@ -75,6 +53,29 @@ class BooksSerializer(serializers.ModelSerializer):
         return Books.objects.create(**validated_data)
 
 
+class CategorySerializer2(serializers.ModelSerializer):
+    """
+        商品类别序列化 二级类目 二级分类嵌套三级分类 many=True表示二级分类有多个（必须设置）
+    """
+    sub_cat = CategorySerializer3(many=True)
+    category_books = BooksSerializer(many=True)
+
+    class Meta:
+        model = BooksCategory
+        fields = "__all__"
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    """
+        商品类别序列化 一级类目 一级分类嵌套二级分类 many=True表示二级分类有多个（必须设置）
+    """
+    sub_cat = CategorySerializer2(many=True)
+
+    class Meta:
+        model = BooksCategory
+        fields = "__all__"
+
+
 from datetime import datetime
 
 
@@ -83,7 +84,7 @@ class BookCreateSerializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault()
     )
 
-    category = serializers.PrimaryKeyRelatedField(required=True, queryset=BooksCategory.objects.filter(category_type=3))
+    category = serializers.PrimaryKeyRelatedField(required=True, queryset=BooksCategory.objects.filter(category_type=2))
 
     class Meta:
         model = Books

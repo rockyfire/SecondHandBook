@@ -17,8 +17,8 @@ class BooksCategory(models.Model):
         (2, "二级类目"),
         (3, "三级类目"),
     )
-
-    name = models.CharField(default="", max_length=30, verbose_name="类别名", help_text="类别名")
+    id = models.AutoField(primary_key=True, verbose_name="类别ID", help_text="类别ID")
+    name = models.CharField(unique=True, max_length=30, verbose_name="类别名", help_text="类别名")
     code = models.CharField(default="", max_length=30, verbose_name="类别code", help_text="类别code")
     desc = models.TextField(default="", verbose_name="类别描述", help_text="类别描述")
     # 设置目录树的级别
@@ -34,7 +34,7 @@ class BooksCategory(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
+        return self.id
 
 
 class BooksCategoryBrand(models.Model):
@@ -74,22 +74,21 @@ class Books(models.Model):
     书籍
     """
     user = models.ForeignKey(User, verbose_name="用户")
-    category = models.ForeignKey(BooksCategory, verbose_name='书籍类目')
+    category = models.ForeignKey(BooksCategory, verbose_name='书籍类目', to_field="name", related_name='category_books')
     status = models.ForeignKey(BooksStatus, verbose_name="书籍状态")
 
     name = models.CharField(max_length=100, null=True, blank=True, verbose_name="书籍名称")
     press = models.CharField(max_length=100, null=True, blank=True, verbose_name="出版社")
-    version = models.CharField(max_length=100, null=True, blank=True, verbose_name="书籍版本")
+    author = models.CharField(max_length=100, null=True, blank=True, verbose_name="书籍作者")
 
     price = models.FloatField(default=0, verbose_name="书籍价格")
-    market_price = models.FloatField(default=0, verbose_name="市场价格")
-    buyoutprice = models.FloatField(default=0, null=True, blank=True, verbose_name="一口价")
+    market_price = models.FloatField(default=0, verbose_name="参考价格")
 
     ship_free = models.BooleanField(default=True, verbose_name="是否承担运费")
     is_new = models.BooleanField(default=False, verbose_name="最新上架")
 
     photo = models.FileField(upload_to="books/images/", null=True, blank=True, verbose_name="书籍图片")
-    desc = UEditorField(imagePath="books/images/", width=1000, height=300,
+    desc = UEditorField(imagePath="books/images/", width=1024, height=300,
                         filePath="books/files/", default='', verbose_name=u"书籍描述信息", )
     nums = models.IntegerField(default=0, verbose_name="书籍数量")
     revoke = models.DateField(default=datetime.datetime.now() + datetime.timedelta(days=7), verbose_name="下架时间")
