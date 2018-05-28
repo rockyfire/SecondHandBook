@@ -4,17 +4,12 @@
             <li v-for="item in listData" >
                 <router-link :to="'/app/home/productDetail/'+item.id" target="_blank" class="productitem">
                     <span class="productimg">
-                        <img width="150" height="150" :title="item.productname" :alt="item.productname" :src="item.goods_front_image" style="display: block;">
-                    </span>
-                    <span class="nalaprice xszk">
-                        <b>
-                        ￥{{item.shop_price}}元
-                        </b>
+                        <img width="150" height="150" :title="item.productname" :alt="item.productname" :src="item.photo" style="display: block;">
                     </span>
                     <span class="productname">{{item.name}}</span>
-                    <span class="description">{{item.goods_brief}}</span>
+                    <span class="nalaprice"><b>￥{{item.price}}元</b></span>
                     <!-- <span class="price">{{item.price}}</span> -->
-                    <span class="salerow">销量：<span class="sales">{{item.sold_num}}</span>件 </span>
+                    <span class="salerow">浏览量：<span class="sales">{{item.click_num}}</span> 收藏数：<span class="sales">{{item.fav_num}}</span></span>
                 </router-link>
                 <!--<a class="addcart" target="_blank" rel="nofollow" @click="addShoppingCart">加入购物车</a>-->
             </li>
@@ -27,7 +22,7 @@
     export default {
         data () {
             return {
-
+                
             };
         },
         props: {
@@ -169,7 +164,7 @@ canvas {
 
 a.productitem {
     display:block;
-+zoom:1;
+    +zoom:1;
     cursor:pointer;
     background-color:#fff;
     border:1px solid #eee;
@@ -191,13 +186,15 @@ a.productitem span.productimg img {
     display:block
 }
 a.productitem span.nalaprice {
-    color:#09c762;
-    font-size:14px;
-    display:block
+    display:block;
+    color:#3909c7;
+    font-size:20px;
+    text-align: center;
 }
 a.productitem span.productname {
     display:block;
-    height:35px;
+    text-align: center;
+    height:25px;
     line-height:16px;
     overflow:hidden;
     color:#666
@@ -210,6 +207,7 @@ a.productitem span.description {
 }
 a.productitem span.salerow {
     display:block;
+    text-align: center;
     color:#999
 }
 a.productitem span.sales {
@@ -217,7 +215,7 @@ a.productitem span.sales {
     padding:0 2px
 }
 a.productitem span.xszk {
-    padding-left:55px;
+    /* padding-left:55px; */
     /*background:url(images/xsdz-ico.png?0226) 10px center no-repeat*/
 }
 a.productitem span.price {

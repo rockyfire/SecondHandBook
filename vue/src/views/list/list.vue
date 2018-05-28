@@ -1,6 +1,6 @@
 <template>
     <div id="wrapper">
-        <current-loc :curLoc="curLoc"></current-loc>
+        <!-- <current-loc :curLoc="curLoc"></current-loc> -->
         <div class="main cle">
             <!-- 通过冒号后面加变量及参数名,将当前页内值传递到list_nav -->
             <list-nav :currentCategoryName="currentCategoryName" :cateMenu="cateMenu" :proNum="proNum" :isObject="isObject" @on-change="changeMenu"></list-nav>
@@ -43,8 +43,8 @@
                 proNum: 0, //商品数量
                 curLoc: [], //当前位置
                 priceRange: [], //价格区间
-                pricemin: '', //价格最低
-                pricemax: '', //价格最高
+                price_min: '', //价格最低
+                price_max: '', //价格最高
                 pageType:'list',
                 searchWord:'',
                 currentCategoryName:''
@@ -63,18 +63,18 @@
 
         },
         created () {
-            this.getAllData ();
+            this.getAllData();
         },
         watch: {
             "$route": "getAllData"
         },
         computed: {
             totalPage(){
-                return  Math.ceil(this.proNum/12)
+                return  Math.ceil(this.proNum/4)
             }
         },
         methods: {
-            getAllData () {
+            getAllData() {
                 console.log(this.$route.params)
                 if(this.$route.params.id){
                     this.top_category = this.$route.params.id;
@@ -105,10 +105,10 @@
                     page: this.curPage, //当前页码
                     top_category: this.top_category, //商品类型
                     ordering: this.ordering, //排序类型
-                    pricemin: this.pricemin, //价格最低 默认为‘’ 即为不选价格区间
-                    pricemax: this.pricemax // 价格最高 默认为‘’
+                    price_min: this.price_min, //价格最低 默认为‘’ 即为不选价格区间
+                    price_max: this.price_max // 价格最高 默认为‘’
                   }).then((response)=> {
-
+                    
                     this.listData = response.data.results;
                     this.proNum = response.data.count;
                   }).catch(function (error) {
@@ -169,8 +169,8 @@
 
             },
             changePrice (data) {
-                this.pricemin = data.min;
-                this.pricemax = data.max;
+                this.price_min = data.min;
+                this.price_max = data.max;
                 this.getListData();
             },
             changeMenu (id) {

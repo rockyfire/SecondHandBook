@@ -3,9 +3,14 @@
         <div class="bd">
             <form name="listform">
                 <!-- <a title="销量" href="http://sx.web51.youxueshop.com/category.php?category=2&amp;display=grid&amp;brand=0&amp;price_min=0&amp;price_max=0&amp;filter_attr=0&amp;page=1&amp;sort=sales_volume_base&amp;order=ASC#books_list" class="curr" rel="nofollow"><span class="search_DESC">销量</span></a>
-                <a title="价格" href="http://sx.web51.youxueshop.com/category.php?category=2&amp;display=grid&amp;brand=0&amp;price_min=0&amp;price_max=0&amp;filter_attr=0&amp;page=1&amp;sort=shop_price&amp;order=ASC#books_list" rel="nofollow"><span class="">价格</span></a> -->
-                <a title="销量" class="curr" rel="nofollow" @click="sortType('-sold_num')"><span :class="{search_DESC: cur==='-sold_num'}">销量</span></a>
-                <a title="价格" class="curr" rel="nofollow" @click="sortType('-shop_price')"><span :class="{search_DESC: cur==='-shop_price'}">价格</span></a>
+                <a title="价格" href="http://sx.web51.youxueshop.com/category.php?category=2&amp;display=grid&amp;brand=0&amp;price_min=0&amp;price_max=0&amp;filter_attr=0&amp;page=1&amp;sort=price&amp;order=ASC#books_list" rel="nofollow"><span class="">价格</span></a> -->
+                <!-- <a title="销量" class="curr" rel="nofollow" @click="sortType('-sold_num')"><span :class="{search_DESC: cur==='-sold_num'}">销量</span></a> -->
+                <a title="价格" class="curr" rel="nofollow" @click="sortType('-price')"><span :class="{search_DESC: cur==='-price'}">价格</span></a>
+                <a title="浏览量" class="curr" rel="nofollow" @click="sortType('-click_num')"><span :class="{search_DESC: cur==='-click_num'}">浏览量</span></a>
+                <a title="收藏数" class="curr" rel="nofollow" @click="sortType('-fav_num')"><span :class="{search_DESC: cur==='-fav_num'}">收藏数</span></a>
+                <a title="价格" class="curr" rel="nofollow" @click="sortType('price')"><span :class="{search_ASC: cur==='price'}">价格</span></a>
+                <a title="浏览量" class="curr" rel="nofollow" @click="sortType('click_num')"><span :class="{search_ASC: cur==='click_num'}">浏览量</span></a>
+                <a title="收藏数" class="curr" rel="nofollow" @click="sortType('fav_num')"><span :class="{search_ASC: cur==='fav_num'}">收藏数</span></a>
                 <!-- <input type="hidden" name="category" value="2">
                 <input type="hidden" name="display" value="grid" id="display">
                 <input type="hidden" name="brand" value="0">
