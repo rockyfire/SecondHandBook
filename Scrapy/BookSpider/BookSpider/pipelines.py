@@ -21,7 +21,8 @@ class BooksImagePipeline(ImagesPipeline):
             for ok, value in results:
                 image_file_path = value['path']
 
-        item["book_image_path"] = image_file_path
+        # item["book_image_path"] = image_file_path
+        item["photo"] = image_file_path
         return item
 
 
@@ -45,12 +46,29 @@ class JsonWithEncodingPipeline(object):
     def spider_closed(self, spider):
         self.file.close()
 
-from scrapy.exporters import JsonItemExporter
 
+from scrapy.exporters import JsonItemExporter
 
 import MySQLdb
 import MySQLdb.cursors
 from twisted.enterprise import adbapi
+import settings
+
+
+class MysqlPipeline(object):
+    """采用同步的机制写入MySQL"""
+
+    def __init__(self):
+        self.conn = MySQLdb.connect(
+
+            "localhost", 'root', '1575', 'books',
+            charset='utf8', use_unicode=True)
+        self.cursor = self.conn.cursor()
+
+    def process_item(self, item, spider):
+        insert_sql, param = item.get_insert_sql()
+        self.cursor.execute(insert_sql, param)
+        self.conn.commit()
 
 
 class MysqlTwistedPipelines(object):
