@@ -10,6 +10,7 @@ from django.utils import timezone
 
 # from comment.models import Comment
 from comment.serializer import  BooksCommentSerializer
+from users.serializer import UserInfoSerializer
 
 # BooksCategory
 class CategorySerializer3(serializers.ModelSerializer):
@@ -38,6 +39,7 @@ class BooksSerializer(serializers.ModelSerializer):
     # ↓↓↓ 在models中自定义的related_name有关
     images = BooksImageSerializer(many=True)
     books_comment = BooksCommentDetailSerializer(many=True)
+    user = UserInfoSerializer(many=False)
     # r_comments = BookCommentSerializer(many=True)
 
     class Meta:

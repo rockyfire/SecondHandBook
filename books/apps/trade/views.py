@@ -136,7 +136,8 @@ class AlipayViewSet(APIView):
         :param request:
         :return:
         """
-        pass
+        response = redirect("/index/#/app/home/member/order")
+        return response
 
     def post(self, request):
         """

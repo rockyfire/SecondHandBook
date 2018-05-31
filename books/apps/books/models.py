@@ -34,7 +34,7 @@ class BooksCategory(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.id
+        return self.name
 
 
 class BooksCategoryBrand(models.Model):
