@@ -36,7 +36,7 @@
                         <h1>{{proDetail.name}}</h1>
                         <p class="desc"> <span class="gray">{{proDetail.goods_brief}}</span> </p>
                         </dt>
-                        <dd class="property">
+                        <dd class="property" v-if="proDetail.status == '1'">
                             <ul>
                                 <li v-if="proDetail.ship_free">此商品为免运费商品，计算配送金额时将不计入配送费用 </li>
                                 <li>
@@ -46,6 +46,17 @@
                                 </li>
                                 <li>
                                     <span class="lbl">库&nbsp;&nbsp;&nbsp;存</span><em class="red">{{proDetail.nums}}</em>件</li>
+                            </ul>
+                        </dd>
+                        <dd class="property"  v-if="proDetail.status == '2'">
+                            <ul>
+                                <li>
+                                    <span class="lbl">市场价</span> <em class="cancel">￥{{proDetail.price}}元</em></li>
+                                <li>
+                                    <span class="icon_promo">收购</span><span class="unit"> <strong class="nala_price red" id="ECS_SHOPPRICE">￥{{proDetail.market_price}}元</strong> </span>  <span class="timedown" id="timedown"></span>
+                                </li>
+                                <li>
+                                    <span class="lbl">需&nbsp;求&nbsp;量</span><em class="red">{{proDetail.nums}}</em>件</li>
                             </ul>
                         </dd>
                         <dd class="tobuy-box cle">
@@ -64,10 +75,13 @@
                                     </div> -->
                                 </li>
                                 <li class="add_cart_li">
-                                    <a class="btn" id="buy_btn" @click="addShoppingCart">
+                                    <a  v-if="proDetail.status == '1'" class="btn" id="buy_btn" @click="addShoppingCart">
                                         <i class="iconfont">&#xe600;</i>
-                                        加入购物车</a>
-
+                                        加入购物车
+                                    </a>
+                                    <a  v-if="proDetail.status == '2'" class="btn" id="buy_btn" @click="showSoldInfo">
+                                        联系求购者
+                                    </a>
                                     <a v-if="hasFav" id="fav-btn" class="graybtn" @click="deleteCollect">
                                         <i class="iconfont">&#xe613;</i>已收藏
                                     </a>
@@ -118,7 +132,7 @@
                                             <table>
                                                 <tbody>
                                                 <tr>
-                                                    <td width="20%" class="th">书籍简介 :</td>
+                                                    <td width="20%" class="th">评论 :</td>
                                                     <td width="80%"></td>
                                                 </tr>
                                                 </tbody>
@@ -243,6 +257,10 @@ import { getGoodsDetail, getFav, addFav, delFav, addShopCart,getShopCart,addComm
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        showSoldInfo () { 
+            //展示求购者信息
+            alert('联系方式'+this.proDetail.user.email);
         },
 
         deleteCollect () {
