@@ -47,12 +47,12 @@ class UserDetailSerializer(serializers.ModelSerializer):
     用户详细信息序列化
     """
 
-    # 更新密码
+    # 更新用户信息 && 更新密码
     def update(self, instance, validated_data):
         if instance.username != validated_data.get('username', instance.username):
             if UserProfile.objects.filter(username=validated_data.get('username', instance.username)).exists():
                 raise serializers.ValidationError(_("已存在一位使用该昵称的用户。"))
-            instance.username = validated_data.get('password', instance.username)
+            instance.username = validated_data.get('username', instance.username)
 
         instance.email = validated_data.get('email', instance.email)
         instance.mobile = validated_data.get('mobile', instance.mobile)
@@ -128,7 +128,6 @@ class UserRegSerializer(serializers.ModelSerializer):
     """
         重写create 设置密码 不使用信号量
     """
-
     def create(self, validated_data):
         # 创建成功后可以取到User
         user = super(UserRegSerializer, self).create(validated_data=validated_data)

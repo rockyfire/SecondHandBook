@@ -5,14 +5,10 @@
 from rest_framework import serializers
 from .models import BooksImage, Books, BooksCategory, BooksBanner, BooksStatus
 from comment.serializer import BooksCommentDetailSerializer
-from django.utils import timezone
-
-
-# from comment.models import Comment
-from comment.serializer import  BooksCommentSerializer
 from users.serializer import UserInfoSerializer
+from django.db.models import Q
 
-# BooksCategory
+
 class CategorySerializer3(serializers.ModelSerializer):
     """
         商品类别序列化 三级类目
@@ -23,15 +19,12 @@ class CategorySerializer3(serializers.ModelSerializer):
         fields = "__all__"
 
 
-# BooksImage
-
 class BooksImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = BooksImage
         fields = ("image",)
 
 
-# Books
 class BooksSerializer(serializers.ModelSerializer):
     """
     书籍序列化
@@ -40,19 +33,19 @@ class BooksSerializer(serializers.ModelSerializer):
     images = BooksImageSerializer(many=True)
     books_comment = BooksCommentDetailSerializer(many=True)
     user = UserInfoSerializer(many=False)
-    # r_comments = BookCommentSerializer(many=True)
 
     class Meta:
         model = Books
         fields = '__all__'
 
-    # 验证前端传送过来的字段
     def create(self, validated_data):
         """
+        验证前端传送过来的字段
         Create and return a new Books instance,given the validate data
         :param validated_data:
         :return:
         """
+        # 添加评论
         comment = validated_data["comment"]
         return Books.objects.create(**validated_data)
 
@@ -80,9 +73,6 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-from datetime import datetime
-
-
 class BookCreateSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
@@ -101,9 +91,7 @@ class BookBannerSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-from django.db.models import Q
-
-
+# 获取某个书籍状态下的所有书籍
 class IndexStatusSerializer(serializers.ModelSerializer):
     books = serializers.SerializerMethodField()
 

@@ -25,7 +25,6 @@ class Comment(models.Model):
         return str(self.id)
 
 
-
 from django_comments.abstracts import CommentAbstractModel
 from mptt.models import MPTTModel, TreeForeignKey
 

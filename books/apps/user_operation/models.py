@@ -1,11 +1,8 @@
 from datetime import datetime
-
 from django.db import models
 from django.contrib.auth import get_user_model
-
 from books.models import Books
 
-# Create your models here.
 User = get_user_model()
 
 
@@ -70,5 +67,3 @@ class UserAddress(models.Model):
 
     def __str__(self):
         return self.signer_address
-
-

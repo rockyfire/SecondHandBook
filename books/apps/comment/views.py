@@ -34,9 +34,6 @@ from django_comments import signals
 from rest_framework import permissions
 
 
-# from .serializers import ReplyCreationSerializer
-
-
 class ReplyCreationViewSet(CreateAPIView):
     serializer_class = ReplyCreationSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]

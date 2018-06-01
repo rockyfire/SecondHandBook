@@ -3,6 +3,8 @@ import datetime
 from django.db import models
 
 from DjangoUeditor.models import UEditorField
+from django.contrib.contenttypes.fields import GenericRelation
+from comment.models import BooksComment
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -15,7 +17,6 @@ class BooksCategory(models.Model):
     CATEGORY_TYPE = (
         (1, "一级类目"),
         (2, "二级类目"),
-        (3, "三级类目"),
     )
     id = models.AutoField(primary_key=True, verbose_name="类别ID", help_text="类别ID")
     name = models.CharField(unique=True, max_length=30, verbose_name="类别名", help_text="类别名")
@@ -23,9 +24,9 @@ class BooksCategory(models.Model):
     desc = models.TextField(default="", verbose_name="类别描述", help_text="类别描述")
     # 设置目录树的级别
     category_type = models.IntegerField(choices=CATEGORY_TYPE, verbose_name="类目级别", help_text="类目级别")
+    # 自关联
     parent_category = models.ForeignKey("self", null=True, blank=True, verbose_name="父类目级别", help_text="父目录",
                                         related_name="sub_cat")
-
     is_tab = models.BooleanField(default=False, verbose_name="是否导航", help_text="是否导航")
     add_time = models.DateTimeField(default=datetime.datetime.now, verbose_name="添加时间")
 
@@ -57,6 +58,9 @@ class BooksCategoryBrand(models.Model):
 
 
 class BooksStatus(models.Model):
+    """
+    书籍状态：比如书城，征书墙等
+    """
     name = models.CharField(max_length=100, verbose_name="名字")
 
     class Meta:
@@ -67,14 +71,9 @@ class BooksStatus(models.Model):
         return self.name
 
 
-# Create your models here.
-
-from django.contrib.contenttypes.fields import GenericRelation
-from comment.models import BooksComment
-
 class Books(models.Model):
     """
-    书籍
+    书籍详情表
     """
     user = models.ForeignKey(User, verbose_name="用户")
     category = models.ForeignKey(BooksCategory, verbose_name='书籍类目', to_field="name", related_name='category_books')
@@ -98,9 +97,9 @@ class Books(models.Model):
     add_time = models.DateTimeField(default=datetime.datetime.now, verbose_name="添加时间")
 
     # 未实现的功能
+    # views_num = models.PositiveIntegerField(default=0)
     # from django.contrib.contenttypes.fields import GenericRelation
     # from comment.models import Reply
-    # views_num = models.PositiveIntegerField(default=0)
     # replies = GenericRelation(Reply,object_id_field='object_pk',
     #                           content_type_field='content_type',verbose_name="回复")
 
@@ -125,7 +124,7 @@ class Books(models.Model):
 
 class BooksImage(models.Model):
     """
-    书籍轮播图
+    书籍轮播图 使用在书籍详情中
     """
     books = models.ForeignKey(Books, verbose_name="书籍", related_name="images")
     image = models.ImageField(upload_to="books/images/", verbose_name="图片", null=True, blank=True)

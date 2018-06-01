@@ -22,8 +22,6 @@ class UserFavViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
     create：
         收藏商品
     """
-    # queryset = UserFav.objects.all()
-    # serializer_class = UserFavSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 

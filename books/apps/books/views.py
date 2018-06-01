@@ -6,6 +6,12 @@ from .serializers import BooksSerializer, CategorySerializer, CategorySerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework.pagination import PageNumberPagination
+from rest_framework import mixins, viewsets
+from .filters import BooksFilter
+from django_filters import rest_framework as djnagofilters
+from rest_framework import filters
+from django.db.models import Q
 
 from users.models import UserProfile
 from django.http import Http404
@@ -13,6 +19,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import generics
+
 
 # Create your views here.
 
@@ -37,9 +44,6 @@ from rest_framework import generics
 # 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-from rest_framework.pagination import PageNumberPagination
-
-
 class LargeResultsSetPagination(PageNumberPagination):
     page_size = 4
     # 一页显示的个数
@@ -50,15 +54,8 @@ class LargeResultsSetPagination(PageNumberPagination):
     last_page_strings = ('最后一页',)
 
 
-from rest_framework import mixins, viewsets
-from .filters import BooksFilter
-from django_filters import rest_framework as djnagofilters
-from rest_framework import filters
-
-
-# class BooksListView(generics.ListAPIView):
-class BooksListView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-    # class BooksListView(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
+# class BooksListView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class BooksListView(viewsets.ReadOnlyModelViewSet):
     """
         Goods All List Mixins
     """
@@ -97,7 +94,6 @@ class BooksCreateView(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
-    # self.request.query_params.get()   里面放着get请求传递过来的参数 比如?min=10
     def get_queryset(self):
         return Books.objects.filter(user=self.request.user)
 
@@ -107,18 +103,11 @@ class BooksCreateView(viewsets.ModelViewSet):
         booksImage.save()
 
 
-from django.db.models import Q
-
-
-# class BooksCategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 class BooksCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     """
     List:
         书籍分类列表数据
     """
-    # queryset = BooksCategory.objects.all()
-    # 获取分类为一的数据 一级分类
-    # queryset = BooksCategory.objects.filter(Q(category_type=1) | Q(category_type=2))
 
     serializer_class = CategorySerializer
 
@@ -143,7 +132,7 @@ class BannerViewset(mixins.ListModelMixin, viewsets.GenericViewSet):
 
 class IndexStatusViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-        书籍所属的模块
+        书籍所属的模块 书籍状态
     """
-    queryset = BooksStatus.objects.filter(name__in=["书城", "征书墙", "竞拍"])
+    queryset = BooksStatus.objects.filter(name__in=["书城", "征书墙"])
     serializer_class = IndexStatusSerializer

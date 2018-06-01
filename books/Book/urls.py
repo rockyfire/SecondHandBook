@@ -28,13 +28,11 @@ from django.views.decorators.csrf import csrf_exempt
 from users.views import SmsCodeViewset, UserViewset
 from books.views import BooksListView, BooksCategoryViewSet, BooksCreateView, BannerViewset, IndexStatusViewSet
 from user_operation.views import UserFavViewSet, UserLeavingMessageViewSet, UserAddressViewSet
-from trade.views import ShoppingCartViewset, OrderViewset,SoldBooksViewSet
-from comment.views import BooksCommentViewSet,MyCommentViewSet
+from trade.views import ShoppingCartViewset, OrderViewset, SoldBooksViewSet
+from comment.views import BooksCommentViewSet, MyCommentViewSet
 import xadmin
 
-
 router = DefaultRouter()
-# router.register(r'users',UserViewSet,base_name="users")
 router.register(r'sendmessage', SmsCodeViewset, base_name="sendmessage")
 # 用户注册，用户详细信息
 router.register(r'users', UserViewset, base_name='users')
@@ -43,8 +41,6 @@ router.register(r'books', BooksListView, base_name='books')
 router.register(r'bookscreate', BooksCreateView, base_name='bookscreate')
 # 首页模块功能
 router.register(r'indexmodule', IndexStatusViewSet, base_name='indexmodule')
-
-
 # 书籍分类管理
 router.register(r'bookscategory', BooksCategoryViewSet, base_name='bookscategory')
 # 用户操作管理
@@ -72,7 +68,7 @@ urlpatterns = [
     url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # Django Rest Framework 自带的Token认证模式
-    url(r'^api-token-auth/',  views.obtain_auth_token),
+    url(r'^api-token-auth/', views.obtain_auth_token),
     # Json Web Token的认证接口
     url(r'^login/', obtain_jwt_token),
     # 自动化文档,1.11版本中注意此处前往不要加$符号
@@ -84,10 +80,8 @@ urlpatterns = [
 
     url(r'^index', TemplateView.as_view(template_name="index.html"), name='index'),
 
-    url(r'^ueditor',include('DjangoUeditor.urls'),name='ueditor'),
+    # url(r'^ueditor', include('DjangoUeditor.urls'), name='ueditor'),
     # url(r'^static/(?P<path>.*)$', serve, {"document_root": STATIC_ROOT})
-
-
     # 聊天室
-    url(r'^chat/', include('chat.urls')),
+    # url(r'^chat/', include('chat.urls')),
 ]

@@ -53,8 +53,6 @@ class BannerBooksAdmin(object):
     list_display = ["user", "books", "image", "index"]
 
 
-#
-#
 # class HotSearchAdmin(object):
 # 	list_display = ["keywords", "index", "add_time"]
 #

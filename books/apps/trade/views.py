@@ -12,6 +12,8 @@ from .serializer import ShopCartSerializer, ShopCartDetailSerializer, OrderDetai
 from .filters import SoldBooksFilter
 from django_filters import rest_framework as djnagofilters
 from rest_framework import filters
+from books.models import Books
+
 
 
 # Create your views here.
@@ -29,10 +31,6 @@ class ShoppingCartViewset(viewsets.ModelViewSet):
     """
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
-
-    # serializer_class = ShopCartSerializer
-
-    # queryset = ShoppingCart.objects.all()
     lookup_field = "books_id"
 
     def get_serializer_class(self):
@@ -82,8 +80,6 @@ class OrderViewset(mixins.ListModelMixin, mixins.DestroyModelMixin, mixins.Retri
     """
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
-
-    # serializer_class = OrderSerializer
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
@@ -153,6 +149,7 @@ class AlipayViewSet(APIView):
 
         verify_re = self.alipay.verify(processed_dict, sign)
 
+        # 更新操作
         if verify_re is True:
             order_sn = processed_dict.get('out_trade_no', None)
             trade_no = processed_dict.get('trade_no', None)
@@ -164,10 +161,6 @@ class AlipayViewSet(APIView):
                 existed_order.pay_time = datetime.now()
                 existed_order.save()
             return Response("success")
-
-
-from books.models import Books
-from django.db.models import Q
 
 
 class SoldBooksViewSet(viewsets.ReadOnlyModelViewSet):

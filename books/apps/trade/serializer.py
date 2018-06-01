@@ -6,6 +6,7 @@ from books.models import Books
 from django.utils import timezone
 from util.alipay import AliPay
 from Book.settings import ali_pub_key_path, private_key_path
+from users.serializer import UserInfoSerializer
 
 
 class ShopCartDetailSerializer(serializers.ModelSerializer):
@@ -70,10 +71,10 @@ class OrderBooksSerialzier(serializers.ModelSerializer):
 class OrderDetailSerializer(serializers.ModelSerializer):
     # 外键related_name
     order_books = OrderBooksSerialzier(many=True)
+    # 用户详情
+    user = UserInfoSerializer()
     # 订单形成但还没支付
     alipay_url = serializers.SerializerMethodField(read_only=True)
-
-    # alipay_url = serializers.SerializerMethodField(editable = False)
 
     def get_alipay_url(self, obj):
         alipay = AliPay(
@@ -100,6 +101,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderInfo
         fields = "__all__"
+        # or
         # read_only_fields = ('alipay_url',)
         # extra_kwargs = {'alipay_url': {'read_only': True}}
 

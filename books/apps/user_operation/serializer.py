@@ -5,6 +5,9 @@ from books.serializers import BooksSerializer
 
 
 class UserFavDetailSerializer(serializers.ModelSerializer):
+    """
+    用户收藏详情
+    """
     books = BooksSerializer()
 
     class Meta:
@@ -13,6 +16,9 @@ class UserFavDetailSerializer(serializers.ModelSerializer):
 
 
 class UserFavSerializer(serializers.ModelSerializer):
+    """
+    用户收藏 用户和书籍组成唯一主键
+    """
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
     )
@@ -30,6 +36,9 @@ class UserFavSerializer(serializers.ModelSerializer):
 
 
 class UserLeavingMessageSerializer(serializers.ModelSerializer):
+    """
+    用户留言
+    """
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
     )
@@ -40,6 +49,9 @@ class UserLeavingMessageSerializer(serializers.ModelSerializer):
 
 
 class UserAddressSerializer(serializers.ModelSerializer):
+    """
+    用户地址
+    """
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
     )

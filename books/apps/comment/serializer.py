@@ -72,6 +72,9 @@ from users.serializer import UserInfoSerializer
 
 
 class BooksCommentSerializer(serializers.ModelSerializer):
+    """
+    创建评论
+    """
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
     )
@@ -83,11 +86,13 @@ class BooksCommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BooksComment
-        fields = ('text', 'object_id','user')
+        fields = ('text', 'object_id', 'user')
 
 
-# 评论详情
 class BooksCommentDetailSerializer(serializers.ModelSerializer):
+    """
+    评论详情
+    """
     user = UserInfoSerializer()
 
     class Meta:
