@@ -22,7 +22,7 @@ class BaseSetting(object):
 
 
 class GlobalSettings(object):
-    site_title = "转转书后台"
+    site_title = "转转二手书后台"
     site_footer = "SecondHandBook"
 
 
