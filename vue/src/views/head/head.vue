@@ -31,7 +31,7 @@
     <div class="hd_main cle">
         <div class="logo">
         <router-link to="/app/home/index" class="lizi_logo">
-            <img src="../../static/images/head/logo.gif" alt="慕学生鲜商城">
+            <img src="../../static/images/head/logo.gif" alt="二手书交易系统">
         </router-link>
 
         </div>
@@ -129,7 +129,7 @@
                                   </router-link>
                                   </p>
                             </div>
-                        </div>
+                    </div>
             </div>
         </div>
     </div>

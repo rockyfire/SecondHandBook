@@ -26,12 +26,18 @@
                                 <td align="center" bgcolor="#ffffff"><button class="bnt_blue_del" @click="deleteInfo(item.id)">删除(下架)</button></td>
                             </tr>
                         </table>
+                        <Page pre-text="上一页" next-text="下一页" end-show="false" :page="curPage" :total-page='totalPage' @pagefn="pagefn"></Page>
                         <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
                             <tbody>
                                 <tr>
                                     <td align="right" bgcolor="#ffffff">书籍分类</td>
                                     <td align="left" bgcolor="#ffffff">
-                                        <input name="consignee" type="text" class="inputBg" id="consignee_0" v-model="category">
+                                    　　<select class="choice" v-on:change="indexSelect" v-model="categoryId">
+                                            <option v-for="(item,index) in allMenuLabel" v-bind:value="item.id">{{item.name}}</option>
+                                    　　</select>
+                                        <select class="choice" v-model="category">
+                                            <option v-for="(item,index) in secMenuLabel.sub_cat" v-bind:value="item.id">{{item.name}}</option>
+                                    　　</select>
                                         <span :class = "{error:category==''}">(必填)</span>
                                     </td>
                                 </tr>
@@ -49,9 +55,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="right" bgcolor="#ffffff">书籍版本</td>
+                                    <td align="right" bgcolor="#ffffff">书籍作者</td>
                                     <td align="left" bgcolor="#ffffff">
-                                        <input name="mobile" type="text" class="inputBg" id="mobile_0" v-model="version">
+                                        <input name="mobile" type="text" class="inputBg" id="mobile_0" v-model="author">
                                     </td>
                                 </tr>
                                 <tr>
@@ -99,10 +105,12 @@
 </template>
 <script>
 import VDistpicker from 'v-distpicker'
-import {getCreateBooksDetail,deleteCreateBooks,addCreateBook,getCreateBooks} from '../../api/api'
+import {getCreateBooksDetail,deleteCreateBooks,addCreateBook,getCreateBooks,getCategory} from '../../api/api'
 import {getGoods} from '../../api/api'
 import {formatDate} from '../../static/js/formatDate.js'
 import datepicker from 'vue-date'
+// 翻页
+import page from '../list/page/page';
     export default {
         data () {
             return {
@@ -111,11 +119,16 @@ import datepicker from 'vue-date'
                 category: '',
                 name: '',
                 press: '',
-                version: '',
+                author: '',
                 price: '',
                 revoke: '',
                 file: '',
-                desc: ''
+                desc: '',
+                allMenuLabel:[],//菜单
+                secMenuLabel:[],//二级菜单
+                categoryId:'',
+                curPage: 1, // 页码
+                proNum : 1,
             };
         },
         props: {
@@ -123,16 +136,21 @@ import datepicker from 'vue-date'
         },
         components: {
             'v-distpicker': VDistpicker,
-            datepicker
+            datepicker,
+            'Page': page,
         },
         created () {
             this.getBookList();
+            this.getMenu();
         },
         watch: {
 
         },
         computed: {
-            datepicker
+            datepicker,
+            totalPage(){
+                return  Math.ceil(this.proNum/4)
+            }
         },
         methods: {
             preview (e) {
@@ -141,7 +159,9 @@ import datepicker from 'vue-date'
 
             getBookList(){
                 getGoods({
-                    status : 1, //当前模块   
+                    status : 2, //当前模块   
+                    book_user:this.$store.state.userInfo.name, //当前用户创建
+                    page: this.curPage, //当前页码
                 }).then((response) =>{
                     this.cbooks=response.data.results
                 }).catch(function(error){
@@ -159,17 +179,35 @@ import datepicker from 'vue-date'
                 formData.append('category',this.category);
                 formData.append('name',this.name);
                 formData.append('press',this.press);
-                formData.append('version',this.version);
+                formData.append('author',this.author);
                 formData.append('price',this.price);
                 formData.append('photo',this.file);
                 formData.append('revoke',this.revoke);
-                formData.append('status',1);
+                formData.append('status',2);
                 addCreateBook(formData).then((response)=> {
                     alert('添加成功');
                     // 重置新的
                     this.getBookList();
                     // this.cbooksEmpty = Object.assign({});
 
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            getMenu(){//获取菜单
+                getCategory({
+                    params:{}
+                }).then((response)=> {
+                    this.allMenuLabel = response.data
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            indexSelect(){ //获取二级菜单
+                getCategory({
+                    id:this.categoryId,
+                }).then((response)=> {
+                    this.secMenuLabel = response.data
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -183,13 +221,17 @@ import datepicker from 'vue-date'
             //     });
 
             // },
-            deleteInfo (id, index) { // 删除（下架）
-                deleteCreateBooks(id).then((response)=> {
+            deleteInfo (booksId) { // 删除（下架）
+                deleteCreateBooks(booksId).then((response)=> {
                     alert('删除成功');
                     this.getBookList();
                 }).catch(function (error) {
                     console.log(error);
                 });
+            },
+            pagefn(value){//点击分页
+                this.curPage = value.page;
+                this.getBookList()
             }
         }
     }

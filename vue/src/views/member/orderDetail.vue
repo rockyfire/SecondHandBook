@@ -24,30 +24,33 @@
                         <table></table>
                     <div class="blank"></div>
                     <h5>
-                        <span>商品列表</span>
+                        <span>书籍列表</span>
                     </h5>
                     <div class="blank"></div>
                     <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd">
                         <tbody>
                             <tr>
-                                <th width="30%" align="center" bgcolor="#ffffff">商品名称</th>
-                                <!--<th>市场价</th>-->
-                                <th width="19%" align="center" bgcolor="#ffffff">商品价格</th>
-                                <th width="9%" align="center" bgcolor="#ffffff">购买数量</th>
-                                <th width="20%" align="center" bgcolor="#ffffff">小计</th>
+                                <th width="20%" align="center" bgcolor="#ffffff">书籍名称</th>
+                                <th width="20%" align="center" bgcolor="#ffffff">书籍店家</th>
+                                <th width="25%" align="center" bgcolor="#ffffff">店家联系方式</th>
+                                <th width="10%" align="center" bgcolor="#ffffff">书籍价格</th>
+                                <th width="10%" align="center" bgcolor="#ffffff">购买数量</th>
+                                <th width="15%" align="center" bgcolor="#ffffff">小计</th>
+
                             </tr>
                             <tr v-for="item in orderInfo.order_books">
                                 <td bgcolor="#ffffff">
                                     <router-link  :to="'/app/home/productDetail/'+item.id" class="f6">{{item.books.name}}</router-link>
-                                    <!-- <a href="" target="_blank" class="f6">{{item.name}}</a> -->
                                 </td>
+                                <td align="center" bgcolor="#ffffff">{{item.books.user.username}}</td>
+                                <td align="center" bgcolor="#ffffff">{{item.books.user.email}}</td>
                                 <td align="center" bgcolor="#ffffff">￥{{item.books.price}}元</td>
                                 <td align="center" bgcolor="#ffffff">{{item.books_num}}</td>
                                 <td align="center" bgcolor="#ffffff">￥{{item.books.price*item.books_num}}元</td>
                             </tr>
                             <tr>
                                 <td colspan="8" bgcolor="#ffffff" align="right">
-                                    商品总价: ￥{{totalPrice}}元
+                                    书籍总价: ￥{{totalPrice}}元
                                 </td>
                             </tr>
                         </tbody>
@@ -130,7 +133,7 @@
             }
         },
         methods: {
-            getProList () { //根据订单号获取商品列表
+            getProList () { //根据订单号获取书籍列表
 
 
             },

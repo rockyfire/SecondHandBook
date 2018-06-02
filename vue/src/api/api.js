@@ -2,8 +2,8 @@ import axios from 'axios';
 
 
 // let host = 'http://shop.projectsedu.com';
-// let host = 'http://www.flycode.me:8000';
-let host = 'http://127.0.0.1:8000';
+let host = 'http://www.flycode.me:8000';
+// let host = 'http://127.0.0.1:8000';
 
 
 //获取书籍类别信息
@@ -45,8 +45,7 @@ export const getCreateBooksDetail = booksid => { return axios.get(`${host}/books
 export const addCreateBook = params => { return axios.post(`${host}/bookscreate/`,params) }
 
 // 删除（下架）当前用户创建的书籍
-export const deleteCreateBooks = booksid => { return axios.delete(`${host}/bookscreate/`+booksId+'/') }
-
+export const deleteCreateBooks = booksid => { return axios.delete(`${host}/bookscreate/`+booksid+'/') }
 //获取购物车书籍
 export const getShopCarts = params => { return axios.get(`${host}/shoppingcart/`) }
 // 添加书籍到购物车
