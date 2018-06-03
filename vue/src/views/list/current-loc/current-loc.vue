@@ -8,12 +8,6 @@
                 <!-- <a @click="changeMenu(item.id)">{{item.name}}</a> -->
                 <code v-if="index!==curLoc.length-1">&gt;</code>
             </template>
-            
-            <!-- <a href="http://sx.web51.youxueshop.com/category.php?id=2">生鲜食品</a>
-            <code>&gt;</code>
-            <a href="http://sx.web51.youxueshop.com/category.php?id=19">根茎类</a>
-            <code>&gt;</code>
-            新鲜水果甜蜜香脆单果约800克 -->
           </div>
       </div>
     
@@ -25,21 +19,6 @@
   export default {
     data () {
         return {
-            // curLoc: [
-            //     {
-            //         id: 1,
-            //         name: '首页',
-            //     },
-            //     {
-            //         id: 232,
-            //         name: '精品肉类',
-            //     },
-            //     {
-            //         id: 232,
-            //         name: '精品肉类',
-            //     }
-                
-            // ]
         };
     },
     components: {

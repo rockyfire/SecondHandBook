@@ -79,9 +79,6 @@
                                     <td colspan="3" align="center" bgcolor="#ffffff">
                                     <!-- <input type="submit" name="submit" class="bnt_blue_2" value="新增收货地址"> -->
                                     <button class="bnt_blue_2" @click="addReceive">新增收货地址</button>
-
-                                    <!-- <input type="hidden" name="act" value="act_edit_address">
-                                    <input name="address_id" type="hidden" value="320"> -->
                                     </td>
                                 </tr>
                             </tbody>

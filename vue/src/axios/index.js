@@ -34,7 +34,7 @@ axios.interceptors.response.use(
         //  path: '/app/login',
         //  query: {redirect: router.currentRoute.fullPath}
         //})
-		console.log('未登录 或者token过期');
+		    console.log('未登录 或者token过期');
       case 403:
         console.log('您没有该操作权限');
         // alert('您没有该操作权限');

@@ -50,108 +50,6 @@ import sold from '../views/member/sold'
 import soldDetail from '../views/member/soldDetail'
 
 
-// var head = function(resolve) {
-//   require.ensure(['../views/head/head'], () => {
-//     resolve(require('../views/head/head'))
-//   }, 'head')
-// };
-// var footer = function(resolve) {
-//   require.ensure(['../views/footer/footer'], () => {
-//     resolve(require('../views/footer/footer'))
-//   }, 'footer')
-// };
-//
-// var list = function(resolve) {
-//   require.ensure(['../views/list/list'], () => {
-//     resolve(require('../views/list/list'))
-//   }, 'list')
-// };
-//
-// var index = function(resolve) {
-//   require.ensure(['../views/index/index'], () => {
-//     resolve(require('../views/index/index'))
-//   }, 'index')
-// };
-//
-// var loginHead = function(resolve) {
-//   require.ensure(['../views/loginHead/loginHead'], () => {
-//     resolve(require('../views/loginHead/loginHead'))
-//   }, 'loginHead')
-// };
-//
-// var login = function(resolve) {
-//   require.ensure(['../views/login/login'], () => {
-//     resolve(require('../views/login/login'))
-//   }, 'login')
-// };
-//
-// // 购物车头部
-// var shophead = function(resolve) {
-//   require.ensure(['../views/head/shophead'], () => {
-//     resolve(require('../views/head/shophead'))
-//   }, 'shophead')
-// };
-// // 购物车页面
-// var cart = function(resolve) {
-//   require.ensure(['../views/cart/cart'], () => {
-//     resolve(require('../views/cart/cart'))
-//   }, 'cart')
-// };
-// // 商品详情页
-// var productDetail = function(resolve) {
-//   require.ensure(['../views/productDetail/productDetail'], () => {
-//     resolve(require('../views/productDetail/productDetail'))
-//   }, 'productDetail')
-// };
-// // 会员中心
-// var member = function(resolve) {
-//   require.ensure(['../views/member/member'], () => {
-//     resolve(require('../views/member/member'))
-//   }, 'member')
-// };
-// // 我的留言
-// var message = function(resolve) {
-//   require.ensure(['../views/member/message'], () => {
-//     resolve(require('../views/member/message'))
-//   }, 'message')
-// };
-// // 收件人信息
-// var receive = function(resolve) {
-//   require.ensure(['../views/member/receive'], () => {
-//     resolve(require('../views/member/receive'))
-//   }, 'receive')
-// };
-// // 收件人信息
-// var order = function(resolve) {
-//   require.ensure(['../views/member/order'], () => {
-//     resolve(require('../views/member/order'))
-//   }, 'order')
-// };
-// //  订单详情
-// var orderDetail = function(resolve) {
-//   require.ensure(['../views/member/orderDetail'], () => {
-//     resolve(require('../views/member/orderDetail'))
-//   }, 'orderDetail')
-// };
-//
-// // 我的收藏
-// var collection = function(resolve) {
-//   require.ensure(['../views/member/collection'], () => {
-//     resolve(require('../views/member/collection'))
-//   }, 'order')
-// };
-// // 用户信息
-// var userinfo = function(resolve) {
-//   require.ensure(['../views/member/userinfo'], () => {
-//     resolve(require('../views/member/userinfo'))
-//   }, 'userinfo')
-// };
-// // 注册
-// var register = function(resolve) {
-//   require.ensure(['../views/register/register'], () => {
-//     resolve(require('../views/register/register'))
-//   }, 'register')
-// };
 
 //配置路由
 var router = new Router({
@@ -373,7 +271,7 @@ router.beforeEach((to, from, next) => {
   }else{
     if(to!=undefined){
       if(to.meta.need_log){
-        console.log(to.meta.need_log)
+        console.log(to)
         if(!store.state.userInfo.token){
           next({
             path: '/app/login',
@@ -400,43 +298,7 @@ router.beforeEach((to, from, next) => {
       }
     }
   }
-
-
-  // if(!store.state.userInfo.token&&to.path!='/app/login'){
-  //     next({
-  //     path: '/app/login',
-  //   });
-  // }else{
-  //   if (to.path === '/') {
-  //     next({
-  //       path: '/app/home/index',
-  //     });
-  //   } else {
-  //     next();
-  //   }
-  // }
-
-  // if (to.path === '/') {
-  //   next({
-  //     path: '/app/home/index',
-  //   });
-  // } else {
-  //   next();
-  // }
-  //有登录时使用
-  // if(to.path !== "/login"&&to.path !== "/home/index"&&to.path !== "/"){
-  //    // iView.LoadingBar.start();
-  // }
 })
-
-// if (to.path === '/') {
-//         next({
-//             path: '/home/index',
-//         });
-//     } else {
-//         next();
-//     }
-// })
 
 //修改网页标题
 router.afterEach((to, from, next) => {

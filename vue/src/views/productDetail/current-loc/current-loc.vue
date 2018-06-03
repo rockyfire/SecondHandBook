@@ -4,8 +4,6 @@
           <div class="menus">
             <a href="http://www.flycode.me:8000/index">首页</a>
             <code>&gt;</code>
-            <!-- <a href="http://sx.web51.youxueshop.com/category.php?id=2">生鲜食品</a>
-            <code>&gt;</code> -->
             <a href="">{{proDetail.category}}</a>
             <code>&gt;</code>
             {{proDetail.name}}

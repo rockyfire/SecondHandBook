@@ -1,7 +1,7 @@
 <template>
 <div class="z-detail-right">
     <div class="tabs_bar_right">
-        <div class="tabs_bar2">热点书评</div>
+        <div class="tabs_bar2">热点商品</div>
     </div>
     <div class="hot_box">
         <ul>
